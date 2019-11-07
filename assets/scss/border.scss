@@ -1,0 +1,69 @@
+// Pixel sizes
+$border-px: 1;
+
+// Radius
+$border-radius: (
+  square: 0,
+  circle: 50%
+);
+
+@mixin border {
+  @for $i from 0 to 10 {
+    .brdr-#{$i} {
+      border: #{$i}px solid;
+    }
+    .brdr-top-#{$i} {
+      border-top-width: #{$i}px;
+      border-top-style: solid;
+    }
+    .brdr-bottom-#{$i} {
+      border-bottom-width: #{$i}px;
+      border-bottom-style: solid;
+    }
+    .brdr-left-#{$i} {
+      border-left-width: #{$i}px;
+      border-left-style: solid;
+    }
+    .brdr-right-#{$i} {
+      border-right-width: #{$i}px;
+      border-right-style: solid;
+    }
+  }
+  @for $i from 0 through 50 {
+    .brdr-r-top-right-#{$i} {
+      border-top-right-radius: #{$i}px;
+    }
+    .brdr-r-bottom-right-#{$i} {
+      border-bottom-right-radius: #{$i}px;
+    }
+    .brdr-r-bottom-left-#{$i} {
+      border-bottom-left-radius: #{$i}px;
+    }
+    .brdr-r-top-left-#{$i} {
+      border-top-left-radius: #{$i}px;
+    }
+    .brdr-r-#{$i} {
+      border-radius: #{$i}px;
+    }
+  }
+  @each $name, $value in $border-radius {
+    .brdr-#{$name} {
+      border-radius: #{$value};
+    }
+  }
+}
+
+.brdr-none {
+  border: none;
+}
+
+.brdr-top-r5 {
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+.brdr-rbl {
+  border: 1px solid;
+  border-top: none;
+}
+@include border;
