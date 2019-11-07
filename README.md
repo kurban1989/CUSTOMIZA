@@ -1,5 +1,5 @@
-# castomiza
-
+# CUSTOMIZA
+CUSTOMIZA project
 > description
 
 ## Build Setup
