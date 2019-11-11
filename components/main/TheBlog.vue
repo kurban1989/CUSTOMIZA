@@ -4,31 +4,33 @@
       <sections-headers :text="$t('CUSTOMIZA Blog')" />
     </div>
     <div class="row">
-      <div class="carousel relative" :class="{ 'no-swiper': !swiperInitialized }">
-        <swiper :options="swiperOption" @ready="setSwiper">
-          <div
-            v-for="(post, index) of posts"
-            :key="index"
-            class="post"
-          >
-            <p class="post__header">
-              {{ post.title }}
-            </p>
-            <p class="date">
-              {{ new Date(Date.now()).toLocaleDateString($i18n.locale, optionDate) }}
-            </p>
-            <div class="post__area">
-              <p>
-                {{ post.body }}
+      <no-ssr>
+        <div class="carousel relative" :class="{ 'no-swiper': !swiperInitialized }">
+          <swiper :options="swiperOption" @ready="setSwiper">
+            <div
+              v-for="(post, index) of posts"
+              :key="index"
+              class="post"
+            >
+              <p class="post__header">
+                {{ post.title }}
               </p>
+              <p class="date">
+                {{ new Date(Date.now()).toLocaleDateString($i18n.locale, optionDate) }}
+              </p>
+              <div class="post__area">
+                <p>
+                  {{ post.body }}
+                </p>
+              </div>
+              <nuxt-link class="post__more" to="/">
+                {{ $t('Read completely') }}
+              </nuxt-link>
             </div>
-            <nuxt-link class="post__more" to="/">
-              {{ $t('Read completely') }}
-            </nuxt-link>
-          </div>
-          <div slot="pagination" class="swiper-pagination2" />
-        </swiper>
-      </div>
+            <div slot="pagination" class="swiper-pagination2" />
+          </swiper>
+        </div>
+      </no-ssr>
     </div>
     <div class="row justify-content-center place-button">
       <secodary-button class="align-self-end">
@@ -41,7 +43,8 @@
 </template>
 
 <script>
-import { mapState } from 'Vuex'
+import { mapState } from 'vuex'
+import NoSSR from 'vue-no-ssr'
 import SectionsHeaders from '~/components/header/SectionsHeaders'
 import SecodaryButton from '~/components/elements/SecodaryButton'
 const isServer = typeof window === 'undefined'
@@ -50,7 +53,8 @@ export default {
   name: 'TheBlog',
   components: {
     SectionsHeaders,
-    SecodaryButton
+    SecodaryButton,
+    'no-ssr': NoSSR
   },
   data () {
     return {

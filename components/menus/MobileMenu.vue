@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import { mapState } from 'Vuex'
+import { mapState } from 'vuex'
 import PhoneCallBlock from '~/components/blocks/PhoneCallBlock'
 import SwitcherLang from '~/components/blocks/SwitcherLang'
 

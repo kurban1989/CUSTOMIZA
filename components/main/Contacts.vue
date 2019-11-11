@@ -22,33 +22,39 @@
         </p>
       </div>
     </div>
-    <yandex-map
-      :settings="settings"
-      :options="mapOptions"
-      :coords="mapOptions.center"
-      :scroll-zoom="false"
-      @map-was-initialized="setObjectMap"
-    >
-      <ymap-marker
-        :marker-id="'office'"
+    <no-ssr>
+      <yandex-map
+        :settings="settings"
+        :options="mapOptions"
         :coords="mapOptions.center"
-        :balloon-template="balloonTemplate"
-        :icon="{
-          layout: 'default#image',
-          imageHref: '/baloon.svg',
-          imageSize: [43, 51],
-          imageOffset: [-20, -50]
-        }"
-      />
-    </yandex-map>
+        :scroll-zoom="false"
+        @map-was-initialized="setObjectMap"
+      >
+        <ymap-marker
+          :marker-id="'office'"
+          :coords="mapOptions.center"
+          :balloon-template="balloonTemplate"
+          :icon="{
+            layout: 'default#image',
+            imageHref: '/baloon.svg',
+            imageSize: [43, 51],
+            imageOffset: [-20, -50]
+          }"
+        />
+      </yandex-map>
+    </no-ssr>
   </section>
 </template>
 
 <script>
+import NoSSR from 'vue-no-ssr'
 const isServer = typeof window === 'undefined'
 
 export default {
   name: 'Contacts',
+  components: {
+    'no-ssr': NoSSR
+  },
   data () {
     return {
       yMap: {}
