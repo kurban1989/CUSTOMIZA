@@ -9,7 +9,7 @@
       :checkbox-right="true"
       :without-text-area="true"
     >
-      <div slot="checkboxgroup" class="col-sm checkbox-group brdr-r-10">
+      <div slot="checkboxgroup" class="relative col-sm checkbox-group brdr-r-10">
         <vue-perfect-scrollbar :settings="settings" class="relative wrapper-checkbox">
           <h4 class="h4">
             {{ $t('Choose a rental program') }}
@@ -258,6 +258,7 @@ export default {
       bottom: 0;
     }
     height: fit-content;
+    height: -webkit-fill-available;
 
     &:before {
       width: 100%;
@@ -276,7 +277,8 @@ export default {
     display: none;
   }
   .checkbox-group {
-    max-height: 290px;
+    height: 250px;
+    max-height: 250px;
     margin-top: 20px;
     margin-left: 0;
     min-width: 100%;
@@ -285,7 +287,7 @@ export default {
   }
   .wrapper-checkbox {
     padding: 0;
-    max-height: 240px;
+    height: 210px;
   }
   /deep/ .for-leave-rent .row {
     margin-bottom: 10px;

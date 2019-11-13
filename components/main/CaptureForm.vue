@@ -63,8 +63,7 @@ export default {
   padding-top: 140px;
   background: {
     repeat: no-repeat;
-    position: bottom 0 right 5%;
-    // size: 46% 107%;
+    position: bottom 0 right 0;
   }
   &:after {
     content: '';
@@ -101,11 +100,6 @@ export default {
     text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.31);
   }
 }
-@media (max-width: 1441px) {
-  .bgi {
-    background-position: bottom 0 right -10px;
-  }
-}
 
 @media (max-width: 1200px) {
   .wrapper {
@@ -122,6 +116,24 @@ export default {
     }
   }
 }
+
+@media (max-width: 1750px) {
+  .bgi {
+    background-position: bottom 0 right -6%;
+  }
+}
+@media (max-width: 1560px) {
+  .bgi {
+    background-position: bottom 0 right -20%;
+  }
+}
+
+@media (max-width: 1441px) {
+  .bgi {
+    background-position: bottom 0 right -30%;
+  }
+}
+
 @media (max-width: 991px) {
   .bgi {
     background-position: bottom 0 right -520px;
