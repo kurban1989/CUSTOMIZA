@@ -1,17 +1,34 @@
 <template>
-  <button class="primary" v-bind="$attrs" :type="type" @click="$emit('click', $event)">
+  <component
+    :is="link ? 'router-link' : 'button'"
+    :type="!link ? type : false"
+    class="primary"
+    v-bind="$attrs"
+    :disabled="disabled"
+    @click="$emit('click', $event)"
+  >
     <slot />
-  </button>
+  </component>
 </template>
 
 <script>
 export default {
   name: 'PrimaryButton',
   props: {
+    href: {
+      type: String,
+      required: false,
+      default: ''
+    },
     type: {
       type: String,
       required: false,
       default: 'button'
+    },
+    link: {
+      type: Boolean,
+      required: false,
+      default: false
     },
     disabled: {
       type: Boolean,
@@ -51,6 +68,14 @@ export default {
     background: -webkit-linear-gradient(180deg, rgba(179,109,26,1) 0%, rgba(228,178,16,1) 100%);
     background: linear-gradient(180deg, rgba(179,109,26,1) 0%, rgba(228,178,16,1) 100%);
     border-bottom: 3px solid #b98e02;
+  }
+}
+.a-link-btn {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  &:hover {
+    text-decoration: none;
   }
 }
 </style>

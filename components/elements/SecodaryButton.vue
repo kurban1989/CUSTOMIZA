@@ -1,5 +1,5 @@
 <template>
-  <button class="secondary" v-bind="$attrs" :type="type" @click="$emit('click', $event)">
+  <button class="secondary" v-bind="$attrs" :disabled="disabled" :type="type" @click="$emit('click', $event)">
     <slot />
   </button>
 </template>
@@ -34,7 +34,7 @@ export default {
   background: -moz-linear-gradient(180deg, rgba(141,187,87,1) 0%, rgba(107,150,56,1) 43%);
   background: -webkit-linear-gradient(180deg, rgba(141,187,87,1) 0%, rgba(107,150,56,1) 43%);
   background: linear-gradient(180deg, rgba(141,187,87,1) 0%, rgba(107,150,56,1) 43%);
-  transition-property: background;
+  transition-property: linear-gradient;
   transition-duration: .3s;
   transition-timing-function: ease-in-out;
 

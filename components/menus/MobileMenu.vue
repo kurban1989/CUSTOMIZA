@@ -10,9 +10,10 @@
           v-for="(item, index) of menuList"
           :key="index"
           class="sections-menu--item content-center"
+          :title="item.hint"
         >
-          <nuxt-link to="/">
-            {{ item }}
+          <nuxt-link :to="`#nav_${item.link}`">
+            {{ $t(item.title) }}
           </nuxt-link>
         </div>
 

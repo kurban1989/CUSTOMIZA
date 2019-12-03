@@ -1,3 +1,5 @@
+const posts = require('./posts')
+
 module.exports = {
   locales: ['en', 'ru'],
   defaultLocale: 'ru',
@@ -40,7 +42,21 @@ module.exports = {
         'Head Office Address:': 'Head Office Address:',
         footerText: 'Professional advice on installing, configuring and using any 1C platforms and configurations',
         '© All rights reserved.': '© All rights reserved.',
-        posts: {}
+        'Drop file here or click to upload': 'Drop file here or click to upload',
+        'successfully uploaded': 'successfully uploaded',
+        'Remove file': 'Remove file',
+        sm: 'System message',
+        checkForm: 'Check the correctness of filling out the form!',
+        successForm: 'Your application has been sent successfully! Information about the status of the application and its number is sent to your Email',
+        badRequest: 'Server Error Occurred',
+        errLoadFile: 'Error: File type not allowed!',
+        'Solved cases': 'Solved cases',
+        'Articles': 'Articles',
+        'Rent 1C': 'Rent 1C',
+        'Atelier PO': 'Atelier PO',
+        posts: {
+          ...posts.en
+        }
       },
       ru: {
         LogInToYourAccount: 'Войти в личный кабинет',
@@ -78,7 +94,21 @@ module.exports = {
         'Head Office Address:': 'Адрес головного офиса:',
         footerText: 'Профессиональные консультации по установке, настройке и использованию любых платформ и конфигураций 1C',
         '© All rights reserved.': '© Все права защищены.',
-        posts: {}
+        'Drop file here or click to upload': 'Перетащите файл сюда или нажмите, чтобы загрузить',
+        'successfully uploaded': 'успешно загружен',
+        'Remove file': 'Удалить файл',
+        sm: 'Сообщение системы',
+        checkForm: 'Проверьте правильность заполнения формы!',
+        successForm: 'Ваша заявка успешно отправлена! Сведения о статусе заявки и её номер направлено на ваш Email',
+        badRequest: 'Произошла серверная ошибка',
+        errLoadFile: 'Ошибка: тип файла не допускается!',
+        'Solved cases': 'Решенные кейсы',
+        'Articles': 'Статьи ',
+        'Rent 1C': 'Аренда 1С',
+        'Atelier PO': 'Ателье ПО',
+        posts: {
+          ...posts.ru
+        }
       }
     }
   }

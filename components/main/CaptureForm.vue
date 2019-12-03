@@ -9,6 +9,9 @@
           style-form="form-transparent"
           style-header="header-white"
           :checkbox-right="true"
+          :is-load-file="true"
+          :loading="loading"
+          @send-form="handlerForm"
         />
       </section>
     </div>
@@ -17,14 +20,18 @@
 
 <script>
 import FormArea from '~/components/elements/FormArea'
+import checkFormAndSend from '~/mixins/checkFormAndSend'
 
 export default {
   name: 'CaptureForm',
   components: {
     FormArea
   },
+  mixins: [checkFormAndSend],
   data () {
-    return {}
+    return {
+      capture: true
+    }
   }
 }
 </script>
@@ -33,7 +40,7 @@ export default {
 .wrapper {
   display: flex;
   width: 100vw;
-  height: 850px;
+  height: 910px;
   background: rgb(155,197,104);
   background: -moz-linear-gradient(-45deg, rgba(155,197,104,1) 0%, rgba(107,150,56,1) 43%);
   background: -webkit-linear-gradient(-45deg, rgba(155,197,104,1) 0%, rgba(107,150,56,1) 43%);
@@ -57,7 +64,7 @@ export default {
 }
 .bgi {
   width: 100%;
-  height: 910px;
+  height: 970px;
   top: -60px;
   left: 0;
   padding-top: 140px;

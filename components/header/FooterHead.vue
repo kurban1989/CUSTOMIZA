@@ -1,9 +1,12 @@
 <template>
   <div class="container wrapper relative">
-    <div class="row">
+    <div id="nav_consultation" class="row">
       <form-area
         id="headerForm"
         :header="$t('Leave a request for a free consultation for questions related to 1C!')"
+        :is-load-file="true"
+        :loading="loading"
+        @send-form="handlerForm"
       />
     </div>
     <div class="circle bg-standart-options" />
@@ -13,16 +16,19 @@
 </template>
 <script>
 import FormArea from '~/components/elements/FormArea'
+import checkFormAndSend from '~/mixins/checkFormAndSend'
+
 export default {
   name: 'FooterHead',
   components: {
     FormArea
-  }
+  },
+  mixins: [checkFormAndSend]
 }
 </script>
 <style lang="scss" scoped>
 .row {
-  margin-top: 100px;
+  margin-top: 70px;
 }
 .wrapper {
   bottom: 0;
@@ -68,7 +74,7 @@ export default {
     background-position: 0 95px;
   }
   .row {
-    margin-top: 70px;
+    margin-top: 50px;
   }
   .circle {
     bottom: 0;

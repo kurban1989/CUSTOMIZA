@@ -24,7 +24,7 @@ module.exports = {
   ** Global CSS
   */
   css: [
-    '@/node_modules/bootstrap/dist/css/bootstrap.min.css'
+    // '@/node_modules/bootstrap/dist/css/bootstrap.min.css'
   ],
   /*
   ** Plugins to load before mounting the App
@@ -51,7 +51,7 @@ module.exports = {
       i18n
     ],
     // Doc: https://bootstrap-vue.js.org
-    // 'bootstrap-vue/nuxt',
+    'bootstrap-vue/nuxt',
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios'
   ],
@@ -72,3 +72,7 @@ module.exports = {
     }
   }
 }
+/*
+customiza.ru
+Callback URL: https://oauth.yandex.ru/verification_code
+*/

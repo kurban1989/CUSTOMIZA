@@ -22,7 +22,7 @@
         </p>
       </div>
     </div>
-    <no-ssr>
+    <lazy-component>
       <yandex-map
         :settings="settings"
         :options="mapOptions"
@@ -42,30 +42,22 @@
           }"
         />
       </yandex-map>
-    </no-ssr>
+    </lazy-component>
   </section>
 </template>
 
 <script>
-import NoSSR from 'vue-no-ssr'
 const isServer = typeof window === 'undefined'
 
 export default {
   name: 'Contacts',
-  components: {
-    'no-ssr': NoSSR
-  },
   data () {
     return {
-      yMap: {}
+      balloonTemplate: '<p>Головной офис</p>',
+      yMap: null
     }
   },
   computed: {
-    balloonTemplate () {
-      return `
-        <p>Головной офис</p>
-      `
-    },
     settings () {
       return {
         apiKey: 'b6ae3e63-aa63-422f-9d84-5db7fe63c0a1',
@@ -87,9 +79,19 @@ export default {
       return !isServer ? window.ymaps : undefined
     }
   },
+  watch: {
+    ymaps: {
+      handler () {
+        if (this.ymaps && !this.yMap) {
+          this.yMap = new this.ymaps.Map()
+        }
+      },
+      immediate: true
+    }
+  },
   methods: {
     setObjectMap (objectMap) {
-      if (!this.ymaps) {
+      if (!this.ymaps || !objectMap) {
         return
       }
 
@@ -102,6 +104,7 @@ export default {
           top: 200
         }
       })
+
       this.yMap = objectMap
       this.yMap.margin.addArea({
         left: 0,
@@ -121,7 +124,6 @@ export default {
   }
 }
 </script>
-
 <style lang="scss" scoped>
 .container {
   padding-left: 0;
@@ -170,7 +172,7 @@ export default {
 }
 .ymap-container {
   position: relative;
-  height: 100%;
+  height: 450px;
   padding-top: 50px;
 }
 @media (max-width: 991px) {
@@ -198,13 +200,13 @@ export default {
       padding: 20px;
     }
   }
-  .map-area {
+  .map-area, .ymap-container {
     height: 700px;
   }
 }
 
 @media (max-width: 321px) {
-  .map-area {
+  .map-area, .ymap-container {
     height: 650px;
   }
   .nameplate {
@@ -213,7 +215,7 @@ export default {
 }
 </style>
 <style>
-.ymaps-2-1-74-controls__control {
+ymaps[class$="controls__control"] {
   left: auto !important;
   right: 40px !important;
   top: 200px !important;

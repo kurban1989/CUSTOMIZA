@@ -1,5 +1,22 @@
 <template>
   <div class="relative">
+    <b-modal id="bv-modal-error" :title="$t('sm')" ok-only>
+      <p class="note note-error">
+        <template v-if="otherMessageError">
+          {{ $t(messageError) }}
+        </template>
+        <template v-else>
+          {{ $t('checkForm') }}
+        </template>
+      </p>
+    </b-modal>
+
+    <b-modal id="bv-modal-success" :title="$t('sm')" ok-only>
+      <p class="note note-success">
+        &nbsp;{{ $t('successForm') }}
+      </p>
+    </b-modal>
+
     <mobile-menu :menu-list="list" />
     <header-site />
     <how-help-you />
@@ -14,6 +31,8 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+import { BModal } from 'bootstrap-vue'
 import HeaderSite from '~/components/HeaderSite'
 import HowHelpYou from '~/components/main/HowHelpYou'
 import WhatDoEndUpWith from '~/components/main/WhatDoEndUpWith'
@@ -24,9 +43,11 @@ import RentBlock from '~/components/main/RentBlock'
 import Contacts from '~/components/main/Contacts'
 import FooterSite from '~/components/FooterSite'
 import MobileMenu from '~/components/menus/MobileMenu'
+import mainMenu from '~/resourse/mainMenu.json'
 
 export default {
   components: {
+    'b-modal': BModal,
     WhatDoEndUpWith,
     CaptureForm,
     HeaderSite,
@@ -40,8 +61,14 @@ export default {
   },
   data () {
     return {
-      list: ['qwer', 'asdf', 'fgjh', 'zxcbv']
+      list: mainMenu
     }
+  },
+  computed: {
+    ...mapState({
+      otherMessageError: state => state.statusForm.messageErrorBadRequest,
+      messageError: state => state.statusForm.messageError
+    })
   }
 }
 </script>

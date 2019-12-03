@@ -1,5 +1,5 @@
 <template>
-  <section class="container relative">
+  <section id="nav_articles" class="container relative">
     <div class="row no-gutters justify-content-center align-items-start">
       <sections-headers :text="$t('CUSTOMIZA Blog')" />
     </div>
@@ -104,7 +104,9 @@ export default {
     this.setEventResize()
   },
   beforeDestroy () {
-    this.swiperObj.destroy()
+    if (!isServer) {
+      this.swiperObj.destroy()
+    }
     if (!isServer) {
       window.removeEventListener('resize', this.swiperInit)
     }

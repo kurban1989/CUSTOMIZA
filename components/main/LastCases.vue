@@ -1,5 +1,5 @@
 <template>
-  <section class="container relative align-self-center parent">
+  <section id="nav_cases" class="container relative align-self-center parent">
     <div class="row no-gutters justify-content-center align-items-start">
       <sections-headers :text="$t('Our latest cases')" />
     </div>

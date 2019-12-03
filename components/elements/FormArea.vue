@@ -1,5 +1,11 @@
 <template>
-  <form :id="id" :class="styleForm" class="relative" @submit.prevent="sendForm">
+  <form
+    :id="id"
+    :class="styleForm"
+    class="relative"
+    @submit.prevent="sendForm"
+  >
+    <loading-spinner :is-loading="loading" />
     <p :class="styleHeader">
       {{ header }}
     </p>
@@ -9,6 +15,8 @@
           <base-input
             :wrapper-class="inputClass"
             :placeholder="$t('How can I call you')"
+            data-type="name"
+            :is-clear-form="isClearForm"
             @input="watchIntput($event, 'name')"
           />
         </div>
@@ -18,6 +26,8 @@
             type="email"
             :wrapper-class="inputClass"
             :placeholder="$t('Your email')"
+            data-type="email"
+            :is-clear-form="isClearForm"
             @input="watchIntput($event, 'email')"
             @is-valid-email="validEmail"
           />
@@ -27,14 +37,47 @@
             type="phone"
             :wrapper-class="inputClass"
             :placeholder="$t('Your telephone')"
+            data-type="phone"
+            :is-clear-form="isClearForm"
             @input="watchIntput($event, 'phone')"
           />
         </div>
+        <template v-if="isLoadFile">
+          <div class="row">
+            <el-upload
+              ref="upload"
+              class="upload-wrapper brdr-r-5 brdr-1 pointer"
+              :class="inputClass"
+              drag
+              action="/yandex/upload"
+              :file-list="fileList"
+              :on-success="handlerFile"
+              :on-error="handlerErrorUpload"
+              :limit="1"
+              :disabled="disabledFile"
+              accept="image/jpeg,image/png"
+            >
+              <div class="el-icon-upload" />
+              <div
+                class="el-upload__text"
+                :class="inputClass"
+              >
+                {{ $t('Drop file here or click to upload') }}
+              </div>
+              <div v-if="fileName.length" class="el-upload__text--success">
+                {{ fileName }} - {{ $t('successfully uploaded') }}
+                <span class="el-upload__remove pointer" :title="$t('Remove file')" @click.stop="removeFile($event)">x</span>
+              </div>
+            </el-upload>
+          </div>
+        </template>
         <template v-if="!withoutTextArea">
           <div class="row">
             <base-area
               :wrapper-class="inputClass"
               :placeholder="$t('Your question')"
+              data-type="question"
+              :is-clear-form="isClearForm"
               @input="watchIntput($event, 'question')"
             />
           </div>
@@ -54,7 +97,8 @@
           :id="`${id}PersonalData`"
           :value="dataForm.isCheckedPersonalData"
           :checkbox-right="true"
-          class="align-self-center checkbox-mrt"
+          class="align-self-center checkbox-mrt personal"
+          data-type="isCheckedPersonalData"
           @change="watchIntput($event, 'isCheckedPersonalData')"
         >
           {{ $t('I agree to the processing') }}
@@ -69,7 +113,9 @@
       <div class="row">
         <base-checkbox
           :id="`${id}PersonalData`"
+          class="personal"
           :value="dataForm.isCheckedPersonalData"
+          data-type="isCheckedPersonalData"
           @change="watchIntput($event, 'isCheckedPersonalData')"
         >
           {{ $t('I agree to the processing') }}
@@ -83,14 +129,22 @@
 </template>
 
 <script>
+import Vue from 'vue'
+import { mapState } from 'vuex'
+import { Upload } from 'element-ui'
 import BaseInput from '~/components/elements/BaseInput'
+import LoadingSpinner from '~/components/blocks/LoadingSpinner'
 import BaseArea from '~/components/elements/BaseArea'
 import PrimaryButton from '~/components/elements/PrimaryButton'
 import BaseCheckbox from '~/components/elements/BaseCheckbox'
 
+Vue.use(Upload)
+
 export default {
   name: 'FormArea',
   components: {
+    'el-upload': Upload,
+    LoadingSpinner,
     PrimaryButton,
     BaseCheckbox,
     BaseInput,
@@ -129,6 +183,16 @@ export default {
       type: String,
       required: false,
       default: ''
+    },
+    isLoadFile: {
+      type: Boolean,
+      required: false,
+      default: false
+    },
+    loading: {
+      type: Boolean,
+      required: false,
+      default: false
     }
   },
   data () {
@@ -139,14 +203,57 @@ export default {
         phone: '',
         question: '',
         isCheckedPersonalData: false,
-        errors: false
+        errors: false,
+        file: null
       },
-      errorInput: false
+      errorInput: false,
+      fileList: [],
+      fileName: '',
+      disabledFile: false
+    }
+  },
+  computed: {
+    ...mapState({
+      isClearForm: state => state.statusForm.clearForm
+    })
+  },
+  watch: {
+    isClearForm: {
+      handler () {
+        if (this.isClearForm) {
+          this.removeFile()
+          this.dataForm.isCheckedPersonalData = false
+        }
+      },
+      immediate: false
     }
   },
   methods: {
+    handlerFile (response, file, fileList) {
+      this.fileName = file.name
+      this.dataForm.file = file.response.file
+      this.disabledFile = true
+    },
+    removeFile (e) {
+      if (e) {
+        e.preventDefault()
+        this.$refs.upload.clearFiles()
+      }
+
+      this.fileName = ''
+      this.dataForm.file = null
+      this.disabledFile = false
+    },
+    handlerErrorUpload (err) {
+      this.$store.dispatch('statusForm/clearMessageError')
+
+      if (err) {
+        this.$store.dispatch('statusForm/setMessageErrorBadRequest', 'errLoadFile')
+        this.$bvModal.show('bv-modal-error')
+      }
+    },
     sendForm () {
-      this.$emit('send-form', Object.assign({}, this.dataForm, { withoutTextArea: this.withoutTextArea }))
+      this.$emit('send-form', Object.assign({}, { withoutTextArea: this.withoutTextArea }, this.dataForm))
     },
     validEmail (isEmail) {
       if (isEmail) {
@@ -163,6 +270,31 @@ export default {
   }
 }
 </script>
+<style lang="scss">
+@import '~/assets/scss/upload';
+@import '~/assets/scss/border';
+.error-input {
+  border-color: rgb(202, 40, 40) !important;
+  &.personal {
+    label {
+      color: red;
+    }
+  }
+}
+.note {
+  font-size: 18px;
+  font-weight: bold;
+  margin: 0;
+
+  &-error {
+    color: rgb(202, 40, 40);
+  }
+
+  &-success {
+    color: rgb(0, 107, 23);
+  }
+}
+</style>
 <style lang="scss" scoped>
 .row {
   margin: 0;
@@ -197,8 +329,8 @@ export default {
   &-white {
     color: #fff;
     font-size: 33px;
-    margin-bottom: 56px;
-    line-height: 44px;
+    margin-bottom: 40px;
+    line-height: 43px;
   }
 }
 .btn-text {

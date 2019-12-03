@@ -11,7 +11,7 @@
             {{ $t('Online counseling') }}
           </h3>
           <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum quasi ratione quam illo officia quaerat molestias natus animi ea?
+            {{ $t('posts.onlineConsul') }}
           </p>
         </div>
       </div>
@@ -20,10 +20,10 @@
         <icon-posts />
         <div class="col info">
           <h3 class="header">
-            {{ $t('Help choosing a configuration') }}
+            {{ $t('Implement selected solutions') }}
           </h3>
           <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum quasi ratione quam illo officia quaerat molestias natus animi ea?
+            {{ $t('posts.implementSelectedSolutions') }}
           </p>
         </div>
       </div>
@@ -32,10 +32,10 @@
         <icon-posts />
         <div class="col info">
           <h3 class="header">
-            {{ $t('Implement selected solutions') }}
+            {{ $t('Help choosing a configuration') }}
           </h3>
           <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum quasi ratione quam illo officia quaerat molestias natus animi ea?
+            {{ $t('posts.helpConfig') }}
           </p>
         </div>
       </div>

@@ -2,9 +2,10 @@ const express = require('express')
 const consola = require('consola')
 const { Nuxt, Builder } = require('nuxt')
 const app = express()
-
 // Import and Set Nuxt.js options
 const config = require('../nuxt.config.js')
+const yandex = require('./yandex')
+
 config.dev = process.env.NODE_ENV !== 'production'
 
 async function start () {
@@ -22,6 +23,8 @@ async function start () {
   }
 
   // Give nuxt middleware to express
+  app.use('/fonts', express.static('/fonts'))
+  app.use('/yandex', yandex)
   app.use(nuxt.render)
 
   // Listen the server

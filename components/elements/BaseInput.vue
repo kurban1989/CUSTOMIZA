@@ -17,6 +17,7 @@
     </transition>
   </div>
 </template>
+
 <script>
 export default {
   name: 'BaseInput',
@@ -60,6 +61,11 @@ export default {
       type: Boolean,
       required: false,
       default: false
+    },
+    isClearForm: {
+      type: Boolean,
+      required: false,
+      default: false
     }
   },
   data () {
@@ -67,6 +73,16 @@ export default {
       valueModel: this.value,
       focus: false,
       key: 0
+    }
+  },
+  watch: {
+    isClearForm: {
+      handler () {
+        if (this.isClearForm) {
+          this.valueModel = ''
+        }
+      },
+      immediate: false
     }
   },
   methods: {

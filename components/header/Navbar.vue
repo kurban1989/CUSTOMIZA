@@ -5,8 +5,15 @@
       <div class="col-lg-9 col-md-10 col-9 offset-lg-1 menu-group align-self-center align-self-md-start">
         <div class="row no-gutters justify-content-lg-between justify-content-md-end blocks-center">
           <ul class="col no-gutters flex justify-content-lg-start justify-content-end align-items-center align-items-md-start">
-            <li v-for="(item, index) in 4" :key="index" class="link item-menu">
-              menu link
+            <li
+              v-for="(item, index) in mainMenu"
+              :key="index"
+              class="link item-menu"
+              :title="item.hint"
+            >
+              <nuxt-link :to="`#nav_${item.link}`" class="a-link">
+                {{ $t(item.title) }}
+              </nuxt-link>
             </li>
             <li class="phone-call-block">
               <phone-call-block />
@@ -34,7 +41,7 @@
                 {{ $t('Free call in Russia') }}
               </p>
             </div>
-            <primary-button>
+            <primary-button class="a-link-btn" :link="true" to="#nav_consultation">
               <div class="btn-text">
                 {{ $t('Get free consultation on 1C') }}
               </div>
@@ -50,12 +57,18 @@
 import PrimaryButton from '~/components/elements/PrimaryButton'
 import PhoneCallBlock from '~/components/blocks/PhoneCallBlock'
 import SwitcherLang from '~/components/blocks/SwitcherLang'
+import mainMenu from '~/resourse/mainMenu.json'
 
 export default {
   components: {
     PrimaryButton,
     PhoneCallBlock,
     SwitcherLang
+  },
+  data () {
+    return {
+      mainMenu
+    }
   },
   methods: {
     showMenu () {
@@ -88,7 +101,7 @@ nav {
   line-height: 1.3em;
 }
 
-.link {
+.link, .a-link {
   font-size: 14px;
   color: #000;
   text-decoration: none;

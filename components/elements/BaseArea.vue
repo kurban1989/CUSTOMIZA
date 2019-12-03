@@ -1,5 +1,5 @@
 <template>
-  <div class="input-wrap brdr-r-5 brdr-1" :class="[{'focus': focus}, wrapperClass]">
+  <div class="input-wrap brdr-r-5 brdr-1" :class="[{'focus': focus}, wrapperClass]" v-bind="$attrs">
     <transition name="fade">
       <label v-if="!focus && valueModel === ''" class="placeholder">
         {{ placeholder }}
@@ -15,6 +15,7 @@
     />
   </div>
 </template>
+
 <script>
 export default {
   name: 'BaseArea',
@@ -48,12 +49,27 @@ export default {
       type: Boolean,
       required: false,
       default: false
+    },
+    isClearForm: {
+      type: Boolean,
+      required: false,
+      default: false
     }
   },
   data () {
     return {
       valueModel: this.value,
       focus: false
+    }
+  },
+  watch: {
+    isClearForm: {
+      handler () {
+        if (this.isClearForm) {
+          this.valueModel = ''
+        }
+      },
+      immediate: false
     }
   }
 }

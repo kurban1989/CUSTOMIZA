@@ -33,7 +33,6 @@
 </template>
 
 <script>
-// import NoSSR from 'vue-no-ssr'
 import VuePerfectScrollbar from 'vue-perfect-scrollbar'
 import FormArea from '~/components/elements/FormArea'
 import BaseCheckbox from '~/components/elements/BaseCheckbox'
