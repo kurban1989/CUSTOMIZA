@@ -1,6 +1,11 @@
 
 const i18n = require('./i18n')
 module.exports = {
+  server: {
+    // nuxt.js server options ( can be overrided by environment variables )
+    port: 3000,
+    host: 'http://customiza.ru/'
+  },
   mode: 'universal',
   /*
   ** Headers of the page

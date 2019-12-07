@@ -1,7 +1,7 @@
 /* eslint-disable no-useless-escape */
 /* eslint-disable new-cap */
 /* eslint-disable no-new-require */
-import config from '../conf'
+const config = require('../conf')
 const mysql = new require('mysql')
 // TO DO only for develop computer
 // const client = mysql.createPool({

@@ -1,11 +1,11 @@
 /* eslint-disable no-console */
 /* eslint-disable no-path-concat */
 // eslint-disable-next-line no-unused-vars
-import config from '../conf'
 const path = require('path')
 const express = require('express')
 const router = express.Router()
 const bodyParser = require('body-parser')
+const config = require('../conf')
 const { mailer } = require('../mailer')
 const upload = require('../photogallery/UploadMiddleware')
 const Resize = require('../photogallery/Resize')
