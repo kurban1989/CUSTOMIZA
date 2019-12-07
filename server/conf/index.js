@@ -1,10 +1,10 @@
 // TO DO Перед продакшеном сменить статический токен на динамическое подтверждение
 const configObjects = {
   get ID () {
-    return '628811'
+    return ''
   },
   get token () {
-    return 'AgAEA7qjEcfrAAX-iG9-bAmI5Ugis3rseOiSRCw'
+    return '-iG9-'
   },
   get idForGetToken () {
     return '8cb0630b72e04bd0859fcd770189976a'
@@ -16,7 +16,7 @@ const configObjects = {
       secure: true, // true for 465, false for other ports
       auth: {
         user: 'mail@customiza.ru',
-        pass: '56JomL'
+        pass: ''
       },
       tls: {
         // do not fail on invalid certs
@@ -28,9 +28,9 @@ const configObjects = {
     return {
       host: 'localhost',
       port: '3306',
-      user: 'admin_customiza',
-      password: 'v6Rq9KxOuu',
-      database: 'admin_customiza'
+      user: '',
+      password: '',
+      database: ''
     }
   }
 }
