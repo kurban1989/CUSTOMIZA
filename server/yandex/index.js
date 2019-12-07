@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
 /* eslint-disable no-path-concat */
 // eslint-disable-next-line no-unused-vars
+import config from '../conf'
 const path = require('path')
 const express = require('express')
 const router = express.Router()
@@ -11,7 +12,6 @@ const Resize = require('../photogallery/Resize')
 const httpRequest = require('../helpers/httpRequest')
 const letter = require('../helpers/templateMail')
 const db = require('../mysql_models')
-const config = require('../conf')
 const filesImg = []
 const imagePath = path.resolve(__dirname + '/public')
 

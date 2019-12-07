@@ -1,5 +1,5 @@
+import config from '../conf'
 const nodemailer = require('nodemailer')
-const config = require('../conf')
 
 const transporter = nodemailer.createTransport(config.nodemailer)
 
