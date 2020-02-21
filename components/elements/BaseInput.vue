@@ -5,6 +5,7 @@
       :type="type"
       :disabled="disabled"
       :class="inputClass"
+      :required="requiredFiled"
       @input="$emit('input', checkField(valueModel))"
       @focus="focus = true"
       @blur="() => {focus = false; checkField(valueModel, 'blur')}"
@@ -66,6 +67,11 @@ export default {
       type: Boolean,
       required: false,
       default: false
+    },
+    requiredFiled: {
+      type: Boolean,
+      required: false,
+      default: false
     }
   },
   data () {
@@ -111,7 +117,7 @@ export default {
 
       if (!val.length) {
         return false
-      } else if (this.key === 8 || this.key === 229) {
+      } else if (this.key === 8 || this.key === 229 || this.key === 46) {
         return val.replace(regex, '')
       }
       return this.formatPhone(val)

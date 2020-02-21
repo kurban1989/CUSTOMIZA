@@ -76,7 +76,7 @@ export default {
       })
     },
     ymaps () {
-      return !isServer ? window.ymaps : undefined
+      return !isServer ? window.ymaps : null
     }
   },
   watch: {
