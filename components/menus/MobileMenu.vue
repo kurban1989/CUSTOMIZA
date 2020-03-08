@@ -17,6 +17,11 @@
           </nuxt-link>
         </div>
 
+        <div
+          class="sections-menu--item content-center"
+        >
+          <log-in mobile></log-in>
+        </div>
         <switcher-lang />
       </div>
       <phone-call-block />
@@ -31,12 +36,14 @@
 import { mapState } from 'vuex'
 import PhoneCallBlock from '~/components/blocks/PhoneCallBlock'
 import SwitcherLang from '~/components/blocks/SwitcherLang'
+import LogIn from '~/components/blocks/LogIn'
 
 export default {
   name: 'MobileMenu',
   components: {
     PhoneCallBlock,
-    SwitcherLang
+    SwitcherLang,
+    LogIn
   },
   props: {
     menuList: {

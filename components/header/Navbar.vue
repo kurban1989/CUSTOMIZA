@@ -26,10 +26,7 @@
           </ul>
 
           <div class="col-sm-7 col-md-5 col-lg-5 col-xl-4 personal-area only-desktop">
-            <nuxt-link to="/" class="link">
-              {{ $t('LogInToYourAccount') }}
-            </nuxt-link>
-
+            <log-in v-if="!isShow"></log-in>
             <switcher-lang />
           </div>
         </div>
@@ -54,16 +51,24 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import PrimaryButton from '~/components/elements/PrimaryButton'
 import PhoneCallBlock from '~/components/blocks/PhoneCallBlock'
 import SwitcherLang from '~/components/blocks/SwitcherLang'
+import LogIn from '~/components/blocks/LogIn'
 import mainMenu from '~/resourse/mainMenu.json'
 
 export default {
   components: {
     PrimaryButton,
     PhoneCallBlock,
-    SwitcherLang
+    SwitcherLang,
+    LogIn
+  },
+  computed: {
+    ...mapState({
+      isShow: state => state.directory.showMobileMenu
+    })
   },
   data () {
     return {

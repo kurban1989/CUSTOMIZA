@@ -9,7 +9,7 @@
           ____
         </p>
         <p class="nameplate__tel-email">
-          8 (800) 999-99-99
+          8 (800) 999-99-90
           <br>
           sales@customiza.ru
         </p>
