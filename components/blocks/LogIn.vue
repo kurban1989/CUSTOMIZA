@@ -1,6 +1,6 @@
 <template>
   <div>
-    <a @click="openLogIn" class="a-login" :class="{'a-login-mobile': mobile}" v-b-modal.modal-center>
+    <a class="a-login" :class="{'a-login-mobile': mobile}" v-b-modal.modal-center>
       {{ $t('LogInToYourAccount') }}
     </a>
     <b-modal id="modal-center" centered :title="$t(toRegister?'UserRegistration':'LogInToYourAccount')">
@@ -14,6 +14,7 @@
             <div class="col-sm for-leave-rent">
               <div class="row mb-3">
                 <base-input
+                  v-model="login.email"
                   :class="{'error-input': errorInput}"
                   type="email"
                   :placeholder="$t('Email')"
@@ -23,6 +24,7 @@
               </div>
               <div class="row">
                 <base-input
+                  v-model="login.password"
                   :placeholder="$t('Password')"
                   type="password"
                   data-type="password"
@@ -81,7 +83,7 @@
       <template v-slot:modal-footer>
         <div class="justify-content-center place-button">
           <a class="a-login mr-3 align-middle" @click="loginOrRegister">{{$t(toRegister?'LogIn':'Registration')}}</a>
-          <secodary-button class="align-self-end">
+          <secodary-button class="align-self-end" @click="userLogin">
             <span>
               {{$t(toRegister?'Registration':'LogIn')}}
             </span>
@@ -113,6 +115,10 @@ export default {
   },
   data () {
     return {
+      login: {
+        email: '',
+        password: ''
+      },
       dataForm: {
         name: '',
         email: '',
@@ -131,8 +137,13 @@ export default {
     loginOrRegister () {
       this.toRegister = !this.toRegister
     },
-    openLogIn () {
-      console.log('LogIn')
+    async userLogin () {
+      try {
+        const response = await this.$auth.loginWith('local', { data: this.login })
+        console.log(response)
+      } catch (err) {
+        console.log(err)
+      }
     },
     validEmail (isEmail) {
       if (isEmail) {

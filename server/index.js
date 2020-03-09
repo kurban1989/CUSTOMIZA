@@ -5,6 +5,7 @@ const app = express()
 // Import and Set Nuxt.js options
 const config = require('../nuxt.config.js')
 const yandex = require('./yandex')
+const auth = require('./auth')
 
 config.dev = process.env.NODE_ENV !== 'production'
 
@@ -21,8 +22,8 @@ async function start () {
   } else {
     await nuxt.ready()
   }
-
   // Give nuxt middleware to express
+  app.use('/auth', auth)
   app.use('/fonts', express.static('/fonts'))
   app.use('/yandex', yandex)
   app.use(nuxt.render)
