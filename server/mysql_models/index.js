@@ -26,7 +26,7 @@ function setCHARACTER () {
   })
 }
 
-setCHARACTER() // Первый запрос на изменение кодировки
+// setCHARACTER() // Первый запрос на изменение кодировки
 
 // Функция для любого запроса к БД
 exports.getQuery = (sql, callback) => {

@@ -137,10 +137,11 @@ export default {
     loginOrRegister () {
       this.toRegister = !this.toRegister
     },
-    async userLogin () {
+    userLogin () {
       try {
-        const response = await this.$auth.loginWith('local', { data: this.login })
-        console.log(response)
+        this.$auth.loginWith('local', { data: this.login }).then(res => console.log(res))
+        // const response = await this.$auth.loginWith('local', { data: this.login })
+        // console.log(response)
       } catch (err) {
         console.log(err)
       }
