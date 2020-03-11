@@ -23,7 +23,7 @@
     <what-do-end-up-with />
     <last-cases />
     <capture-form />
-    <the-blog />
+<!--    <the-blog />-->
     <rent-block />
     <contacts />
     <footer-site />
@@ -38,7 +38,7 @@ import HowHelpYou from '~/components/main/HowHelpYou'
 import WhatDoEndUpWith from '~/components/main/WhatDoEndUpWith'
 import LastCases from '~/components/main/LastCases'
 import CaptureForm from '~/components/main/CaptureForm'
-import TheBlog from '~/components/main/TheBlog'
+// import TheBlog from '~/components/main/TheBlog'
 import RentBlock from '~/components/main/RentBlock'
 import Contacts from '~/components/main/Contacts'
 import FooterSite from '~/components/FooterSite'
@@ -56,8 +56,8 @@ export default {
     MobileMenu,
     LastCases,
     RentBlock,
-    Contacts,
-    TheBlog
+    Contacts
+    // TheBlog
   },
   data () {
     return {

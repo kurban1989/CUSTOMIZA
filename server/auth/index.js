@@ -1,24 +1,14 @@
-const express = require('express')
-const router = express.Router()
-const bodyParser = require('body-parser')
+const jwt = require('express-jwt')
+const config = require('../conf')
 
-router.use(bodyParser.json())
-router.use(bodyParser.urlencoded({ extended: true }))
+const auth = {
+  required: jwt({
+    secret: config.jwt.secret
+  }),
+  optional: jwt({
+    secret: config.jwt.secret,
+    credentialsRequired: false
+  })
+}
 
-// eslint-disable-next-line require-await
-router.post('/login', async (req, res) => {
-  console.log(req.body)
-  return res.status(200).json({ token: 'tokeeeen' })
-})
-// eslint-disable-next-line require-await
-router.post('/logout', async (req, res) => {
-  console.log('logout', req.body)
-  return res.status(200).json({})
-})
-// eslint-disable-next-line require-await
-router.get('/user', async (req, res) => {
-  console.log('user', req.headers)
-  return res.status(200).json({})
-})
-
-module.exports = router
+module.exports = auth

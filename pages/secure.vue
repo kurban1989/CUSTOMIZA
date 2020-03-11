@@ -20,7 +20,7 @@
 
     <mobile-menu :menu-list="list" />
     <header-site />
-    <the-blog />
+<!--    <the-blog />-->
     <rent-block />
     <footer-site />
   </div>
@@ -30,7 +30,7 @@
 import { mapState } from 'vuex'
 import { BModal } from 'bootstrap-vue'
 import HeaderSite from '~/components/HeaderSite'
-import TheBlog from '~/components/main/TheBlog'
+// import TheBlog from '~/components/main/TheBlog'
 import RentBlock from '~/components/main/RentBlock'
 import FooterSite from '~/components/FooterSite'
 import MobileMenu from '~/components/menus/MobileMenu'
@@ -43,8 +43,8 @@ export default {
     HeaderSite,
     FooterSite,
     MobileMenu,
-    RentBlock,
-    TheBlog
+    RentBlock
+    // TheBlog
   },
   data () {
     return {

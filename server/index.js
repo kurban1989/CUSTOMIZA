@@ -5,7 +5,9 @@ const app = express()
 // Import and Set Nuxt.js options
 const config = require('../nuxt.config.js')
 const yandex = require('./yandex')
-const auth = require('./auth')
+const auth = require('./routes/auth')
+
+require('./conf/passport')
 
 config.dev = process.env.NODE_ENV !== 'production'
 

@@ -8,7 +8,8 @@ module.exports = {
     messages: {
       en: {
         LogInToYourAccount: 'Log in to your account',
-        LogIn: 'Login',
+        LogIn: 'Log in',
+        LogOut: 'Log out',
         Registration: 'Registration',
         UserRegistration: 'User registration',
         Email: 'E-mail',
@@ -69,6 +70,7 @@ module.exports = {
       ru: {
         LogInToYourAccount: 'Войти в личный кабинет',
         LogIn: 'Войти',
+        LogOut: 'Выйти',
         Registration: 'Зарегистрироваться',
         UserRegistration: 'Регистрация пользователя',
         Email: 'E-mail',

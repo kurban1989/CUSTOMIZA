@@ -1,20 +1,26 @@
 <template>
   <div>
-    <a class="a-login" :class="{'a-login-mobile': mobile}" v-b-modal.modal-center>
+    <span v-if="$auth.$state.loggedIn" :class="{'a-login-mobile': mobile}">
+      {{$auth.user.name}}
+      <primary-button @click="$auth.logout()" class="button-logout">
+        {{ $t('LogOut') }}
+      </primary-button>
+    </span>
+    <a v-else class="a-login" :class="{'a-login-mobile': mobile}" v-b-modal.modal-center>
       {{ $t('LogInToYourAccount') }}
     </a>
-    <b-modal id="modal-center" centered :title="$t(toRegister?'UserRegistration':'LogInToYourAccount')">
+    <b-modal ref="login-modal" id="modal-center" hide-footer centered :title="$t(toRegister?'UserRegistration':'LogInToYourAccount')">
+      <loading-spinner :is-loading="loading" />
       <form
         class="relative pl-3 pr-3"
       >
-        <loading-spinner :is-loading="loading" />
         <template
           v-if="!toRegister">
           <div class="row">
             <div class="col-sm for-leave-rent">
               <div class="row mb-3">
                 <base-input
-                  v-model="login.email"
+                  v-model="user.login"
                   :class="{'error-input': errorInput}"
                   type="email"
                   :placeholder="$t('Email')"
@@ -24,7 +30,7 @@
               </div>
               <div class="row">
                 <base-input
-                  v-model="login.password"
+                  v-model="user.password"
                   :placeholder="$t('Password')"
                   type="password"
                   data-type="password"
@@ -80,16 +86,24 @@
           </div>
         </template>
       </form>
-      <template v-slot:modal-footer>
-        <div class="justify-content-center place-button">
-          <a class="a-login mr-3 align-middle" @click="loginOrRegister">{{$t(toRegister?'LogIn':'Registration')}}</a>
-          <secodary-button class="align-self-end" @click="userLogin">
+      <div class="justify-content-center place-button text-right mt-3">
+        <a class="a-login mr-3 align-middle" @click="loginOrRegister">{{$t(toRegister?'LogIn':'Registration')}}</a>
+        <secodary-button class="align-self-end" @click="login">
             <span>
               {{$t(toRegister?'Registration':'LogIn')}}
             </span>
-          </secodary-button>
-        </div>
-      </template>
+        </secodary-button>
+      </div>
+<!--      <template v-slot:modal-footer>-->
+<!--        <div class="justify-content-center place-button">-->
+<!--          <a class="a-login mr-3 align-middle" @click="loginOrRegister">{{$t(toRegister?'LogIn':'Registration')}}</a>-->
+<!--          <secodary-button class="align-self-end" @click="login">-->
+<!--            <span>-->
+<!--              {{$t(toRegister?'Registration':'LogIn')}}-->
+<!--            </span>-->
+<!--          </secodary-button>-->
+<!--        </div>-->
+<!--      </template>-->
     </b-modal>
   </div>
 </template>
@@ -98,6 +112,7 @@
 import BaseInput from '~/components/elements/BaseInput'
 import LoadingSpinner from '~/components/blocks/LoadingSpinner'
 import SecodaryButton from '~/components/elements/SecodaryButton'
+import PrimaryButton from '~/components/elements/PrimaryButton'
 
 export default {
   name: 'LogIn',
@@ -111,12 +126,13 @@ export default {
   components: {
     BaseInput,
     LoadingSpinner,
-    SecodaryButton
+    SecodaryButton,
+    PrimaryButton
   },
   data () {
     return {
-      login: {
-        email: '',
+      user: {
+        login: '',
         password: ''
       },
       dataForm: {
@@ -137,14 +153,23 @@ export default {
     loginOrRegister () {
       this.toRegister = !this.toRegister
     },
-    userLogin () {
-      try {
-        this.$auth.loginWith('local', { data: this.login }).then(res => console.log(res))
-        // const response = await this.$auth.loginWith('local', { data: this.login })
-        // console.log(response)
-      } catch (err) {
+    login () {
+      this.loading = true
+      this.$auth.loginWith('local', { data: this.user }).then(() => {
+        this.$refs['login-modal'].hide()
+      }).catch((err) => {
         console.log(err)
-      }
+      }).finally(() => {
+        this.loading = false
+      })
+      // try {
+      //   this.loading = true;
+      //   await this.$auth.loginWith('local', { data: this.user })
+      //   this.$refs['login-modal'].hide()
+      //   this.loading = false;
+      // } catch (err) {
+      //   console.log(err)
+      // }
     },
     validEmail (isEmail) {
       if (isEmail) {
@@ -168,6 +193,13 @@ export default {
     &:hover {
       text-decoration: underline !important;
     }
+  }
+  .button-logout {
+    min-height: 20px!important;
+    height: auto!important;
+    width: auto!important;
+    line-height: 1!important;
+    padding: 5px!important;
   }
   .a-login-mobile {
     font-size: 18px;

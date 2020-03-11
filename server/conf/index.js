@@ -32,6 +32,12 @@ const configObjects = {
       password: 'v6Rq9KxOuu',
       database: 'admin_customiza'
     }
+  },
+  get jwt () {
+    return {
+      secret: 'customiza',
+      expiresIn: '30d'
+    }
   }
 }
 
