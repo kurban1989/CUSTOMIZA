@@ -6,6 +6,7 @@ const app = express()
 const config = require('../nuxt.config.js')
 const yandex = require('./yandex')
 const auth = require('./routes/auth')
+const users = require('./routes/users')
 
 require('./conf/passport')
 
@@ -25,7 +26,8 @@ async function start () {
     await nuxt.ready()
   }
   // Give nuxt middleware to express
-  app.use('/auth', auth)
+  app.use('/api/auth', auth)
+  app.use('/api/users', users)
   app.use('/fonts', express.static('/fonts'))
   app.use('/yandex', yandex)
   app.use(nuxt.render)

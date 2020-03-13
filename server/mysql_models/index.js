@@ -164,11 +164,12 @@ exports.updateData = (table, obj, id, callback) => {
   setCHARACTER()
 
   return new Promise((resolve, reject) => {
-    const fields = Object.keys(obj)
+    let fields = []
     let dataWrite = ''
     let sql = ''
 
-    clearBad(obj).then((ObjProm) => {
+    clearBad(obj, table).then((ObjProm) => {
+      fields = Object.keys(ObjProm)
       let i = 0
       for (const prop in ObjProm) {
         if ({}.hasOwnProperty.call(ObjProm, prop)) {
@@ -184,7 +185,7 @@ exports.updateData = (table, obj, id, callback) => {
         dataWrite = clearDigitsFields(dataWrite)
       })
       .then(() => {
-        sql = 'UPDATE `' + table + '` SET ' + dataWrite + ', date = NOW() WHERE id=' + parseInt(id, 10) + ';'
+        sql = 'UPDATE `' + table + '` SET ' + dataWrite + ' WHERE id=' + parseInt(id, 10) + ';'
         sql = sql.replace(/(\"NULL\")/, 'NULL') // Если мы специально хотим записать NULL в ячейку.
 
         client.getConnection((_err, connector) => {
@@ -214,11 +215,12 @@ exports.setData = (table, obj, callback) => {
   setCHARACTER()
 
   return new Promise((resolve, reject) => {
-    const fields = Object.keys(obj)
+    let fields = []
     let dataWrite = ''
     let sql = ''
 
-    clearBad(obj).then((ObjProm) => {
+    clearBad(obj, table).then((ObjProm) => {
+      fields = Object.keys(ObjProm)
       for (const prop in ObjProm) {
         if ({}.hasOwnProperty.call(ObjProm, prop)) {
           dataWrite += '"' + obj[prop]
@@ -232,7 +234,7 @@ exports.setData = (table, obj, callback) => {
         dataWrite = clearDigitsFields(dataWrite)
       })
       .then(() => {
-        sql = 'INSERT INTO `' + table + '` (' + fields + ', date) VALUES (' + dataWrite + ', NOW());'
+        sql = 'INSERT INTO `' + table + '` (' + fields + ') VALUES (' + dataWrite + ');'
 
         client.getConnection((err, connector) => {
           if (err) {
@@ -260,7 +262,33 @@ exports.setData = (table, obj, callback) => {
   })
 }
 
-async function clearBad (obj) {
+// eslint-disable-next-line no-unused-vars
+async function clearBadFields (obj, table) {
+  const resObj = {}
+  const sql = `SHOW COLUMNS FROM ${table}`
+  // eslint-disable-next-line no-undef
+  const columns = await new Promise((resolve, reject) => {
+    client.getConnection((_err, connector) => {
+      connector.query(sql, (error, result) => {
+        connector.release()
+        if (error) {
+          return reject(new Error(error))
+        }
+        return resolve(result)
+      })
+    })
+  })
+  columns.forEach((column) => {
+    if (column.Extra !== 'auto_increment' && obj.hasOwnProperty(column.Field)) {
+      // eslint-disable-next-line no-unused-expressions
+      resObj[column.Field] = obj[column.Field]
+    }
+  })
+  return resObj
+}
+
+async function clearBad (obj, table) {
+  obj = await clearBadFields(obj, table)
   for (const prop in obj) {
     if ({}.hasOwnProperty.call(obj, prop)) {
       obj[prop] = await client.escape(obj[prop])

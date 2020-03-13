@@ -6,7 +6,7 @@ passport.use(new LocalStrategy({
   usernameField: 'login',
   passwordField: 'password'
 }, (login, password, done) => {
-  User.getUserByLogin(login).then((user) => {
+  User.getUserByEmail(login).then((user) => {
     if (!user || !user.validatePassword(password)) {
       return done(null, false, { errors: { 'login or password': 'is invalid' } })
     }

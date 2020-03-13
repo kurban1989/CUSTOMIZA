@@ -1,10 +1,27 @@
 const passport = require('passport')
+const User = require('../models/User')
 
 const controller = {}
 
+// eslint-disable-next-line require-await
+controller.registration = async function (req, res) {
+  const u = {
+    id: 2,
+    email: 'test@test.ru',
+    firstName: 'Тест',
+    lastName: 'Тестов',
+    phone: '9999999999',
+    password: 'password'
+  }
+  const user = new User(u)
+  user.setPassword(u.password)
+  await user.save()
+  console.log(user)
+  return res.json(user)
+}
+
 controller.login = function (req, res, next) {
   const user = req.body
-
   if (!user.login) {
     return res.status(422).json({
       errors: {
@@ -24,7 +41,6 @@ controller.login = function (req, res, next) {
     if (err) { return next(err) }
     if (user) {
       user.token = user.generateJWT()
-      // user.save()
       return res.json({ token: user.token })
     }
     return res.status(400).json(info)
@@ -39,13 +55,14 @@ controller.logout = async function (req, res) {
 }
 
 // eslint-disable-next-line require-await
-controller.getUser = async function (req, res) {
-  console.log('user', req.user)
-  const user = req.user
-  user.name = 'Попов Андрей'
+controller.user = async function (req, res) {
+  const user = await User.getUser(req.user.id)
+  if (!user) {
+    return res.sendStatus(401)
+  }
   return res.json({
     status: 'OK',
-    user
+    user: user.toJSON()
   })
 }
 

@@ -7,8 +7,9 @@ const authController = require('../controllers/authController')
 router.use(bodyParser.json())
 router.use(bodyParser.urlencoded({ extended: true }))
 
+router.post('/registration', authController('registration'))
 router.post('/login', auth.optional, authController('login'))
 router.post('/logout', auth.required, authController('logout'))
-router.get('/user', auth.required, authController('getUser'))
+router.get('/user', auth.required, authController('user'))
 
 module.exports = router

@@ -1,7 +1,7 @@
 <template>
   <div>
     <span v-if="$auth.$state.loggedIn" :class="{'a-login-mobile': mobile}">
-      {{$auth.user.name}}
+      {{$auth.user.lastName + ' ' + $auth.user.firstName}}
       <primary-button @click="$auth.logout()" class="button-logout">
         {{ $t('LogOut') }}
       </primary-button>
