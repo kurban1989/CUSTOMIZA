@@ -1,110 +1,71 @@
 <template>
   <div>
-    <span v-if="$auth.$state.loggedIn" :class="{'a-login-mobile': mobile}">
-      {{$auth.user.lastName + ' ' + $auth.user.firstName}}
-      <primary-button @click="$auth.logout()" class="button-logout">
-        {{ $t('LogOut') }}
-      </primary-button>
-    </span>
-    <a v-else class="a-login" :class="{'a-login-mobile': mobile}" v-b-modal.modal-center>
-      {{ $t('LogInToYourAccount') }}
-    </a>
-    <b-modal ref="login-modal" id="modal-center" hide-footer centered :title="$t(toRegister?'UserRegistration':'LogInToYourAccount')">
-      <loading-spinner :is-loading="loading" />
-      <form
-        class="relative pl-3 pr-3"
-      >
-        <template
-          v-if="!toRegister">
-          <div class="row">
-            <div class="col-sm for-leave-rent">
-              <div class="row mb-3">
-                <base-input
-                  v-model="user.login"
-                  :class="{'error-input': errorInput}"
-                  type="email"
-                  :placeholder="$t('Email')"
-                  data-type="email"
-                  @is-valid-email="validEmail"
-                />
-              </div>
-              <div class="row">
-                <base-input
-                  v-model="user.password"
-                  :placeholder="$t('Password')"
-                  type="password"
-                  data-type="password"
-                />
-              </div>
-            </div>
-          </div>
-        </template>
-        <template v-else>
-          <div class="row">
-            <div class="col-sm for-leave-rent">
-              <div class="row mb-3">
-                <base-input
-                  :placeholder="$t('Name')"
-                />
-              </div>
-              <div class="row mb-3">
-                <base-input
-                  :placeholder="$t('Surname')"
-                />
-              </div>
-              <div class="row mb-3">
-                <base-input
-                  type="phone"
-                  :placeholder="$t('Your telephone')"
-                  data-type="phone"
-                />
-              </div>
-              <div class="row mb-3">
-                <base-input
-                  :class="{'error-input': errorInput}"
-                  type="email"
-                  :placeholder="$t('Email')"
-                  data-type="email"
-                  @is-valid-email="validEmail"
-                />
-              </div>
-              <div class="row mb-3">
-                <base-input
-                  :placeholder="$t('Password')"
-                  type="password"
-                  data-type="password"
-                />
-              </div>
-              <div class="row">
-                <base-input
-                  :placeholder="$t('PasswordRepeater')"
-                  type="password"
-                  data-type="password"
-                />
-              </div>
-            </div>
-          </div>
-        </template>
-      </form>
-      <div class="justify-content-center place-button text-right mt-3">
-        <a class="a-login mr-3 align-middle" @click="loginOrRegister">{{$t(toRegister?'LogIn':'Registration')}}</a>
-        <secodary-button class="align-self-end" @click="login">
-            <span>
-              {{$t(toRegister?'Registration':'LogIn')}}
-            </span>
-        </secodary-button>
-      </div>
-<!--      <template v-slot:modal-footer>-->
-<!--        <div class="justify-content-center place-button">-->
-<!--          <a class="a-login mr-3 align-middle" @click="loginOrRegister">{{$t(toRegister?'LogIn':'Registration')}}</a>-->
-<!--          <secodary-button class="align-self-end" @click="login">-->
-<!--            <span>-->
-<!--              {{$t(toRegister?'Registration':'LogIn')}}-->
-<!--            </span>-->
-<!--          </secodary-button>-->
-<!--        </div>-->
-<!--      </template>-->
+    <b-modal :id="mobile ? 'bv-login-error-mobile' : 'bv-login-error'" :title="$t('sm')" ok-only>
+      <p class="note note-error">
+        {{$t(messageError)}}
+      </p>
     </b-modal>
+    <b-dropdown
+      v-if="$auth.$state.loggedIn"
+      size="sm"
+      right
+      :text="$auth.user.lastName + ' ' + $auth.user.firstName"
+      variant="dropdown-user"
+      :class="{'font-mobile-style': mobile}"
+    >
+      <b-dropdown-header>{{$t($auth.user.roleName)}}</b-dropdown-header>
+      <b-dropdown-divider></b-dropdown-divider>
+      <template v-for="(item, index) in userMenu">
+        <b-dropdown-item v-if="item[$auth.user.roleName]" :key="index" :title="$t(item.hint)" :to="item.link">{{ $t(item.title) }}</b-dropdown-item>
+      </template>
+      <b-dropdown-divider></b-dropdown-divider>
+      <div class="mx-2 ">
+        <primary-button @click="$auth.logout()" class="button-logout">{{ $t('LogOut') }}</primary-button>
+      </div>
+    </b-dropdown>
+    <template v-else>
+      <a class="a-login" :class="{'font-mobile-style': mobile}" @click="openLogIn">
+        {{ $t('LogInToYourAccount') }}
+      </a>
+      <b-modal :id="mobile ? 'login-modal-mobile' : 'login-modal'" hide-footer centered :title="$t('LogInToYourAccount')">
+        <loading-spinner :is-loading="loading" />
+        <form
+          class="relative px-3"
+        >
+          <div class="row">
+            <div class="col-sm for-leave-rent">
+              <div class="row mb-3">
+                <base-input
+                  v-model.trim="user.login"
+                  :class="{'error-input': errorEmail}"
+                  type="email"
+                  :placeholder="$t('Email')"
+                  data-type="email"
+                  @is-valid-email="validEmail"
+                />
+              </div>
+              <div class="row">
+                <base-input
+                  v-model.trim="user.password"
+                  :class="{'error-input': errorPassword}"
+                  :placeholder="$t('Password')"
+                  type="password"
+                  data-type="password"
+                />
+              </div>
+            </div>
+          </div>
+        </form>
+        <div class="justify-content-center place-button text-right mt-3">
+          <nuxt-link to="signup" class="a-login mr-3 align-middle">{{$t('Registration')}}</nuxt-link>
+          <secodary-button class="align-self-end" @click="login">
+            <span>
+              {{$t('LogIn')}}
+            </span>
+          </secodary-button>
+        </div>
+      </b-modal>
+    </template>
   </div>
 </template>
 
@@ -113,6 +74,7 @@ import BaseInput from '~/components/elements/BaseInput'
 import LoadingSpinner from '~/components/blocks/LoadingSpinner'
 import SecodaryButton from '~/components/elements/SecodaryButton'
 import PrimaryButton from '~/components/elements/PrimaryButton'
+import userMenu from '~/resourse/userMenu.json'
 
 export default {
   name: 'LogIn',
@@ -131,60 +93,51 @@ export default {
   },
   data () {
     return {
+      userMenu,
       user: {
         login: '',
         password: ''
       },
-      dataForm: {
-        name: '',
-        email: '',
-        phone: '',
-        question: '',
-        isCheckedPersonalData: false,
-        errors: false,
-        file: null
-      },
-      errorInput: false,
-      loading: false,
-      toRegister: false
+      messageError: 'checkForm',
+      errorEmail: false,
+      errorPassword: false,
+      loading: false
     }
   },
   methods: {
-    loginOrRegister () {
-      this.toRegister = !this.toRegister
+    openLogIn () {
+      this.$bvModal.show(this.mobile ? 'login-modal-mobile' : 'login-modal')
     },
     login () {
+      this.errorEmail = this.errorEmail || this.user.login === ''
+      this.errorPassword = this.errorPassword || this.user.password === ''
+      if (this.errorEmail || this.errorPassword) {
+        this.messageError = 'checkForm'
+        this.$bvModal.show(this.mobile ? 'bv-login-error-mobile' : 'bv-login-error')
+        return false
+      }
       this.loading = true
       this.$auth.loginWith('local', { data: this.user }).then(() => {
-        this.$refs['login-modal'].hide()
-      }).catch((err) => {
-        console.log(err)
+        this.$bvModal.hide(this.mobile ? 'login-modal-mobile' : 'login-modal')
+      }).catch(() => {
+        this.messageError = 'ErrorLogin'
+        this.$bvModal.show(this.mobile ? 'bv-login-error-mobile' : 'bv-login-error')
       }).finally(() => {
         this.loading = false
       })
-      // try {
-      //   this.loading = true;
-      //   await this.$auth.loginWith('local', { data: this.user })
-      //   this.$refs['login-modal'].hide()
-      //   this.loading = false;
-      // } catch (err) {
-      //   console.log(err)
-      // }
     },
     validEmail (isEmail) {
       if (isEmail) {
-        this.dataForm.errors = false
-        this.errorInput = false
+        this.errorEmail = false
       } else {
-        this.dataForm.errors = true
-        this.errorInput = true
+        this.errorEmail = true
       }
     }
   }
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
   .a-login {
     font-size: 14px;
     color: #000 !important;
@@ -194,15 +147,25 @@ export default {
       text-decoration: underline !important;
     }
   }
-  .button-logout {
-    min-height: 20px!important;
-    height: auto!important;
-    width: auto!important;
-    line-height: 1!important;
-    padding: 5px!important;
+  .btn-dropdown-user {
+    padding: 0 !important;
+    background: inherit;
+    border: 0;
+    color: #000;
   }
-  .a-login-mobile {
+  .button-logout {
+    min-height: 20px !important;
+    height: 40px !important;
+    width: 100% !important;
+    line-height: 1 !important;
+    padding: 10px !important;
+  }
+  .font-mobile-style {
     font-size: 18px;
     color: #fff!important;
+    .btn-dropdown-user {
+      font-size: 18px;
+      color: #fff!important;
+    }
   }
 </style>

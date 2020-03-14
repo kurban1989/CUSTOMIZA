@@ -1,6 +1,8 @@
 <template>
   <div class="input-wrap brdr-r-5 brdr-1" :class="[{'focus': focus}, wrapperClass]" v-bind="$attrs">
     <input
+      :autocomplete="autocomplete"
+      :name="name"
       v-model="valueModel"
       :type="type"
       :disabled="disabled"
@@ -23,6 +25,16 @@
 export default {
   name: 'BaseInput',
   props: {
+    autocomplete: {
+      type: String,
+      required: false,
+      default: ''
+    },
+    name: {
+      type: String,
+      required: false,
+      default: ''
+    },
     disabled: {
       type: Boolean,
       required: false,

@@ -57,14 +57,11 @@ class User {
   }
   // eslint-disable-next-line require-await
   static async getUser (id) {
-    // const resultDb = await db.getQuerySafe('users', 'id', id, 'equality')
-    console.log('id', id)
     const resultDb = await Users.getUsers('id', id)
     return resultDb.length === 0 ? null : new User(resultDb[0])
   }
   // eslint-disable-next-line require-await
   static async getUserByEmail (login) {
-    // const resultDb = await db.getQuerySafe('users', 'email', login, 'equality')
     const resultDb = await Users.getUsers('email', login)
     return resultDb.length === 0 ? null : new User(resultDb[0])
   }

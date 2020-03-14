@@ -49,7 +49,8 @@ module.exports = {
     { src: '~/plugins/swiper', mode: 'client' },
     { src: '~/plugins/yandexMaps', mode: 'client' },
     { src: '~/plugins/VScrollLock', mode: 'client' },
-    { src: '~/plugins/lazy' }
+    { src: '~/plugins/lazy' },
+    { src: '~/plugins/vuelidate', ssr: false }
   ],
   /*
   ** Nuxt.js dev-modules

@@ -4,20 +4,21 @@ const User = require('../models/User')
 const controller = {}
 
 // eslint-disable-next-line require-await
-controller.registration = async function (req, res) {
-  const u = {
-    id: 2,
-    email: 'test@test.ru',
-    firstName: 'Тест',
-    lastName: 'Тестов',
-    phone: '9999999999',
-    password: 'password'
+controller.signup = async function (req, res) {
+  const checkUser = await User.getUserByEmail(req.body.email)
+  if (checkUser) {
+    return res.json({
+      status: 'ERROR',
+      message: 'The entered e-mail is already registered'
+    })
   }
-  const user = new User(u)
-  user.setPassword(u.password)
+  const user = new User(req.body)
+  user.setPassword(req.body.password)
   await user.save()
   console.log(user)
-  return res.json(user)
+  return res.json({
+    status: 'OK'
+  })
 }
 
 controller.login = function (req, res, next) {
@@ -41,7 +42,7 @@ controller.login = function (req, res, next) {
     if (err) { return next(err) }
     if (user) {
       user.token = user.generateJWT()
-      return res.json({ token: user.token })
+      return res.status(200).json({ token: user.token })
     }
     return res.status(400).json(info)
   })(req, res, next)

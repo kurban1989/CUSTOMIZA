@@ -11,7 +11,7 @@
               class="link item-menu"
               :title="item.hint"
             >
-              <nuxt-link :to="`#nav_${item.link}`" class="a-link">
+              <nuxt-link :to="`/#nav_${item.link}`" class="a-link">
                 {{ $t(item.title) }}
               </nuxt-link>
             </li>
@@ -26,7 +26,7 @@
           </ul>
 
           <div class="col-sm-7 col-md-5 col-lg-5 col-xl-4 personal-area only-desktop">
-            <log-in v-if="!isShow"></log-in>
+            <log-in></log-in>
             <switcher-lang />
           </div>
         </div>

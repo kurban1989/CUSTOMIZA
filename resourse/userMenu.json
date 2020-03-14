@@ -1,0 +1,34 @@
+[
+  {
+    "Administrator": true,
+    "Employee": true,
+    "User": true,
+    "link": "#profile",
+    "title": "MyProfile",
+    "hint": "MyProfile"
+  },
+  {
+    "Administrator": true,
+    "Employee": false,
+    "User": false,
+    "link": "users",
+    "title": "Users",
+    "hint": "Users"
+  },
+  {
+    "Administrator": true,
+    "Employee": true,
+    "User": false,
+    "link": "#сases",
+    "title": "Cases",
+    "hint": "Cases"
+  },
+  {
+    "Administrator": true,
+    "Employee": true,
+    "User": false,
+    "link": "#articles",
+    "title": "Articles",
+    "hint": "Articles"
+  }
+]
