@@ -94,6 +94,7 @@ import mainMenu from '~/resourse/mainMenu.json'
 import LoadingSpinner from '~/components/blocks/LoadingSpinner'
 
 export default {
+  middleware: 'guest',
   components: {
     HeaderSite,
     FooterSite,

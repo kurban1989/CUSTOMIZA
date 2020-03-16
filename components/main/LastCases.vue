@@ -58,6 +58,7 @@ export default {
         year: 'numeric'
       },
       swiperOption: {
+        wrapperClass: 'swiper-wrapper',
         slidesPerView: 2,
         spaceBetween: 10,
         slidesPerGroup: 2,

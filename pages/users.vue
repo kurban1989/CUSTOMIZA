@@ -1,7 +1,7 @@
 <template>
   <div class="relative">
     <mobile-menu :menu-list="list" />
-    <header-site :slotHead="true" :header="$t('Users')">
+    <header-site :slotHead="true" header="Users">
       <div class="container-fluid pr-4">
         <b-table
           hover
@@ -44,6 +44,7 @@ import MobileMenu from '~/components/menus/MobileMenu'
 import mainMenu from '~/resourse/mainMenu.json'
 
 export default {
+  middleware: ['auth', 'admin'],
   components: {
     HeaderSite,
     FooterSite,

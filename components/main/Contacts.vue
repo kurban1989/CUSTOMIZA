@@ -76,18 +76,18 @@ export default {
       })
     },
     ymaps () {
-      return !isServer ? window.ymaps : null
+      return !isServer && window.ymaps ? window.ymaps : null
     }
   },
   watch: {
-    ymaps: {
-      handler () {
-        if (this.ymaps && !this.yMap) {
-          this.yMap = new this.ymaps.Map()
-        }
-      },
-      immediate: true
-    }
+    // ymaps: {
+    //   handler () {
+    //     if (this.ymaps && !this.yMap) {
+    //       this.yMap = new this.ymaps.Map()
+    //     }
+    //   },
+    //   immediate: true
+    // }
   },
   methods: {
     setObjectMap (objectMap) {

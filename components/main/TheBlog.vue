@@ -67,7 +67,7 @@ export default {
       },
       swiperOption: {
         wrapperClass: 'swiper-wrapper2',
-        init: false,
+        // init: false,
         slidesPerView: 6,
         spaceBetween: 10,
         slidesPerGroup: 6,
@@ -104,10 +104,8 @@ export default {
     this.setEventResize()
   },
   beforeDestroy () {
-    if (!isServer) {
+    if (!isServer && this.swiperObj) {
       this.swiperObj.destroy()
-    }
-    if (!isServer) {
       window.removeEventListener('resize', this.swiperInit)
     }
   },
@@ -128,7 +126,7 @@ export default {
           this.swiperObj.init()
         } else if (window.innerWidth > 768 && this.swiperInitialized) {
           this.swiperInitialized = false
-          // this.swiperObj.destroy()
+          this.swiperObj.destroy()
         }
       }
     }
