@@ -142,6 +142,7 @@ export default {
   },
   methods: {
     signup () {
+      this.errorPhone = this.user.phone.length < 18
       this.errorFirstName = this.user.firstName === ''
       this.errorLastName = this.user.lastName === ''
       this.errorEmail = this.errorEmail || this.user.email === ''
