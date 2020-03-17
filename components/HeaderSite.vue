@@ -2,7 +2,7 @@
   <header class="header">
     <navbar />
     <div class="container">
-      <h1 class="h1 row">
+      <h1 class="h1 row" v-if="header">
         {{ $t(header) }}
       </h1>
     </div>

@@ -74,6 +74,16 @@ class User {
     })
     return users
   }
+  // eslint-disable-next-line no-dupe-class-members
+  static async getUserStatuses () {
+    const resultDb = await Users.getStatuses()
+    return resultDb
+  }
+  // eslint-disable-next-line no-dupe-class-members
+  static async getUserRoles () {
+    const resultDb = await Users.getRoles()
+    return resultDb
+  }
 }
 
 module.exports = User

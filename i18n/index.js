@@ -7,6 +7,12 @@ module.exports = {
     fallbackLocale: 'en',
     messages: {
       en: {
+        NewUser: 'New user',
+        SearchUser: 'Search user',
+        Search: 'Search',
+        clear: 'Clear',
+        edit: 'Edit',
+        delete: 'Delete',
         Active: 'Active',
         Blocked: 'Blocked',
         Phone: 'Phone',
@@ -81,6 +87,12 @@ module.exports = {
         }
       },
       ru: {
+        NewUser: 'Новый пользователь',
+        SearchUser: 'Поиск пользователя',
+        Search: 'Поиск',
+        clear: 'Очистить',
+        edit: 'Редактировать',
+        delete: 'Удалить',
         Active: 'Активен',
         Blocked: 'Заблокирован',
         Phone: 'Телефон',

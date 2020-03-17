@@ -12,4 +12,7 @@ router.get('/get/:id', auth.required, userController('getUser'))
 router.post('/save', auth.required, userController('saveUser'))
 router.delete('/delete', auth.required, userController('deleteUser'))
 
+router.get('/statuses/get', auth.required, userController('getUserStatuses'))
+router.get('/roles/get', auth.required, userController('getUserRoles'))
+
 module.exports = router

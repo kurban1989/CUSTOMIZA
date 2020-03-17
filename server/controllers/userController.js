@@ -2,11 +2,27 @@ const User = require('../models/User')
 
 const controller = {}
 
+controller.getUserStatuses = async function (req, res) {
+  const data = await User.getUserStatuses()
+  return res.json({
+    status: 'OK',
+    data
+  })
+}
+
+controller.getUserRoles = async function (req, res) {
+  const data = await User.getUserRoles()
+  return res.json({
+    status: 'OK',
+    data
+  })
+}
+
 controller.getUser = async function (req, res) {
   const user = await User.getUser(req.params.id)
   return res.json({
     status: 'OK',
-    user: user.toJSON()
+    data: user ? user.toJSON() : null
   })
 }
 
@@ -15,7 +31,7 @@ controller.getUsers = async function (req, res) {
   users.map(user => user.toJSON())
   return res.json({
     status: 'OK',
-    users
+    data: users
   })
 }
 
@@ -30,7 +46,7 @@ controller.saveUser = async function (req, res) {
   console.log(user)
   return res.json({
     status: 'OK',
-    user
+    data: user
   })
 }
 
@@ -45,7 +61,7 @@ controller.deleteUser = async function (req, res) {
   console.log(user)
   return res.json({
     status: 'OK',
-    user
+    data: user
   })
 }
 

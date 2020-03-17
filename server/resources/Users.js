@@ -11,5 +11,17 @@ module.exports = {
                     ${where}`
     // eslint-disable-next-line no-return-await
     return await db.getQuery(sql)
+  },
+  async getRoles (id) {
+    const where = id ? `WHERE id = ${id}` : ''
+    const sql = `SELECT * FROM user_roles ${where}`
+    // eslint-disable-next-line no-return-await
+    return await db.getQuery(sql)
+  },
+  async getStatuses (id) {
+    const where = id ? `WHERE id = ${id}` : ''
+    const sql = `SELECT * FROM user_statuses ${where}`
+    // eslint-disable-next-line no-return-await
+    return await db.getQuery(sql)
   }
 }
