@@ -7,6 +7,9 @@ module.exports = {
     fallbackLocale: 'en',
     messages: {
       en: {
+        DeleteConfirmUser: 'Are you sure you want to delete the user without the possibility of recovery?',
+        Cancel: 'Cancel',
+        OK: 'OK',
         NewUser: 'New user',
         SearchUser: 'Search user',
         Search: 'Search',
@@ -87,6 +90,9 @@ module.exports = {
         }
       },
       ru: {
+        DeleteConfirmUser: 'Вы действительно хотите удалить пользователя без возможности восстановления?',
+        Cancel: 'Отмена',
+        OK: 'Да',
         NewUser: 'Новый пользователь',
         SearchUser: 'Поиск пользователя',
         Search: 'Поиск',

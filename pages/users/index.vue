@@ -1,5 +1,6 @@
 <template>
   <div class="relative">
+    <confirmation-dialog id="delete-confirmation" body="DeleteConfirmUser" @ok="onDelete"></confirmation-dialog>
     <mobile-menu :menu-list="list" />
     <header-site :slotHead="true" header="">
       <div class="container-fluid pr-4">
@@ -66,7 +67,7 @@
           <template v-slot:cell(Actions)="data">
             <div class="row justify-content-end m-0">
               <b-button variant="success" size="sm">{{ $t('edit') }}</b-button>
-              <b-button class="ml-2" variant="danger" size="sm">{{ $t('delete') }}</b-button>
+              <b-button class="ml-2" variant="danger" size="sm" @click="onDeleteConfirm">{{ $t('delete') }}</b-button>
             </div>
           </template>
         </b-table>
@@ -88,13 +89,15 @@ import HeaderSite from '~/components/HeaderSite'
 import FooterSite from '~/components/FooterSite'
 import MobileMenu from '~/components/menus/MobileMenu'
 import mainMenu from '~/resourse/mainMenu.json'
+import ConfirmationDialog from '~/components/elements/ConfirmationDialog'
 
 export default {
   middleware: ['auth', 'admin'],
   components: {
     HeaderSite,
     FooterSite,
-    MobileMenu
+    MobileMenu,
+    ConfirmationDialog
   },
   computed: {
     ...mapGetters({
@@ -128,6 +131,12 @@ export default {
     this.$store.dispatch('users/getUsers').then(res => this.totalRows = res.data.length)
   },
   methods: {
+    onDelete () {
+      console.log('delete')
+    },
+    onDeleteConfirm () {
+      this.$bvModal.show('delete-confirmation')
+    },
     onFiltered (filteredItems) {
       // Trigger pagination to update the number of buttons/pages due to filtering
       this.totalRows = filteredItems.length

@@ -65,6 +65,15 @@
                 data-type="password"
               />
             </div>
+            <div class="row mb-3">
+              <vue-recaptcha
+                @verify="onVerify"
+                @expired="onExpired"
+                :loadRecaptchaScript="true"
+                :sitekey="sitekey">
+                <button>Click me</button>
+              </vue-recaptcha>
+            </div>
             <div class="row justify-content-end">
               <primary-button class="align-self-end" @click="signup">
                 <span>
@@ -81,6 +90,7 @@
 </template>
 
 <script>
+import VueRecaptcha from 'vue-recaptcha'
 // eslint-disable-next-line no-unused-vars
 import { required, minLength } from 'vuelidate/lib/validators'
 // eslint-disable-next-line no-unused-vars
@@ -101,7 +111,8 @@ export default {
     MobileMenu,
     PrimaryButton,
     BaseInput,
-    LoadingSpinner
+    LoadingSpinner,
+    VueRecaptcha
   },
   data () {
     return {
@@ -137,7 +148,8 @@ export default {
       errorFirstName: false,
       errorLastName: false,
       errorPhone: false,
-      loading: false
+      loading: false,
+      sitekey: '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI'
     }
   },
   methods: {
@@ -178,6 +190,12 @@ export default {
       } else {
         this.errorEmail = true
       }
+    },
+    onVerify (response) {
+      console.log('Verify: ' + response)
+    },
+    onExpired () {
+      console.log('Expired')
     }
   }
 }
