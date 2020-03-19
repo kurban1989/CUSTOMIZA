@@ -46,22 +46,20 @@ controller.saveUser = async function (req, res) {
   console.log(user)
   return res.json({
     status: 'OK',
-    data: user
+    data: user.toJSON()
   })
 }
 
 // eslint-disable-next-line require-await
 controller.deleteUser = async function (req, res) {
-  console.log(req.body)
-  const user = await User.getUser(req.params.id)
+  const user = await User.getUser(req.body.id)
   if (!user) {
     return res.sendStatus(400)
   }
   await user.delete()
-  console.log(user)
   return res.json({
     status: 'OK',
-    data: user
+    data: user.toJSON()
   })
 }
 

@@ -24,6 +24,7 @@ class User {
   generateJWT () {
     return jwt.sign({
       id: this.id,
+      roleId: this.roleId,
       email: this.email
     }, config.jwt.secret, { expiresIn: config.jwt.expiresIn })
   }
@@ -44,12 +45,15 @@ class User {
   }
   // eslint-disable-next-line require-await
   async save () {
-    if (this.id) {
-      await db.updateData('users', this, this.id)
+    const user = Object.assign({}, this)
+    delete user.created_at
+    delete user.updated_at
+    if (user.id) {
+      await db.updateData('users', user, user.id)
     } else {
-      await db.setData('users', this)
+      await db.setData('users', user)
     }
-    Object.assign(this, await User.getUser(this.id))
+    Object.assign(this, await User.getUser(user.id))
   }
   // eslint-disable-next-line require-await
   async delete () {
@@ -57,11 +61,17 @@ class User {
   }
   // eslint-disable-next-line require-await
   static async getUser (id) {
+    if (!id) {
+      return null
+    }
     const resultDb = await Users.getUsers('id', id)
     return resultDb.length === 0 ? null : new User(resultDb[0])
   }
   // eslint-disable-next-line require-await
   static async getUserByEmail (login) {
+    if (!login) {
+      return null
+    }
     const resultDb = await Users.getUsers('email', login)
     return resultDb.length === 0 ? null : new User(resultDb[0])
   }

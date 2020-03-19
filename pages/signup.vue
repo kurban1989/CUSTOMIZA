@@ -66,13 +66,7 @@
               />
             </div>
             <div class="row mb-3">
-              <vue-recaptcha
-                @verify="onVerify"
-                @expired="onExpired"
-                :loadRecaptchaScript="true"
-                :sitekey="sitekey">
-                <button>Click me</button>
-              </vue-recaptcha>
+              <g-recaptcha :error="errorRecaptchaToken" @expired="onVerify" @verify="onVerify"></g-recaptcha>
             </div>
             <div class="row justify-content-end">
               <primary-button class="align-self-end" @click="signup">
@@ -90,11 +84,11 @@
 </template>
 
 <script>
-import VueRecaptcha from 'vue-recaptcha'
 // eslint-disable-next-line no-unused-vars
 import { required, minLength } from 'vuelidate/lib/validators'
 // eslint-disable-next-line no-unused-vars
 import { request } from '~/helpers'
+import GRecaptcha from '~/components/elements/GRecaptcha'
 import BaseInput from '~/components/elements/BaseInput'
 import PrimaryButton from '~/components/elements/PrimaryButton'
 import HeaderSite from '~/components/HeaderSite'
@@ -106,13 +100,13 @@ import LoadingSpinner from '~/components/blocks/LoadingSpinner'
 export default {
   middleware: 'guest',
   components: {
+    GRecaptcha,
     HeaderSite,
     FooterSite,
     MobileMenu,
     PrimaryButton,
     BaseInput,
-    LoadingSpinner,
-    VueRecaptcha
+    LoadingSpinner
   },
   data () {
     return {
@@ -149,25 +143,27 @@ export default {
       errorLastName: false,
       errorPhone: false,
       loading: false,
-      sitekey: '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI'
+      recaptchaToken: null,
+      errorRecaptchaToken: null
     }
   },
   methods: {
     signup () {
+      this.errorRecaptchaToken = !this.recaptchaToken
       this.errorPhone = this.user.phone.length < 18
       this.errorFirstName = this.user.firstName === ''
       this.errorLastName = this.user.lastName === ''
       this.errorEmail = this.errorEmail || this.user.email === ''
       this.errorPassword = this.user.password.length < 6
       this.errorPasswordReplay = this.user.passwordReplay.length < 6 || this.user.passwordReplay !== this.user.password
-      const error = this.errorFirstName || this.errorLastName || this.errorEmail || this.errorPassword || this.errorPasswordReplay
+      const error = this.errorFirstName || this.errorLastName || this.errorEmail || this.errorPassword || this.errorPasswordReplay || this.errorRecaptchaToken
       if (error) {
         this.messageError = 'checkForm'
         this.$bvModal.show('bv-signup-error')
         return false
       }
       this.loading = true
-      request({ url: 'api/auth/signup', body: this.user }).then((res) => {
+      this.$axios.post('/api/auth/signup', { user: this.user, recaptchaToken: this.recaptchaToken }).then((res) => {
         if (res.data.status === 'ERROR') {
           this.messageError = res.data.message
           this.$bvModal.show('bv-signup-error')
@@ -192,10 +188,8 @@ export default {
       }
     },
     onVerify (response) {
-      console.log('Verify: ' + response)
-    },
-    onExpired () {
-      console.log('Expired')
+      this.errorRecaptchaToken = !response
+      this.recaptchaToken = response
     }
   }
 }

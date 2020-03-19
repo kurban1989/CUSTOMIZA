@@ -38,6 +38,15 @@ const configObjects = {
       secret: 'customiza',
       expiresIn: '30d'
     }
+  },
+  get recaptcha () {
+    return {
+      // local host
+      // secret: '6Lc8dOIUAAAAAD1ucQhVFUJsPuHL0-5sQ6Ny-3q7',
+      // sitekey: '6Lc8dOIUAAAAAMVnPnhMBYSxEA3o7oCCKMaT7OvI'
+      secret: '6LepeIIUAAAAAK3w4pqS7r6S_13gHChByVUvnbX0',
+      sitekey: '6LepeIIUAAAAABPqWNU5ZqbRRVL5C6CoBnhYoj95'
+    }
   }
 }
 

@@ -5,15 +5,15 @@ const controller = {}
 
 // eslint-disable-next-line require-await
 controller.signup = async function (req, res) {
-  const checkUser = await User.getUserByEmail(req.body.email)
+  const checkUser = await User.getUserByEmail(req.body.user.email)
   if (checkUser) {
     return res.json({
       status: 'ERROR',
       message: 'The entered e-mail is already registered'
     })
   }
-  const user = new User(req.body)
-  user.setPassword(req.body.password)
+  const user = new User(req.body.user)
+  user.setPassword(req.body.user.password)
   await user.save()
   console.log(user)
   return res.json({

@@ -8,7 +8,13 @@ const auth = {
   optional: jwt({
     secret: config.jwt.secret,
     credentialsRequired: false
-  })
+  }),
+  admin: (req, res, next) => {
+    if (req.user.roleId !== 1) {
+      return res.sendStatus(403)
+    }
+    next()
+  }
 }
 
 module.exports = auth

@@ -7,6 +7,7 @@ module.exports = {
     fallbackLocale: 'en',
     messages: {
       en: {
+        ErrorCaptcha: 'Prove that you are not a robot.',
         DeleteConfirmUser: 'Are you sure you want to delete the user without the possibility of recovery?',
         Cancel: 'Cancel',
         OK: 'OK',
@@ -90,6 +91,7 @@ module.exports = {
         }
       },
       ru: {
+        ErrorCaptcha: 'Докажите, что вы не робот.',
         DeleteConfirmUser: 'Вы действительно хотите удалить пользователя без возможности восстановления?',
         Cancel: 'Отмена',
         OK: 'Да',

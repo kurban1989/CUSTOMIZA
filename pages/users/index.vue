@@ -55,19 +55,19 @@
             {{ data.item.lastName }} {{ data.item.firstName }}
           </template>
           <template v-slot:cell(roleName)="data">
-            <b-form-select size="sm" v-model="data.item.roleId">
+            <b-form-select size="sm" v-model="data.item.roleId" @change="changeUser(data.item)">
               <b-form-select-option v-for="(role, index) in roles" :key="index" :value="role.id">{{ $t(role.name) }}</b-form-select-option>
             </b-form-select>
           </template>
           <template v-slot:cell(statusName)="data">
-            <b-form-select size="sm" v-model="data.item.statusId">
+            <b-form-select size="sm" v-model="data.item.statusId" @change="changeUser(data.item)">
               <b-form-select-option v-for="(status, index) in statuses" :key="index" :value="status.id">{{ $t(status.name) }}</b-form-select-option>
             </b-form-select>
           </template>
           <template v-slot:cell(Actions)="data">
             <div class="row justify-content-end m-0">
               <b-button variant="success" size="sm">{{ $t('edit') }}</b-button>
-              <b-button class="ml-2" variant="danger" size="sm" @click="onDeleteConfirm">{{ $t('delete') }}</b-button>
+              <b-button class="ml-2" variant="danger" size="sm" @click="onDeleteConfirm(data.item.id)">{{ $t('delete') }}</b-button>
             </div>
           </template>
         </b-table>
@@ -121,7 +121,15 @@ export default {
       filter: '',
       totalRows: 1,
       currentPage: 1,
-      perPage: 20
+      perPage: 20,
+      deleteUserId: null
+    }
+  },
+  watch: {
+    users: {
+      handler () {
+      },
+      immediate: false
     }
   },
   mounted () {
@@ -131,10 +139,15 @@ export default {
     this.$store.dispatch('users/getUsers').then(res => this.totalRows = res.data.length)
   },
   methods: {
-    onDelete () {
-      console.log('delete')
+    changeUser (user) {
+      console.log(user)
+      this.$store.dispatch('users/saveUser', user)
     },
-    onDeleteConfirm () {
+    onDelete () {
+      this.$store.dispatch('users/deleteUser', this.deleteUserId)
+    },
+    onDeleteConfirm (id) {
+      this.deleteUserId = id
       this.$bvModal.show('delete-confirmation')
     },
     onFiltered (filteredItems) {
