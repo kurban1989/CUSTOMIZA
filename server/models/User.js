@@ -53,7 +53,7 @@ class User {
     } else {
       await db.setData('users', user)
     }
-    Object.assign(this, await User.getUser(user.id))
+    Object.assign(this, await User.getUserByEmail(user.email))
   }
   // eslint-disable-next-line require-await
   async delete () {

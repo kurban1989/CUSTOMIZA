@@ -15,7 +15,6 @@ controller.signup = async function (req, res) {
   const user = new User(req.body.user)
   user.setPassword(req.body.user.password)
   await user.save()
-  console.log(user)
   return res.json({
     status: 'OK'
   })

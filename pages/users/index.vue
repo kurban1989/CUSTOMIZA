@@ -9,7 +9,7 @@
         </h1>
         <b-row>
           <b-col lg="6">
-            <b-button variant="primary">{{ $t('NewUser') }}</b-button>
+            <b-button variant="primary" @click="openEditUser()">{{ $t('NewUser') }}</b-button>
           </b-col>
           <b-col lg="6">
             <b-form-group
@@ -55,18 +55,18 @@
             {{ data.item.lastName }} {{ data.item.firstName }}
           </template>
           <template v-slot:cell(roleName)="data">
-            <b-form-select size="sm" v-model="data.item.roleId" @change="changeUser(data.item)">
+            <b-form-select size="sm" v-model="data.item.roleId" @change="saveUser(data.item)">
               <b-form-select-option v-for="(role, index) in roles" :key="index" :value="role.id">{{ $t(role.name) }}</b-form-select-option>
             </b-form-select>
           </template>
           <template v-slot:cell(statusName)="data">
-            <b-form-select size="sm" v-model="data.item.statusId" @change="changeUser(data.item)">
+            <b-form-select size="sm" v-model="data.item.statusId" @change="saveUser(data.item)">
               <b-form-select-option v-for="(status, index) in statuses" :key="index" :value="status.id">{{ $t(status.name) }}</b-form-select-option>
             </b-form-select>
           </template>
           <template v-slot:cell(Actions)="data">
             <div class="row justify-content-end m-0">
-              <b-button variant="success" size="sm">{{ $t('edit') }}</b-button>
+              <b-button variant="success" size="sm" @click="openEditUser(data.item)">{{ $t('edit') }}</b-button>
               <b-button class="ml-2" variant="danger" size="sm" @click="onDeleteConfirm(data.item.id)">{{ $t('delete') }}</b-button>
             </div>
           </template>
@@ -77,6 +77,7 @@
           :per-page="perPage"
           page-class="success"
         ></b-pagination>
+        <user-form :new-user="!user" :user="user || {}"></user-form>
       </div>
     </header-site>
     <footer-site />
@@ -90,6 +91,7 @@ import FooterSite from '~/components/FooterSite'
 import MobileMenu from '~/components/menus/MobileMenu'
 import mainMenu from '~/resourse/mainMenu.json'
 import ConfirmationDialog from '~/components/elements/ConfirmationDialog'
+import UserForm from '~/components/elements/UserForm'
 
 export default {
   middleware: ['auth', 'admin'],
@@ -97,11 +99,13 @@ export default {
     HeaderSite,
     FooterSite,
     MobileMenu,
-    ConfirmationDialog
+    ConfirmationDialog,
+    UserForm
   },
   computed: {
     ...mapGetters({
       loading: 'users/loading',
+      user: 'users/user',
       users: 'users/users',
       statuses: 'users/statuses',
       roles: 'users/roles'
@@ -139,8 +143,12 @@ export default {
     this.$store.dispatch('users/getUsers').then(res => this.totalRows = res.data.length)
   },
   methods: {
-    changeUser (user) {
-      console.log(user)
+    openEditUser (user) {
+      this.$store.dispatch('users/selectedUser', user).then(() => {
+        this.$bvModal.show('user-edit-modal')
+      })
+    },
+    saveUser (user) {
       this.$store.dispatch('users/saveUser', user)
     },
     onDelete () {

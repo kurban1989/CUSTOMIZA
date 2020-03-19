@@ -37,13 +37,18 @@ controller.getUsers = async function (req, res) {
 
 // eslint-disable-next-line require-await
 controller.saveUser = async function (req, res) {
-  console.log(req.body)
+  const checkUser = !req.body.id ? await User.getUserByEmail(req.body.email) : false
+  if (checkUser) {
+    return res.json({
+      status: 'ERROR',
+      message: 'The entered e-mail is already registered'
+    })
+  }
   const user = new User(req.body)
-  if (req.body.password) {
+  if (req.body.password && req.body.password.length >= 6) {
     user.setPassword(req.body.password)
   }
   await user.save()
-  console.log(user)
   return res.json({
     status: 'OK',
     data: user.toJSON()

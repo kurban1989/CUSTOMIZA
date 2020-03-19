@@ -86,8 +86,6 @@
 <script>
 // eslint-disable-next-line no-unused-vars
 import { required, minLength } from 'vuelidate/lib/validators'
-// eslint-disable-next-line no-unused-vars
-import { request } from '~/helpers'
 import GRecaptcha from '~/components/elements/GRecaptcha'
 import BaseInput from '~/components/elements/BaseInput'
 import PrimaryButton from '~/components/elements/PrimaryButton'

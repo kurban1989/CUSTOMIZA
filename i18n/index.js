@@ -7,11 +7,13 @@ module.exports = {
     fallbackLocale: 'en',
     messages: {
       en: {
+        Save: 'Save',
         ErrorCaptcha: 'Prove that you are not a robot.',
         DeleteConfirmUser: 'Are you sure you want to delete the user without the possibility of recovery?',
         Cancel: 'Cancel',
         OK: 'OK',
         NewUser: 'New user',
+        EditingUser: 'User editing',
         SearchUser: 'Search user',
         Search: 'Search',
         clear: 'Clear',
@@ -91,11 +93,13 @@ module.exports = {
         }
       },
       ru: {
+        Save: 'Сохранить',
         ErrorCaptcha: 'Докажите, что вы не робот.',
         DeleteConfirmUser: 'Вы действительно хотите удалить пользователя без возможности восстановления?',
         Cancel: 'Отмена',
         OK: 'Да',
         NewUser: 'Новый пользователь',
+        EditingUser: 'Редактирование пользователя',
         SearchUser: 'Поиск пользователя',
         Search: 'Поиск',
         clear: 'Очистить',
