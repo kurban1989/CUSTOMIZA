@@ -22,16 +22,17 @@ module.exports = {
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
     ]
   },
-  router: {
-    // middleware: ['i18n'],
-    scrollBehavior (to, from, savedPosition) {
-      if (savedPosition) {
-        return savedPosition
-      }
+  // router: {
+  //   // middleware: ['i18n'],
+  //   scrollBehavior (to, from, savedPosition) {
+  //     if (savedPosition) {
+  //       return savedPosition
+  //     }
+  //
+  //     return { x: 0, y: 0 }
+  //   }
+  // },
 
-      return { x: 0, y: 0 }
-    }
-  },
   /*
   ** Customize the progress-bar color
   */
@@ -92,6 +93,7 @@ module.exports = {
   ** See https://axios.nuxtjs.org/options
   */
   axios: {
+    baseURL: '/'
     // proxy: true
   },
   proxy: {

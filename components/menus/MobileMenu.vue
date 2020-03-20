@@ -12,7 +12,7 @@
           class="sections-menu--item content-center"
           :title="item.hint"
         >
-          <nuxt-link :to="`#nav_${item.link}`" @click="closeMenu">
+          <nuxt-link :to="`/#nav_${item.link}`" @click="closeMenu">
             {{ $t(item.title) }}
           </nuxt-link>
         </div>
