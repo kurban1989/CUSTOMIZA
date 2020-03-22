@@ -33,44 +33,46 @@
             </b-form-group>
           </b-col>
         </b-row>
-        <b-table
-          hover
-          :fields="fields"
-          :items="users"
-          :busy="loading"
-          :current-page="currentPage"
-          :per-page="perPage"
-          :filter="filter"
-          class="mt-3"
-          head-variant="light"
-          table-variant="light"
-          outlined
-          @filtered="onFiltered">
-          <template v-slot:table-busy>
-            <div class="text-center text-success my-2">
-              <b-spinner class="align-middle"></b-spinner>
-            </div>
-          </template>
-          <template v-slot:cell(lastName)="data">
-            {{ data.item.lastName }} {{ data.item.firstName }}
-          </template>
-          <template v-slot:cell(roleName)="data">
-            <b-form-select size="sm" v-model="data.item.roleId" @change="saveUser(data.item)">
-              <b-form-select-option v-for="(role, index) in roles" :key="index" :value="role.id">{{ $t(role.name) }}</b-form-select-option>
-            </b-form-select>
-          </template>
-          <template v-slot:cell(statusName)="data">
-            <b-form-select size="sm" v-model="data.item.statusId" @change="saveUser(data.item)">
-              <b-form-select-option v-for="(status, index) in statuses" :key="index" :value="status.id">{{ $t(status.name) }}</b-form-select-option>
-            </b-form-select>
-          </template>
-          <template v-slot:cell(Actions)="data">
-            <div class="row justify-content-end m-0">
-              <b-button variant="success" size="sm" @click="openEditUser(data.item)">{{ $t('edit') }}</b-button>
-              <b-button class="ml-2" variant="danger" size="sm" @click="onDeleteConfirm(data.item.id)">{{ $t('delete') }}</b-button>
-            </div>
-          </template>
-        </b-table>
+        <div class="container-fluid p-0 m-0 overflow-auto">
+          <b-table
+            hover
+            :fields="fields"
+            :items="users"
+            :busy="loading"
+            :current-page="currentPage"
+            :per-page="perPage"
+            :filter="filter"
+            class="mt-3"
+            head-variant="light"
+            table-variant="light"
+            outlined
+            @filtered="onFiltered">
+            <template v-slot:table-busy>
+              <div class="text-center text-success my-2">
+                <b-spinner class="align-middle"></b-spinner>
+              </div>
+            </template>
+            <template v-slot:cell(lastName)="data">
+              {{ data.item.lastName }} {{ data.item.firstName }}
+            </template>
+            <template v-slot:cell(roleName)="data">
+              <b-form-select size="sm" v-model="data.item.roleId" @change="saveUser(data.item)">
+                <b-form-select-option v-for="(role, index) in roles" :key="index" :value="role.id">{{ $t(role.name) }}</b-form-select-option>
+              </b-form-select>
+            </template>
+            <template v-slot:cell(statusName)="data">
+              <b-form-select size="sm" v-model="data.item.statusId" @change="saveUser(data.item)">
+                <b-form-select-option v-for="(status, index) in statuses" :key="index" :value="status.id">{{ $t(status.name) }}</b-form-select-option>
+              </b-form-select>
+            </template>
+            <template v-slot:cell(Actions)="data">
+              <div class="row justify-content-end m-0">
+                <b-button variant="success" size="sm" @click="openEditUser(data.item)">{{ $t('edit') }}</b-button>
+                <b-button class="ml-2" variant="danger" size="sm" @click="onDeleteConfirm(data.item.id)">{{ $t('delete') }}</b-button>
+              </div>
+            </template>
+          </b-table>
+        </div>
         <b-pagination
           v-model="currentPage"
           :total-rows="totalRows"

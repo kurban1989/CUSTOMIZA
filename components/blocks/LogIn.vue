@@ -16,7 +16,7 @@
       <b-dropdown-header>{{$t($auth.user.roleName)}}</b-dropdown-header>
       <b-dropdown-divider></b-dropdown-divider>
       <template v-for="(item, index) in userMenu">
-        <b-dropdown-item v-if="item[$auth.user.roleName]" :key="index" :title="$t(item.hint)" :to="item.link">{{ $t(item.title) }}</b-dropdown-item>
+        <b-dropdown-item v-if="item[$auth.user.roleName]" :key="index" :title="$t(item.hint)" :to="item.link" @click="closeMenu">{{ $t(item.title) }}</b-dropdown-item>
       </template>
       <b-dropdown-divider></b-dropdown-divider>
       <div class="mx-2 ">
@@ -105,6 +105,9 @@ export default {
     }
   },
   methods: {
+    closeMenu () {
+      this.$store.dispatch('directory/switchMobileMenu', false)
+    },
     openLogIn () {
       this.$bvModal.show(this.mobile ? 'login-modal-mobile' : 'login-modal')
     },
