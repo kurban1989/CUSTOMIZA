@@ -1,6 +1,6 @@
 <template>
   <div class="relative">
-    <b-modal id="bv-forgot-message" :title="$t('sm')" ok-only @ok="onOk">
+    <b-modal id="bv-forgot-message" :title="$t('sm')" ok-only @hidden="onOk">
       <p class="note note-error">
         {{$t(messageError)}}
       </p>

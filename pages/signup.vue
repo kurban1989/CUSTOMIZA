@@ -7,7 +7,12 @@
     </b-modal>
     <mobile-menu :menu-list="list" />
     <header-site :slotHead="true" :header="$t('UserRegistration')">
-      <div class="container">
+      <div class="container" v-if="success">
+        <h1 class="h1 h3 row">
+          {{ $t('Hello') }}! {{ user.firstName }}, {{ $t('successfulRegistration') }}
+        </h1>
+      </div>
+      <div class="container" v-else>
         <loading-spinner :is-loading="loading" />
         <div class="row">
           <div class="col-sm for-leave-rent">
@@ -142,7 +147,8 @@ export default {
       errorPhone: false,
       loading: false,
       recaptchaToken: null,
-      errorRecaptchaToken: null
+      errorRecaptchaToken: null,
+      success: false
     }
   },
   methods: {
@@ -166,10 +172,8 @@ export default {
           this.messageError = res.data.message
           this.$bvModal.show('bv-signup-error')
         } else if (res.data.status === 'OK') {
-          this.$auth.loginWith('local', { data: { login: this.user.email, password: this.user.password } }).catch(() => {
-            this.messageError = 'ErrorLogin'
-            this.$bvModal.show('bv-signup-error')
-          })
+          this.success = true
+          this.$axios.post('/api/auth/confirm', this.user)
         }
       }).catch(() => {
         this.messageError = 'checkForm'

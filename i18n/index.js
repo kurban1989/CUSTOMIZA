@@ -7,6 +7,12 @@ module.exports = {
     fallbackLocale: 'en',
     messages: {
       en: {
+        NewPassword: 'Enter a new password',
+        successfulRegistration: 'registration was successful, to continue you need to confirm your account, for this you need to click on the link sent to your e-mail.',
+        confirmSuccess: 'your account has been successfully verified',
+        Hello: 'Hello',
+        ConfirmEmail: 'Send a confirmation email to your e-mail?',
+        'E-mail not verified': 'E-mail not verified',
         'Password reset link expired': 'Password reset link expired',
         'The entered e-mail is not registered': 'The entered e-mail is not registered',
         HeaderForgotPassword: 'To recover your password, enter your e-mail',
@@ -99,6 +105,12 @@ module.exports = {
         }
       },
       ru: {
+        NewPassword: 'Введите новый пароль',
+        successfulRegistration: 'регистрация прошла успешна, для продолжения необходимо подтвердить аккаунт, для этого необходимо перейти по ссылке отправленной на ваш e-mail.',
+        confirmSuccess: 'ваш аккаунт успешно подтвержден',
+        Hello: 'Здравствуйте',
+        ConfirmEmail: 'Отправить на ваш e-mail письмо с сылкой для подтверждения?',
+        'E-mail not verified': 'E-mail не подтвержден',
         'Password reset link expired': 'Время действия ссылки для восстановления пароля истекло',
         'The entered e-mail is not registered': 'Введенный e-mail не зарегистрирован',
         HeaderForgotPassword: 'Для восстановления пароля введите свой e-mail',

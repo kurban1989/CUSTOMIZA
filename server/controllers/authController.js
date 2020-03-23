@@ -2,8 +2,47 @@ const passport = require('passport')
 const User = require('../models/User')
 const { mailer } = require('../mailer')
 const letterForgot = require('../helpers/forgotMail')
+const letterConfirm = require('../helpers/confirmMail')
 
 const controller = {}
+
+// eslint-disable-next-line require-await
+controller.checkConfirmToken = async function (req, res) {
+  const user = await User.getUserByConfirmEmailToken(req.body.token)
+  return res.json({
+    status: user ? 'OK' : 'ERROR'
+  })
+}
+
+// eslint-disable-next-line require-await
+controller.confirmEmail = async function (req, res) {
+  const user = await User.getUserByConfirmEmailToken(req.body.token)
+  if (!user) {
+    return res.sendStatus(404)
+  }
+  await user.confirmEmail()
+  return res.json({
+    status: 'OK',
+    user: user.toJSON()
+  })
+}
+
+// eslint-disable-next-line require-await
+controller.confirm = async function (req, res) {
+  const user = await User.getUserByEmail(req.body.email)
+  if (!user) {
+    return res.json({
+      status: 'ERROR',
+      message: 'The entered e-mail is not registered'
+    })
+  }
+  const token = await user.generateConfirmEmailJWT()
+  const message = letterConfirm.getLetter({ email: user.email, token })
+  await mailer(message)
+  return res.json({
+    status: 'OK'
+  })
+}
 
 // eslint-disable-next-line require-await
 controller.resetPassword = async function (req, res) {
@@ -75,7 +114,7 @@ controller.signup = async function (req, res) {
 
 controller.login = function (req, res, next) {
   const user = req.body
-  if (!user.login) {
+  if (!user.email) {
     return res.status(422).json({
       errors: {
         login: 'is required'
@@ -93,6 +132,12 @@ controller.login = function (req, res, next) {
   return passport.authenticate('local', { session: false }, (err, user, info) => {
     if (err) { return next(err) }
     if (user) {
+      if (user.statusId === 3) {
+        return res.status(403).json({
+          status: 'ERROR',
+          message: 'E-mail not verified'
+        })
+      }
       user.token = user.generateJWT()
       return res.status(200).json({ token: user.token })
     }

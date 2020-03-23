@@ -40,6 +40,17 @@ class User {
   checkResetPasswordExpires () {
     return this.resetPasswordExpires > Date.now()
   }
+  generateConfirmEmailJWT () {
+    const token = crypto.pbkdf2Sync(this.email, this.salt, 10000, 64, 'sha512').toString('hex')
+    this.confirmEmailToken = token
+    this.save()
+    return token
+  }
+  confirmEmail () {
+    this.confirmEmailToken = ''
+    this.statusId = 1
+    return this.save()
+  }
   toJSON () {
     return {
       id: this.id,
@@ -93,6 +104,14 @@ class User {
       return null
     }
     const resultDb = await Users.getUsers('resetPasswordToken', token)
+    return resultDb.length === 0 ? null : new User(resultDb[0])
+  }
+  // eslint-disable-next-line require-await
+  static async getUserByConfirmEmailToken (token) {
+    if (!token) {
+      return null
+    }
+    const resultDb = await Users.getUsers('confirmEmailToken', token)
     return resultDb.length === 0 ? null : new User(resultDb[0])
   }
   // eslint-disable-next-line no-dupe-class-members

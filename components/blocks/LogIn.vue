@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-modal :id="mobile ? 'bv-login-error-mobile' : 'bv-login-error'" :title="$t('sm')" ok-only>
+    <b-modal :id="mobile ? 'bv-login-error-mobile' : 'bv-login-error'" :title="$t('sm')" :ok-only="!notVerified" @ok="onVerified">
       <p class="note note-error">
         {{$t(messageError)}}
       </p>
@@ -38,7 +38,7 @@
             <div class="col-sm for-leave-rent">
               <div class="row mb-3">
                 <base-input
-                  v-model.trim="user.login"
+                  v-model.trim="user.email"
                   :class="{'error-input': errorEmail}"
                   type="email"
                   :placeholder="$t('Email')"
@@ -98,13 +98,14 @@ export default {
     return {
       userMenu,
       user: {
-        login: '',
+        email: '',
         password: ''
       },
       messageError: 'checkForm',
       errorEmail: false,
       errorPassword: false,
-      loading: false
+      loading: false,
+      notVerified: false
     }
   },
   methods: {
@@ -115,7 +116,7 @@ export default {
       this.$bvModal.show(this.mobile ? 'login-modal-mobile' : 'login-modal')
     },
     login () {
-      this.errorEmail = this.errorEmail || this.user.login === ''
+      this.errorEmail = this.errorEmail || this.user.email === ''
       this.errorPassword = this.errorPassword || this.user.password === ''
       if (this.errorEmail || this.errorPassword) {
         this.messageError = 'checkForm'
@@ -125,9 +126,15 @@ export default {
       this.loading = true
       this.$auth.loginWith('local', { data: this.user }).then(() => {
         this.$bvModal.hide(this.mobile ? 'login-modal-mobile' : 'login-modal')
-      }).catch(() => {
-        this.messageError = 'ErrorLogin'
-        this.$bvModal.show(this.mobile ? 'bv-login-error-mobile' : 'bv-login-error')
+      }).catch((err) => {
+        if (err.response.data.message && err.response.data.message === 'E-mail not verified') {
+          this.notVerified = true
+          this.messageError = 'ConfirmEmail'
+          this.$bvModal.show(this.mobile ? 'bv-login-error-mobile' : 'bv-login-error')
+        } else {
+          this.messageError = 'ErrorLogin'
+          this.$bvModal.show(this.mobile ? 'bv-login-error-mobile' : 'bv-login-error')
+        }
       }).finally(() => {
         this.loading = false
       })
@@ -137,6 +144,11 @@ export default {
         this.errorEmail = false
       } else {
         this.errorEmail = true
+      }
+    },
+    onVerified () {
+      if (this.notVerified) {
+        this.$axios.post('/api/auth/confirm', this.user)
       }
     }
   }

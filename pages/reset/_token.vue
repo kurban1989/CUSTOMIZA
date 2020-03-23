@@ -9,7 +9,7 @@
     <header-site :slotHead="true" header="">
       <div class="container" style="max-width: 500px">
         <h1 class="h1 h5 row">
-          {{ $t('HeaderForgotPassword') }}
+          {{ $t('NewPassword') }}
         </h1>
         <div class="row">
           <loading-spinner :is-loading="loading" />
@@ -92,9 +92,6 @@ export default {
       loading: false
     }
   },
-  mounted () {
-    console.log(this.$route.params)
-  },
   methods: {
     reset () {
       this.errorPassword = !this.user.password || this.user.password.length < 6
@@ -111,7 +108,7 @@ export default {
           this.messageError = res.data.message
           this.$bvModal.show('bv-forgot-message')
         } else if (res.data.status === 'OK') {
-          this.$auth.loginWith('local', { data: { login: res.data.user.email, password: this.user.password } }).catch(() => {
+          this.$auth.loginWith('local', { data: { email: res.data.user.email, password: this.user.password } }).catch(() => {
             this.messageError = 'ErrorLogin'
             this.$bvModal.show('bv-reset-result')
           })
