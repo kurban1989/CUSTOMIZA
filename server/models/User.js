@@ -14,6 +14,8 @@ class User {
     }
   }
   setPassword (password) {
+    this.resetPasswordToken = ''
+    this.resetPasswordExpires = ''
     this.salt = crypto.randomBytes(16).toString('hex')
     this.hash = crypto.pbkdf2Sync(password, this.salt, 10000, 64, 'sha512').toString('hex')
   }
@@ -27,6 +29,16 @@ class User {
       roleId: this.roleId,
       email: this.email
     }, config.jwt.secret, { expiresIn: config.jwt.expiresIn })
+  }
+  generateForgotPasswordJWT () {
+    const token = crypto.pbkdf2Sync(this.email, this.salt, 10000, 64, 'sha512').toString('hex')
+    this.resetPasswordToken = token
+    this.resetPasswordExpires = Date.now() + 3600000
+    this.save()
+    return token
+  }
+  checkResetPasswordExpires () {
+    return this.resetPasswordExpires > Date.now()
   }
   toJSON () {
     return {
@@ -73,6 +85,14 @@ class User {
       return null
     }
     const resultDb = await Users.getUsers('email', login)
+    return resultDb.length === 0 ? null : new User(resultDb[0])
+  }
+  // eslint-disable-next-line require-await
+  static async getUserByResetPasswordToken (token) {
+    if (!token) {
+      return null
+    }
+    const resultDb = await Users.getUsers('resetPasswordToken', token)
     return resultDb.length === 0 ? null : new User(resultDb[0])
   }
   // eslint-disable-next-line no-dupe-class-members

@@ -2,7 +2,7 @@
   <header class="header">
     <navbar />
     <div class="container">
-      <h1 class="h1 row" v-if="header">
+      <h1 class="h1 row" v-if="header" :class="headerClass">
         {{ $t(header) }}
       </h1>
     </div>
@@ -20,6 +20,11 @@ export default {
       type: String,
       required: false,
       default: 'mainH1'
+    },
+    headerClass: {
+      type: String,
+      required: false,
+      default: ''
     },
     slotHead: {
       type: Boolean,
@@ -40,6 +45,12 @@ export default {
     font-size: 54px;
     font-weight: 500;
     text-align: left;
+  }
+  .h3 {
+    font-size: 28px !important;
+  }
+  .h5 {
+    font-size: 16px !important;
   }
   .header {
     width: 100vw;

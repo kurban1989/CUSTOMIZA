@@ -7,6 +7,12 @@ module.exports = {
     fallbackLocale: 'en',
     messages: {
       en: {
+        'Password reset link expired': 'Password reset link expired',
+        'The entered e-mail is not registered': 'The entered e-mail is not registered',
+        HeaderForgotPassword: 'To recover your password, enter your e-mail',
+        MessageForgotPassword: 'An email has been sent to your e-mail with a link to reset your password.',
+        ForgotPassword: 'Forgot your password?',
+        RestorePassword: 'Restore password',
         Save: 'Save',
         ErrorCaptcha: 'Prove that you are not a robot.',
         DeleteConfirmUser: 'Are you sure you want to delete the user without the possibility of recovery?',
@@ -93,6 +99,12 @@ module.exports = {
         }
       },
       ru: {
+        'Password reset link expired': 'Время действия ссылки для восстановления пароля истекло',
+        'The entered e-mail is not registered': 'Введенный e-mail не зарегистрирован',
+        HeaderForgotPassword: 'Для восстановления пароля введите свой e-mail',
+        MessageForgotPassword: 'На ваш e-mail отправлено письмо с ссылкой для восстановления пароля.',
+        ForgotPassword: 'Забыли пароль?',
+        RestorePassword: 'Восстановить пароль',
         Save: 'Сохранить',
         ErrorCaptcha: 'Докажите, что вы не робот.',
         DeleteConfirmUser: 'Вы действительно хотите удалить пользователя без возможности восстановления?',

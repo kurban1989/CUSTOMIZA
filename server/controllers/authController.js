@@ -1,7 +1,60 @@
 const passport = require('passport')
 const User = require('../models/User')
+const { mailer } = require('../mailer')
+const letterForgot = require('../helpers/forgotMail')
 
 const controller = {}
+
+// eslint-disable-next-line require-await
+controller.resetPassword = async function (req, res) {
+  const user = await User.getUserByResetPasswordToken(req.body.token)
+  if (!user || !user.checkResetPasswordExpires()) {
+    return res.json({
+      status: 'ERROR',
+      message: 'Password reset link expired'
+    })
+  }
+  if (!req.body.user.password || req.body.user.password.length < 6) {
+    return res.sendStatus(400)
+  }
+  user.setPassword(req.body.user.password)
+  await user.save()
+  return res.json({
+    status: 'OK',
+    user: user.toJSON()
+  })
+}
+
+// eslint-disable-next-line require-await
+controller.checkResetToken = async function (req, res) {
+  const user = await User.getUserByResetPasswordToken(req.body.token)
+  if (!user || !user.checkResetPasswordExpires()) {
+    return res.json({
+      status: 'ERROR',
+      message: 'Password reset link expired'
+    })
+  }
+  return res.json({
+    status: 'OK'
+  })
+}
+
+// eslint-disable-next-line require-await
+controller.forgot = async function (req, res) {
+  const user = await User.getUserByEmail(req.body.email)
+  if (!user) {
+    return res.json({
+      status: 'ERROR',
+      message: 'The entered e-mail is not registered'
+    })
+  }
+  const token = await user.generateForgotPasswordJWT()
+  const message = letterForgot.getLetter({ email: user.email, token })
+  await mailer(message)
+  return res.json({
+    status: 'OK'
+  })
+}
 
 // eslint-disable-next-line require-await
 controller.signup = async function (req, res) {

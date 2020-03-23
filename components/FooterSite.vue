@@ -1,7 +1,7 @@
 <template>
   <footer class="container relative">
     <div class="row no-gutters footer justify-content-md-start justify-content-sm-center">
-      <nuxt-link to="/" class="logo bg-standart-options col-md-2" />
+      <nuxt-link :to="localePath({ path: '/' })" class="logo bg-standart-options col-md-2" />
       <div class="col-md-8 offset-md-1 align-self-center second-col">
         <p class="rights">
           {{ $t('© All rights reserved.') }}

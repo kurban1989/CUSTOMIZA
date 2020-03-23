@@ -1,7 +1,7 @@
 <template>
   <nav class="container">
     <div class="row no-gutters header">
-      <nuxt-link to="/" class="logo bg-standart-options col-3 col-md-2" />
+      <nuxt-link :to="localePath({ path: '/' })" class="logo bg-standart-options col-3 col-md-2" />
       <div class="col-lg-9 col-md-10 col-9 offset-lg-1 menu-group align-self-center align-self-md-start">
         <div class="row no-gutters justify-content-lg-between justify-content-md-end blocks-center">
           <ul class="col no-gutters flex justify-content-lg-start justify-content-end align-items-center align-items-md-start">
@@ -11,7 +11,7 @@
               class="link item-menu"
               :title="item.hint"
             >
-              <nuxt-link :to="`/#nav_${item.link}`" class="a-link">
+              <nuxt-link :to="localePath({ path: '/', hash: `#nav_${item.link}`})" class="a-link">
                 {{ $t(item.title) }}
               </nuxt-link>
             </li>
@@ -38,7 +38,7 @@
                 {{ $t('Free call in Russia') }}
               </p>
             </div>
-            <primary-button class="a-link-btn" :link="true" to="#nav_consultation">
+            <primary-button class="a-link-btn" :link="true" :to="localePath({ path: '/', hash: '#nav_consultation'})">
               <div class="btn-text">
                 {{ $t('Get free consultation on 1C') }}
               </div>

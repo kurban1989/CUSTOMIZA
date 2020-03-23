@@ -36,7 +36,8 @@ const configObjects = {
   get jwt () {
     return {
       secret: 'customiza',
-      expiresIn: '30d'
+      expiresIn: '30d',
+      shortExpiresIn: '1h'
     }
   },
   get recaptcha () {

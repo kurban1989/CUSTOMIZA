@@ -16,7 +16,9 @@
       <b-dropdown-header>{{$t($auth.user.roleName)}}</b-dropdown-header>
       <b-dropdown-divider></b-dropdown-divider>
       <template v-for="(item, index) in userMenu">
-        <b-dropdown-item v-if="item[$auth.user.roleName]" :key="index" :title="$t(item.hint)" :to="item.link" @click="closeMenu">{{ $t(item.title) }}</b-dropdown-item>
+        <span :key="index" @click="closeMenu">
+          <b-dropdown-item v-if="item[$auth.user.roleName]" :title="$t(item.hint)" :to="localePath(item.link)">{{ $t(item.title) }}</b-dropdown-item>
+        </span>
       </template>
       <b-dropdown-divider></b-dropdown-divider>
       <div class="mx-2 ">
@@ -57,7 +59,8 @@
           </div>
         </form>
         <div class="justify-content-center place-button text-right mt-3">
-          <nuxt-link to="signup" class="a-login mr-3 align-middle">{{$t('Registration')}}</nuxt-link>
+          <nuxt-link :to="localePath('forgot')" class="a-login mr-3 align-middle">{{$t('ForgotPassword')}}</nuxt-link>
+          <nuxt-link :to="localePath('signup')" class="a-login mr-3 align-middle">{{$t('Registration')}}</nuxt-link>
           <secodary-button class="align-self-end" @click="login">
             <span>
               {{$t('LogIn')}}

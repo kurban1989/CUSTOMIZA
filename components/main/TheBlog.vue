@@ -23,7 +23,7 @@
                   {{ post.body }}
                 </p>
               </div>
-              <nuxt-link class="post__more" to="/">
+              <nuxt-link class="post__more" :to="localePath({ path: '/' })">
                 {{ $t('Read completely') }}
               </nuxt-link>
             </div>

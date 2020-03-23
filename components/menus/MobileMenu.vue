@@ -12,9 +12,11 @@
           class="sections-menu--item content-center"
           :title="item.hint"
         >
-          <nuxt-link :to="`/#nav_${item.link}`" @click="closeMenu">
-            {{ $t(item.title) }}
-          </nuxt-link>
+          <span  @click="closeMenu">
+            <nuxt-link :to="localePath({ path: '/', hash: `#nav_${item.link}`})">
+              {{ $t(item.title) }}
+            </nuxt-link>
+          </span>
         </div>
 
         <div
