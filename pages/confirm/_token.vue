@@ -20,8 +20,8 @@
 
 <script>
 // eslint-disable-next-line no-unused-vars
-import axios from 'axios'
-// import { request } from '~/helpers'
+// import axios from 'axios'
+import { request } from '~/helpers'
 import HeaderSite from '~/components/HeaderSite'
 import FooterSite from '~/components/FooterSite'
 import MobileMenu from '~/components/menus/MobileMenu'
@@ -33,9 +33,9 @@ export default {
   async validate ({ params }) {
     // Production
     // eslint-disable-next-line no-return-await
-    // const check = await request({ url: '/api/auth/checkconfirmtoken', body: { token: params.token } })
+    const check = await request({ url: '/api/auth/checkconfirmtoken', body: { token: params.token } })
     // Local
-    const check = await axios.post('http://localhost:3000/api/auth/checkconfirmtoken', { token: params.token })
+    // const check = await axios.post('http://localhost:3000/api/auth/checkconfirmtoken', { token: params.token })
     return check.data.status === 'OK'
   },
   components: {
