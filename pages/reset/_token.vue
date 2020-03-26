@@ -51,7 +51,6 @@
 
 <script>
 // eslint-disable-next-line no-unused-vars
-// import axios from 'axios'
 import { request } from '~/helpers'
 import BaseInput from '~/components/elements/BaseInput'
 import PrimaryButton from '~/components/elements/PrimaryButton'
@@ -66,10 +65,10 @@ export default {
   async validate ({ params }) {
     // Production
     // eslint-disable-next-line no-return-await
-    const check = await request({ url: '/api/auth/checktoken', body: { token: params.token } })
+    const check = await request({ url: 'http://customiza.ru/api/auth/checktoken', body: { token: params.token } })
     // Local
-    // const check = await axios.post('http://localhost:3000/api/auth/checktoken', { token: params.token })
-    return check.data.status === 'OK'
+    // const check = await request({ url: 'http://localhost:3000/api/auth/checktoken', body: { token: params.token } })
+    return check && check.data.status === 'OK'
   },
   components: {
     HeaderSite,
