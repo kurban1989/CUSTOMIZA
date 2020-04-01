@@ -3,10 +3,10 @@
     <mobile-menu :menu-list="list" />
     <header-site :slotHead="true" header="">
       <div class="container">
-        <h1 class="h1 row" v-if="success">
+        <h1 class="h1 row text-black" v-if="success">
           {{ $t('Hello') }}! {{ user.firstName }}, {{ $t('confirmSuccess') }}.
         </h1>
-        <h1 class="h1 row" v-if="!success && !loading">
+        <h1 class="h1 row text-black" v-if="!success && !loading">
           {{ $t('badRequest') }}
         </h1>
         <div class="row">

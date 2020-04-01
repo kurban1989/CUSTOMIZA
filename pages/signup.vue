@@ -8,7 +8,7 @@
     <mobile-menu :menu-list="list" />
     <header-site :slotHead="true" :header="$t('UserRegistration')">
       <div class="container" v-if="success">
-        <h1 class="h1 h3 row">
+        <h1 class="h1 h3 row text-black">
           {{ $t('Hello') }}! {{ user.firstName }}, {{ $t('successfulRegistration') }}
         </h1>
       </div>
@@ -159,10 +159,10 @@ export default {
       this.errorLastName = this.user.lastName === ''
       this.errorEmail = this.errorEmail || this.user.email === ''
       this.errorPassword = this.user.password.length < 6
-      this.errorPasswordReplay = this.user.passwordReplay.length < 6 || this.user.passwordReplay !== this.user.password
-      const error = this.errorFirstName || this.errorLastName || this.errorEmail || this.errorPassword || this.errorPasswordReplay || this.errorRecaptchaToken
-      if (error) {
-        this.messageError = 'checkForm'
+      this.errorPasswordReplay = this.user.passwordReplay !== this.user.password
+      const error = this.errorFirstName || this.errorLastName || this.errorEmail || this.errorPasswordReplay || this.errorRecaptchaToken
+      if (error || this.errorPassword) {
+        this.messageError = !error && this.errorPassword ? 'checkPassword' : 'checkForm'
         this.$bvModal.show('bv-signup-error')
         return false
       }

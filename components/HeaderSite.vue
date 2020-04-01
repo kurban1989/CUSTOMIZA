@@ -52,6 +52,9 @@ export default {
   .h5 {
     font-size: 16px !important;
   }
+  .text-black {
+    color: #000!important;
+  }
   .header {
     width: 100vw;
     height: 1270px;

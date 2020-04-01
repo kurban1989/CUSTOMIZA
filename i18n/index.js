@@ -7,6 +7,7 @@ module.exports = {
     fallbackLocale: 'en',
     messages: {
       en: {
+        checkPassword: 'Password must be longer than 6 characters',
         NewPassword: 'Enter a new password',
         successfulRegistration: 'registration was successful, to continue you need to confirm your account, for this you need to click on the link sent to your e-mail.',
         confirmSuccess: 'your account has been successfully verified',
@@ -105,8 +106,9 @@ module.exports = {
         }
       },
       ru: {
+        checkPassword: 'Длина пароля должна быть больше 6 символов',
         NewPassword: 'Введите новый пароль',
-        successfulRegistration: 'регистрация прошла успешна, для продолжения необходимо подтвердить аккаунт, для этого необходимо перейти по ссылке отправленной на ваш e-mail.',
+        successfulRegistration: 'регистрация прошла успешно, для продолжения необходимо подтвердить аккаунт, для этого необходимо перейти по ссылке отправленной на ваш e-mail.',
         confirmSuccess: 'ваш аккаунт успешно подтвержден',
         Hello: 'Здравствуйте',
         ConfirmEmail: 'Отправить на ваш e-mail письмо с сылкой для подтверждения?',
