@@ -1,12 +1,12 @@
 <template>
   <div class="relative">
     <mobile-menu :menu-list="list" />
-    <header-site :slotHead="true" header="">
+    <header-site :slot-head="true" header="">
       <div class="container">
-        <h1 class="h1 row text-black" v-if="success">
+        <h1 v-if="success" class="h1 row text-black">
           {{ $t('Hello') }}! {{ user.firstName }}, {{ $t('confirmSuccess') }}.
         </h1>
-        <h1 class="h1 row text-black" v-if="!success && !loading">
+        <h1 v-if="!success && !loading" class="h1 row text-black">
           {{ $t('badRequest') }}
         </h1>
         <div class="row">
@@ -32,9 +32,9 @@ export default {
   async validate ({ params }) {
     // Production
     // eslint-disable-next-line no-return-await
-    const check = await request({ url: 'http://customiza.ru/api/auth/checkconfirmtoken', body: { token: params.token } })
+    // const check = await request({ url: 'http://customiza.ru/api/auth/checkconfirmtoken', body: { token: params.token } })
     // Local
-    // const check = await request({ url: 'http://localhost:3000/api/auth/checkconfirmtoken', body: { token: params.token } })
+    const check = await request({ url: 'http://localhost:3000/api/auth/checkconfirmtoken', body: { token: params.token } })
     return check && check.data.status === 'OK'
   },
   components: {

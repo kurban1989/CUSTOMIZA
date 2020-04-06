@@ -12,7 +12,7 @@
           class="sections-menu--item content-center"
           :title="item.hint"
         >
-          <span  @click="closeMenu">
+          <span @click="closeMenu">
             <nuxt-link :to="localePath({ path: '/', hash: `#nav_${item.link}`})">
               {{ $t(item.title) }}
             </nuxt-link>
@@ -22,7 +22,7 @@
         <div
           class="sections-menu--item content-center"
         >
-          <log-in mobile></log-in>
+          <log-in mobile />
         </div>
         <switcher-lang />
       </div>
