@@ -160,9 +160,17 @@ export default {
       this.errorEmail = this.errorEmail || this.user.email === ''
       this.errorPassword = this.user.password.length < 6
       this.errorPasswordReplay = this.user.passwordReplay !== this.user.password
-      const error = this.errorFirstName || this.errorLastName || this.errorEmail || this.errorPasswordReplay || this.errorRecaptchaToken
-      if (error || this.errorPassword) {
-        this.messageError = !error && this.errorPassword ? 'checkPassword' : 'checkForm'
+      const error = this.errorPhone || this.errorFirstName || this.errorLastName || this.errorEmail || this.errorRecaptchaToken
+      if (error || this.errorPassword || this.errorPasswordReplay) {
+        if (this.errorPasswordReplay) {
+          this.messageError = 'checkPasswordReplay'
+        }
+        if (this.errorPassword) {
+          this.messageError = 'checkPassword'
+        }
+        if (error) {
+          this.messageError = 'checkForm'
+        }
         this.$bvModal.show('bv-signup-error')
         return false
       }
