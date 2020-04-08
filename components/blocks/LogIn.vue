@@ -59,8 +59,8 @@
           </div>
         </form>
         <div class="justify-content-center place-button text-right mt-3">
-          <nuxt-link :to="localePath('forgot')" class="a-login mr-3 align-middle">{{$t('ForgotPassword')}}</nuxt-link>
-          <nuxt-link :to="localePath('signup')" class="a-login mr-3 align-middle">{{$t('Registration')}}</nuxt-link>
+          <span @click="closeMenu"><nuxt-link :to="localePath('forgot')" class="a-login mr-3 align-middle">{{$t('ForgotPassword')}}</nuxt-link></span>
+          <span @click="closeMenu"><nuxt-link :to="localePath('signup')" class="a-login mr-3 align-middle">{{$t('Registration')}}</nuxt-link></span>
           <secodary-button class="align-self-end" @click="login">
             <span>
               {{$t('LogIn')}}

@@ -144,9 +144,17 @@ export default {
         this.errorPassword = this.user.password && this.user.password.length < 6
         this.errorPasswordReplay = this.user.password && ((this.user.passwordReplay && this.user.passwordReplay.length < 6) || this.user.passwordReplay !== this.user.password)
       }
-      const error = this.errorFirstName || this.errorLastName || this.errorEmail || this.errorPassword || this.errorPasswordReplay
-      if (error) {
-        this.messageError = 'checkForm'
+      const error = this.errorPhone || this.errorFirstName || this.errorLastName || this.errorEmail
+      if (error || this.errorPassword || this.errorPasswordReplay) {
+        if (this.errorPasswordReplay) {
+          this.messageError = 'checkPasswordReplay'
+        }
+        if (this.errorPassword) {
+          this.messageError = 'checkPassword'
+        }
+        if (error) {
+          this.messageError = 'checkForm'
+        }
         this.$bvModal.show('bv-user-save-error')
         return false
       }
