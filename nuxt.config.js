@@ -16,7 +16,7 @@ module.exports = {
     meta: [
       { charset: 'utf-8' },
       // TO DO ONLY SUB DOMAIN v3 v4 stage
-      { name: 'robots', content: 'noindex, nofollow' },
+      // { name: 'robots', content: 'noindex, nofollow' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1, maximum-scale=5.0' },
       { hid: 'description', name: 'description', content: process.env.npm_package_description || '' }
     ],
