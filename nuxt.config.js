@@ -2,11 +2,11 @@
 const i18n = require('./i18n')
 module.exports = {
   // Only Production
-  // server: {
-  //   // nuxt.js server options ( can be overrided by environment variables )
-  //   port: 3000,
-  //   host: 'customiza.ru'
-  // },
+  server: {
+    // nuxt.js server options ( can be overrided by environment variables )
+    port: 3000,
+    host: 'customiza.ru'
+  },
   mode: 'universal',
   /*
   ** Headers of the page
@@ -24,16 +24,6 @@ module.exports = {
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
     ]
   },
-  // router: {
-  //   // middleware: ['i18n'],
-  //   scrollBehavior (to, from, savedPosition) {
-  //     if (savedPosition) {
-  //       return savedPosition
-  //     }
-  //
-  //     return { x: 0, y: 0 }
-  //   }
-  // },
 
   /*
   ** Customize the progress-bar color

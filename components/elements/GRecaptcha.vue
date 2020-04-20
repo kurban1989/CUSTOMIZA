@@ -29,8 +29,8 @@ export default {
   data () {
     return {
       // local host
-      sitekey: '6Lc8dOIUAAAAAMVnPnhMBYSxEA3o7oCCKMaT7OvI'
-      // sitekey: '6LepeIIUAAAAABPqWNU5ZqbRRVL5C6CoBnhYoj95'
+      // sitekey: '6Lc8dOIUAAAAAMVnPnhMBYSxEA3o7oCCKMaT7OvI'
+      sitekey: '6LepeIIUAAAAABPqWNU5ZqbRRVL5C6CoBnhYoj95'
     }
   },
   methods: {

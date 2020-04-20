@@ -134,7 +134,6 @@ export default {
     decode (code) {
       const decoded = binary.fromBinary(this.enCode(code))
       return decoded.replace(/(src="\.\.\/)/gm, 'src="/')
-      // return decoded.replace(/(height="\d{1,}"|width="\d{1,}")/gm, '')
     },
     setImgBlockHeight () {
       const images = document.querySelectorAll('.post__body img');
