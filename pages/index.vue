@@ -46,6 +46,7 @@ import MobileMenu from '~/components/menus/MobileMenu'
 import mainMenu from '~/resourse/mainMenu.json'
 
 export default {
+  name: 'Main',
   components: {
     'b-modal': BModal,
     WhatDoEndUpWith,

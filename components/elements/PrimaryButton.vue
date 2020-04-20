@@ -1,6 +1,6 @@
 <template>
   <component
-    :is="link ? 'router-link' : 'button'"
+    :is="link ? 'nuxt-link' : 'button'"
     :type="!link ? type : false"
     class="primary"
     v-bind="$attrs"

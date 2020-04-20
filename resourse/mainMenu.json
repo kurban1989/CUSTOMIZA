@@ -5,18 +5,13 @@
     "hint": "Решенные кейсы"
   },
   {
-    "link": "articles",
-    "title": "Articles",
-    "hint": "Articles"
-  },
-  {
     "link": "rent",
     "title": "Rent 1C",
     "hint": "Аренда 1С программ"
   },
   {
-    "link": "atelier",
-    "title": "Atelier PO",
-    "hint": "Ателье программного обеспечения"
+    "link": "articles",
+    "title": "Blog",
+    "hint": "Blog"
   }
 ]

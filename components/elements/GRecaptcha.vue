@@ -1,13 +1,13 @@
 <template>
   <div class="d-inline p-1" :class="{'error': error}">
     <vue-recaptcha
+      ref="recaptcha"
+      :load-recaptcha-script="true"
+      :sitekey="sitekey"
       @verify="onVerify"
       @expired="onExpired"
-      ref="recaptcha"
-      :loadRecaptchaScript="true"
-      :sitekey="sitekey">
-    </vue-recaptcha>
-    <span v-if="error">{{$t('ErrorCaptcha')}}</span>
+    />
+    <span v-if="error">{{ $t('ErrorCaptcha') }}</span>
   </div>
 </template>
 
@@ -29,8 +29,8 @@ export default {
   data () {
     return {
       // local host
-      // sitekey: '6Lc8dOIUAAAAAMVnPnhMBYSxEA3o7oCCKMaT7OvI'
-      sitekey: '6LepeIIUAAAAABPqWNU5ZqbRRVL5C6CoBnhYoj95'
+      sitekey: '6Lc8dOIUAAAAAMVnPnhMBYSxEA3o7oCCKMaT7OvI'
+      // sitekey: '6LepeIIUAAAAABPqWNU5ZqbRRVL5C6CoBnhYoj95'
     }
   },
   methods: {

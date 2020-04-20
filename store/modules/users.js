@@ -115,7 +115,7 @@ const mutations = {
   saveUser: (state, user) => {
     const findUser = state.users.find(u => u.id === user.id)
     if (findUser) {
-      Object.assign(findUser, user)
+      Object.assign({}, findUser, user)
     } else {
       state.users.push(user)
     }

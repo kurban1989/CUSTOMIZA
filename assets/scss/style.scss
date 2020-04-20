@@ -1,0 +1,134 @@
+
+@import '~/assets/fonts_mixins/font-source-declaration';
+@import './posts';
+@mixin font-face(
+  $font-family,
+  $file-path,
+  $weight: normal,
+  $style: normal,
+  $asset-pipeline: $asset-pipeline,
+  // $file-formats: eot woff2 woff ttf svg) {
+  $file-formats: eot woff ttf svg) {
+
+  $font-url-prefix: font-url-prefixer($asset-pipeline);
+
+  @font-face {
+    font-family: $font-family;
+    font-style: $style;
+    font-weight: $weight;
+
+    src: font-source-declaration(
+      $font-family,
+      $file-path,
+      $asset-pipeline,
+      $file-formats,
+      $font-url-prefix
+    );
+
+    font-display: fallback; /* Задаем поведение браузера на время загрузки */
+  }
+}
+
+$path-base:   '/';
+$path-fonts:  '#{$path-base}fonts';
+$font-Roboto: 'Roboto', sans-serif;
+$font-base:   $font-Roboto;
+ /* Fonts
+   ========================================================================== */
+@include font-face('Roboto', '#{$path-fonts}/Roboto/Robotothinitalic', 300, italic, $file-formats: woff woff2);
+@include font-face('Roboto', '#{$path-fonts}/Roboto/Roboto', 400, normal, $file-formats: woff woff2);
+@include font-face('Roboto', '#{$path-fonts}/Roboto/Robotobold', 700, normal, $file-formats: woff woff2);
+@include font-face('Roboto', '#{$path-fonts}/Roboto/Robotolight', 200, normal, $file-formats: woff woff2);
+@include font-face('Roboto', '#{$path-fonts}/Roboto/Robotothin', 100, normal, $file-formats: woff woff2);
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  outline: none;
+}
+
+html {
+  font-family: $font-base;
+  font-size: 16px;
+  word-spacing: 1px;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  font-family: $font-base !important;
+  overflow-x: hidden;
+}
+
+.relative {
+  position: relative;
+}
+
+ul {
+  list-style: none;
+}
+.wrapper {
+  min-width: 320px;
+}
+
+.item-menu {
+  list-style: none;
+  margin-right: 40px;
+
+  &:last-child {
+    margin-right: 0;
+  }
+}
+
+nav {
+  margin-bottom: 90px;
+}
+svg {
+  fill: currentColor;
+  stroke: inherit;
+}
+.btn-text {
+  font-size: 14px;
+  line-height: 1.3em;
+}
+
+.link, .a-link {
+  font-size: 14px;
+  color: #000;
+  text-decoration: none;
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(12,1fr);
+  grid-column-gap: 10px;
+}
+
+.dropdown-toggle {
+  max-width: 180px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* запрет масштабирования при фокусировке для ios */
+// @media screen and (-webkit-min-device-pixel-ratio: 0) {
+// select:focus, textarea:focus, input:focus:not([type=range]) {
+//     font-size: 16px;
+//     transform-origin: top left;
+//     transform: scale(0.875); 
+//   }
+// }
+
+// @media screen and (max-width: 767px) {
+//   select:active, input:active:not([type=range]),textarea:active{
+//     font-size: 16px;
+//     transform-origin: top left;
+//     transform: scale(0.875); 
+//   }
+// }

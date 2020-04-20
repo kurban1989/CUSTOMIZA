@@ -2,32 +2,32 @@
   <div class="relative">
     <b-modal id="bv-signup-error" :title="$t('sm')" ok-only>
       <p class="note note-error">
-        {{$t(messageError)}}
+        {{ $t(messageError) }}
       </p>
     </b-modal>
     <mobile-menu :menu-list="list" />
-    <header-site :slotHead="true" :header="$t('UserRegistration')">
-      <div class="container" v-if="success">
+    <header-site :slot-head="true" :header="$t('UserRegistration')">
+      <div v-if="success" class="container">
         <h1 class="h1 h3 row text-black">
           {{ $t('Hello') }}! {{ user.firstName }}, {{ $t('successfulRegistration') }}
         </h1>
       </div>
-      <div class="container" v-else>
+      <div v-else class="container">
         <loading-spinner :is-loading="loading" />
         <div class="row">
           <div class="col-sm for-leave-rent">
             <div class="row mb-3">
               <base-input
-                :class="{'error-input': errorFirstName}"
                 v-model.trim="user.firstName"
+                :class="{'error-input': errorFirstName}"
                 :placeholder="$t('Name')"
                 type="text"
               />
             </div>
             <div class="row mb-3">
               <base-input
-                :class="{'error-input': errorLastName}"
                 v-model.trim="user.lastName"
+                :class="{'error-input': errorLastName}"
                 :placeholder="$t('Surname')"
               />
             </div>
@@ -52,9 +52,9 @@
             </div>
             <div class="row mb-3">
               <base-input
+                v-model.trim="user.password"
                 :class="{'error-input': errorPassword}"
                 autocomplete="new-password"
-                v-model.trim="user.password"
                 :placeholder="$t('Password')"
                 type="password"
                 data-type="password"
@@ -62,21 +62,21 @@
             </div>
             <div class="row mb-3">
               <base-input
+                v-model.trim="user.passwordReplay"
                 :class="{'error-input': errorPasswordReplay}"
                 autocomplete="new-password"
-                v-model.trim="user.passwordReplay"
                 :placeholder="$t('PasswordReplay')"
                 type="password"
                 data-type="password"
               />
             </div>
             <div class="row mb-3">
-              <g-recaptcha :error="errorRecaptchaToken" @expired="onVerify" @verify="onVerify"></g-recaptcha>
+              <g-recaptcha :error="errorRecaptchaToken" @expired="onVerify" @verify="onVerify" />
             </div>
             <div class="row justify-content-end">
               <primary-button class="align-self-end" @click="signup">
                 <span>
-                  {{$t('Registration')}}
+                  {{ $t('Registration') }}
                 </span>
               </primary-button>
             </div>

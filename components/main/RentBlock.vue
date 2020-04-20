@@ -4,7 +4,7 @@
       <div class="row no-gutters justify-content-center align-items-start">
         <sections-headers :text="$t('Rent 1C from CUSTOMIZA')" class="mrb" />
         <p class="paragrath">
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Commodi assumenda necessitatibus similique nemo dicta dolor.
+          {{ $t('posts.connect') }}
         </p>
       </div>
       <div class="row">
@@ -12,7 +12,7 @@
           <icon-posts class="content-center" background-color="#fff" />
           <div class="info">
             <h3 class="header">
-              {{ $t('The advantage of renting') }} 1
+              {{ $t('posts.renting1') }}
             </h3>
           </div>
         </div>
@@ -20,7 +20,7 @@
           <icon-posts class="content-center" background-color="#fff" />
           <div class="info">
             <h3 class="header">
-              {{ $t('The advantage of renting') }} 2
+              {{ $t('posts.renting2') }}
             </h3>
           </div>
         </div>
@@ -28,7 +28,7 @@
           <icon-posts class="content-center" background-color="#fff" />
           <div class="info">
             <h3 class="header">
-              {{ $t('The advantage of renting') }} 3
+              {{ $t('posts.renting3') }}
             </h3>
           </div>
         </div>
@@ -66,17 +66,28 @@ export default {
   transform: translateY(-75px);
   pointer-events: none;
   padding-top: 200px;
-  margin-bottom: 300px;
+  margin-bottom: 500px;
+
+  @media (max-width: 991px) {
+    margin-bottom: 600px;
+  }
+  @media (max-width: 400px) {
+    margin-bottom: 800px !important;
+  }
 }
 .header {
-  font-size: 24px;
+  font-size: 22px;
   font-weight: 500;
   color: #6B9638;
   margin-top: 20px;
   margin-bottom: 10px;
 }
 .info {
-  text-align: center;
+  text-align: left;
+
+  @media (max-width: 768px) {
+    text-align: center;
+  }
 }
 .paragrath {
   width: 100%;
@@ -99,7 +110,7 @@ export default {
     background-image: unset;
     background-color: #F3F3F3;
     transform: translateY(0%);
-    margin-bottom: 500px;
+    margin-bottom: 710px;
     padding: {
       top: 30px;
       right: 15px;

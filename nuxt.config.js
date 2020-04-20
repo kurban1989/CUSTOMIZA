@@ -15,6 +15,8 @@ module.exports = {
     title: 'Бесплатные консультации по установке, настройке и использованию любых платформ и конфигураций 1C | CUSTOMIZA',
     meta: [
       { charset: 'utf-8' },
+      // TO DO ONLY SUB DOMAIN v3 v4 stage
+      { name: 'robots', content: 'noindex, nofollow' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1, maximum-scale=5.0' },
       { hid: 'description', name: 'description', content: process.env.npm_package_description || '' }
     ],
@@ -41,7 +43,7 @@ module.exports = {
   ** Global CSS
   */
   css: [
-    // '@/node_modules/bootstrap/dist/css/bootstrap.min.css'
+    '@/assets/scss/style.scss'
   ],
   /*
   ** Plugins to load before mounting the App
@@ -51,6 +53,7 @@ module.exports = {
     { src: '~/plugins/yandexMaps', mode: 'client' },
     { src: '~/plugins/VScrollLock', mode: 'client' },
     { src: '~/plugins/lazy' },
+    { src: '~/plugins/filters' },
     { src: '~/plugins/vuelidate', ssr: false }
   ],
   /*
@@ -93,11 +96,11 @@ module.exports = {
   ** See https://axios.nuxtjs.org/options
   */
   axios: {
-    baseURL: '/'
-    // proxy: true
+    // baseURL: '/',
+    proxy: true
   },
   proxy: {
-    // '/api': 'http://localhost:3000'
+    '/api/': process.env.BASEURL === undefined ? 'http://customiza.ru' : process.env.BASEURL
   },
   /*
   ** Build configuration
@@ -106,7 +109,29 @@ module.exports = {
     /*
     ** You can extend webpack config here
     */
+    // extractCSS: true,
+    optimization: {
+      splitChunks: {
+        cacheGroups: {
+          styles: {
+            name: 'styles',
+            test: /\.(css|vue)$/,
+            chunks: 'all',
+            enforce: true
+          }
+        }
+      }
+    },
     extend (config, ctx) {
+      // Run ESLint on save
+      if (ctx.isDev && ctx.isClient) {
+        config.module.rules.push({
+          enforce: 'pre',
+          test: /\.(js|vue)$/,
+          loader: 'eslint-loader',
+          exclude: /(node_modules)/
+        })
+      }
     }
   }
 }

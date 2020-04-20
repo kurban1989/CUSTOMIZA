@@ -32,9 +32,9 @@ export default {
   async validate ({ params }) {
     // Production
     // eslint-disable-next-line no-return-await
-    // const check = await request({ url: 'http://customiza.ru/api/auth/checkconfirmtoken', body: { token: params.token } })
+    const check = await request({ url: 'http://customiza.ru/api/auth/checkconfirmtoken', body: { token: params.token } })
     // Local
-    const check = await request({ url: 'http://localhost:3000/api/auth/checkconfirmtoken', body: { token: params.token } })
+    // const check = await request({ url: 'http://localhost:3000/api/auth/checkconfirmtoken', body: { token: params.token } })
     return check && check.data.status === 'OK'
   },
   components: {

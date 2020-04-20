@@ -1,0 +1,17 @@
+[
+  {
+    "link": "articles/edit",
+    "title": "Create article",
+    "hint": "Articles"
+  },
+  {
+    "link": "articles/all",
+    "title": "Show all articles",
+    "hint": "Articles"
+  },
+  {
+    "link": "articles",
+    "title": "Show all articles for users",
+    "hint": "Articles"
+  }
+]

@@ -1,5 +1,5 @@
 <template>
-  <nav class="container">
+  <nav class="container" v-bind="$attrs">
     <div class="row no-gutters header">
       <nuxt-link :to="localePath({ path: '/' })" class="logo bg-standart-options col-3 col-md-2" />
       <div class="col-lg-9 col-md-10 col-9 offset-lg-1 menu-group align-self-center align-self-md-start">
@@ -15,6 +15,11 @@
                 {{ $t(item.title) }}
               </nuxt-link>
             </li>
+            <li class="link item-menu">
+              <nuxt-link :to="localePath({ path: '/articles' })" class="a-link">
+                {{ $t('Articles') }}
+              </nuxt-link>
+            </li>
             <li class="phone-call-block">
               <phone-call-block />
             </li>
@@ -26,7 +31,7 @@
           </ul>
 
           <div class="col-sm-7 col-md-5 col-lg-5 col-xl-4 personal-area only-desktop">
-            <log-in></log-in>
+            <log-in />
             <switcher-lang />
           </div>
         </div>
@@ -65,15 +70,15 @@ export default {
     SwitcherLang,
     LogIn
   },
-  computed: {
-    ...mapState({
-      isShow: state => state.directory.showMobileMenu
-    })
-  },
   data () {
     return {
       mainMenu
     }
+  },
+  computed: {
+    ...mapState({
+      isShow: state => state.directory.showMobileMenu
+    })
   },
   methods: {
     showMenu () {
@@ -84,35 +89,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-ul {
-  padding: 0;
-}
-
-.item-menu {
-  list-style: none;
-  margin-right: 40px;
-
-  &:last-child {
-    margin-right: 0;
-  }
-}
-
-nav {
-  margin-bottom: 90px;
-}
-
 .btn-text {
   font-size: 14px;
   line-height: 1.3em;
-}
-
-.link, .a-link {
-  font-size: 14px;
-  color: #000;
-  text-decoration: none;
-  &:hover {
-    text-decoration: underline;
-  }
 }
 
 .header {
@@ -202,7 +181,7 @@ nav {
 
 @media (max-width: 991px) {
   nav {
-    margin-bottom: 60px;
+    margin-bottom: 30px;
   }
   .item-menu {
     margin-right: 20px;

@@ -6,16 +6,14 @@ const letterConfirm = require('../helpers/confirmMail')
 
 const controller = {}
 
-// eslint-disable-next-line require-await
-controller.checkConfirmToken = async function (req, res) {
+controller.checkConfirmToken = async (req, res) => {
   const user = await User.getUserByConfirmEmailToken(req.body.token)
   return res.json({
     status: user ? 'OK' : 'ERROR'
   })
 }
 
-// eslint-disable-next-line require-await
-controller.confirmEmail = async function (req, res) {
+controller.confirmEmail = async (req, res) => {
   const user = await User.getUserByConfirmEmailToken(req.body.token)
   if (!user) {
     return res.sendStatus(404)
@@ -27,8 +25,7 @@ controller.confirmEmail = async function (req, res) {
   })
 }
 
-// eslint-disable-next-line require-await
-controller.confirm = async function (req, res) {
+controller.confirm = async (req, res) => {
   const user = await User.getUserByEmail(req.body.email)
   if (!user) {
     return res.json({
@@ -44,8 +41,7 @@ controller.confirm = async function (req, res) {
   })
 }
 
-// eslint-disable-next-line require-await
-controller.resetPassword = async function (req, res) {
+controller.resetPassword = async (req, res) => {
   const user = await User.getUserByResetPasswordToken(req.body.token)
   if (!user || !user.checkResetPasswordExpires()) {
     return res.json({
@@ -64,8 +60,7 @@ controller.resetPassword = async function (req, res) {
   })
 }
 
-// eslint-disable-next-line require-await
-controller.checkResetToken = async function (req, res) {
+controller.checkResetToken = async (req, res) => {
   const user = await User.getUserByResetPasswordToken(req.body.token)
   if (!user || !user.checkResetPasswordExpires()) {
     return res.json({
@@ -78,8 +73,7 @@ controller.checkResetToken = async function (req, res) {
   })
 }
 
-// eslint-disable-next-line require-await
-controller.forgot = async function (req, res) {
+controller.forgot = async (req, res) => {
   const user = await User.getUserByEmail(req.body.email)
   if (!user) {
     return res.json({
@@ -95,8 +89,7 @@ controller.forgot = async function (req, res) {
   })
 }
 
-// eslint-disable-next-line require-await
-controller.signup = async function (req, res) {
+controller.signup = async (req, res) => {
   const checkUser = await User.getUserByEmail(req.body.user.email)
   if (checkUser) {
     return res.json({
@@ -112,7 +105,7 @@ controller.signup = async function (req, res) {
   })
 }
 
-controller.login = function (req, res, next) {
+controller.login = (req, res, next) => {
   const user = req.body
   if (!user.email) {
     return res.status(422).json({
@@ -145,15 +138,13 @@ controller.login = function (req, res, next) {
   })(req, res, next)
 }
 
-// eslint-disable-next-line require-await
-controller.logout = async function (req, res) {
+controller.logout = (req, res) => {
   return res.json({
     status: 'OK'
   })
 }
 
-// eslint-disable-next-line require-await
-controller.user = async function (req, res) {
+controller.user = async (req, res) => {
   const user = await User.getUser(req.user.id)
   if (!user) {
     return res.sendStatus(401)
@@ -164,8 +155,8 @@ controller.user = async function (req, res) {
   })
 }
 
-module.exports = function (method) {
-  return async function (request, response, next) {
+module.exports = (method) => {
+  return async (request, response, next) => {
     try {
       await controller[method](request, response, next)
     } catch (error) {

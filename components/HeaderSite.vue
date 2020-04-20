@@ -1,13 +1,13 @@
 <template>
-  <header class="header">
+  <header class="header" v-bind="$attrs">
     <navbar />
     <div class="container">
-      <h1 class="h1 row" v-if="header" :class="headerClass">
+      <h1 v-if="header" class="h1 row" :class="headerClass">
         {{ $t(header) }}
       </h1>
     </div>
-    <footer-head v-if="!slotHead"/>
-    <slot v-else></slot>
+    <footer-head v-if="!slotHead" />
+    <slot v-else />
   </header>
 </template>
 
@@ -15,6 +15,10 @@
 import Navbar from '~/components/header/Navbar'
 import FooterHead from '~/components/header/FooterHead'
 export default {
+  components: {
+    Navbar,
+    FooterHead
+  },
   props: {
     header: {
       type: String,
@@ -31,10 +35,6 @@ export default {
       required: false,
       default: false
     }
-  },
-  components: {
-    Navbar,
-    FooterHead
   }
 }
 </script>

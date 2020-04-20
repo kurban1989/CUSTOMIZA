@@ -8,14 +8,18 @@
       variant="dropdown-user"
       :class="{'font-mobile-style': mobile}"
     >
-      <b-dropdown-header>{{$t($auth.user.roleName)}}</b-dropdown-header>
-      <b-dropdown-divider></b-dropdown-divider>
+      <b-dropdown-header>{{ $t($auth.user.roleName) }}</b-dropdown-header>
+      <b-dropdown-divider />
       <template v-for="(item, index) in userMenu">
-        <b-dropdown-item v-if="item[$auth.user.roleName]" :key="index" :title="$t(item.hint)" :to="item.link">{{ $t(item.title) }}</b-dropdown-item>
+        <b-dropdown-item v-if="item[$auth.user.roleName]" :key="index" :title="$t(item.hint)" :to="item.link">
+          {{ $t(item.title) }}
+        </b-dropdown-item>
       </template>
-      <b-dropdown-divider></b-dropdown-divider>
+      <b-dropdown-divider />
       <div class="mx-2 ">
-        <primary-button @click="$auth.logout()" class="button-logout">{{ $t('LogOut') }}</primary-button>
+        <primary-button class="button-logout" @click="$auth.logout()">
+          {{ $t('LogOut') }}
+        </primary-button>
       </div>
     </b-dropdown>
     <template v-else>
@@ -28,7 +32,8 @@
           class="relative pl-3 pr-3"
         >
           <template
-            v-if="!toRegister">
+            v-if="!toRegister"
+          >
             <div class="row">
               <div class="col-sm for-leave-rent">
                 <div class="row mb-3">
@@ -57,8 +62,8 @@
               <div class="col-sm for-leave-rent">
                 <div class="row mb-3">
                   <base-input
-                    autocomplete="new-password"
                     v-model="registration.firstName"
+                    autocomplete="new-password"
                     :placeholder="$t('Name')"
                     type="text"
                     data-type="firstName"
@@ -66,8 +71,8 @@
                 </div>
                 <div class="row mb-3">
                   <base-input
-                    autocomplete="new-password"
                     v-model="registration.lastName"
+                    autocomplete="new-password"
                     :placeholder="$t('Surname')"
                   />
                 </div>
@@ -91,8 +96,8 @@
                 </div>
                 <div class="row mb-3">
                   <base-input
-                    autocomplete="new-password"
                     v-model="registration.password"
+                    autocomplete="new-password"
                     :placeholder="$t('Password')"
                     type="password"
                     data-type="password"
@@ -100,8 +105,8 @@
                 </div>
                 <div class="row">
                   <base-input
-                    autocomplete="new-password"
                     v-model="registration.passwordReplay"
+                    autocomplete="new-password"
                     :placeholder="$t('PasswordReplay')"
                     type="password"
                     data-type="password"
@@ -112,10 +117,10 @@
           </template>
         </form>
         <div class="justify-content-center place-button text-right mt-3">
-          <a class="a-login mr-3 align-middle" @click="loginOrRegister">{{$t(toRegister?'LogIn':'Registration')}}</a>
+          <a class="a-login mr-3 align-middle" @click="loginOrRegister">{{ $t(toRegister?'LogIn':'Registration') }}</a>
           <secodary-button class="align-self-end" @click="login">
             <span>
-              {{$t(toRegister?'Registration':'LogIn')}}
+              {{ $t(toRegister?'Registration':'LogIn') }}
             </span>
           </secodary-button>
         </div>

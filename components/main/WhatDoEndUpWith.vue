@@ -12,18 +12,7 @@
               {{ $t('Employee Competency') }}
             </h3>
             <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum quasi ratione quam illo officia quaerat molestias natus animi ea?
-            </p>
-          </div>
-        </div>
-        <div class="col-sm">
-          <icon-posts class="content-center" background-color="#fff" />
-          <div class="info">
-            <h3 class="header">
-              {{ $t('Right choice and embedded solution') }}
-            </h3>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum quasi ratione quam illo officia quaerat molestias natus animi ea?
+              {{ $t('posts.ourConsultation') }}
             </p>
           </div>
         </div>
@@ -34,7 +23,18 @@
               {{ $t('Designed by revision documentation') }}
             </h3>
             <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum quasi ratione quam illo officia quaerat molestias natus animi ea?
+              {{ $t('posts.DesignedDesignDocumentation') }}
+            </p>
+          </div>
+        </div>
+        <div class="col-sm">
+          <icon-posts class="content-center" background-color="#fff" />
+          <div class="info">
+            <h3 class="header">
+              {{ $t('Right choice and embedded solution') }}
+            </h3>
+            <p>
+              {{ $t('posts.ProperlySelected') }}
             </p>
           </div>
         </div>

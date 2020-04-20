@@ -93,7 +93,8 @@ router.post('/', (req, res) => {
 })
 
 router.post('/upload', upload.single('file'), async (req, res) => {
-  const fileUpload = new Resize(imagePath)
+  const imagePathResult = req.body.silent ? path.resolve('static/load') : imagePath
+  const fileUpload = new Resize(imagePathResult)
 
   if (!req.file) {
     res.status(401).json({ error: 'Please provide an image' })
@@ -101,9 +102,11 @@ router.post('/upload', upload.single('file'), async (req, res) => {
 
   const filename = await fileUpload.save(req.file.path || req.file.buffer)
 
-  filesImg.push(filename)
+  if (req.body.silent) {
+    filesImg.push(filename)
+  }
 
-  return res.status(200).json({ status: 200, file: filename })
+  return res.status(200).json({ status: 200, file: filename, location: `/load/${filename}` })
 })
 
 module.exports = router

@@ -41,12 +41,7 @@ export default {
     }
   },
   data () {
-    return {
-    }
-  },
-  methods: {
+    return {}
   }
 }
 </script>
-<style lang="scss" scoped>
-</style>

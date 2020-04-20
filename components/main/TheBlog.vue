@@ -10,20 +10,20 @@
             <div
               v-for="(post, index) of posts"
               :key="index"
-              class="post"
+              class="main-post"
             >
-              <p class="post__header">
+              <p class="main-post__header">
                 {{ post.title }}
               </p>
               <p class="date">
-                {{ new Date(Date.now()).toLocaleDateString($i18n.locale, optionDate) }}
+                {{ new Date(post.date).toLocaleDateString($i18n.locale, optionDate) }}
               </p>
-              <div class="post__area">
+              <div class="main-post__area">
                 <p>
-                  {{ post.body }}
+                  {{ decode(post.text) }}
                 </p>
               </div>
-              <nuxt-link class="post__more" :to="localePath({ path: '/' })">
+              <nuxt-link class="main-post__more" :to="localePath({ path: 'articles/' + post.uid })">
                 {{ $t('Read completely') }}
               </nuxt-link>
             </div>
@@ -33,7 +33,7 @@
       </no-ssr>
     </div>
     <div class="row justify-content-center place-button">
-      <secodary-button class="align-self-end">
+      <secodary-button class="align-self-end" @click="showAllArt">
         <span>
           {{ $t('Go to the section with articles') }}
         </span>
@@ -47,7 +47,7 @@ import { mapState } from 'vuex'
 import NoSSR from 'vue-no-ssr'
 import SectionsHeaders from '~/components/header/SectionsHeaders'
 import SecodaryButton from '~/components/elements/SecodaryButton'
-const isServer = typeof window === 'undefined'
+import { isClient, binary } from '~/helpers'
 
 export default {
   name: 'TheBlog',
@@ -84,7 +84,7 @@ export default {
             slidesPerView: 1,
             slidesPerColumn: 1,
             slidesPerGroup: 1,
-            slideClass: 'post',
+            slideClass: 'main-post',
             resistanceRatio: 0.85
           }
         }
@@ -93,18 +93,26 @@ export default {
   },
   computed: {
     ...mapState({
-      posts: state => state.directory.posts.slice(6, 12)
+      postsState: state => state.directory.posts
     }),
+    posts () {
+      return this.postsState && this.postsState.length ? this.postsState.slice(0, 6) : []
+    },
     innerWidth () {
-      return !isServer ? window.innerWidth : undefined
+      return isClient ? window.innerWidth : undefined
     }
+  },
+  async asyncData ({ store }) {
+    await store.dispatch('directory/getPosts')
+
+    return {}
   },
   beforeMount () {
     this.$store.dispatch('directory/getPosts')
     this.setEventResize()
   },
   beforeDestroy () {
-    if (!isServer && this.swiperObj) {
+    if (isClient && this.swiperObj && this.swiperInitialized) {
       this.swiperObj.destroy()
       window.removeEventListener('resize', this.swiperInit)
     }
@@ -115,13 +123,13 @@ export default {
       this.swiperInit()
     },
     setEventResize () {
-      if (!isServer) {
+      if (isClient) {
         window.addEventListener('resize', this.swiperInit)
       }
     },
     swiperInit () {
-      if (!isServer) {
-        if (window.innerWidth < 768 && this.swiperObj && !this.swiperInitialized) {
+      if (isClient) {
+        if (window.matchMedia('(max-width: 769px)').matches && this.swiperObj && !this.swiperInitialized) {
           this.swiperInitialized = true
           this.swiperObj.init()
         } else if (window.innerWidth > 768 && this.swiperInitialized) {
@@ -129,6 +137,16 @@ export default {
           this.swiperObj.destroy()
         }
       }
+    },
+    decode (code) {
+      const formatText = binary.fromBinary(atob(code))
+        .replace(/(<p(.*?)>(.*?)<img\s(.*?)src(.*)>(.*?)<\/p>)/gm, '')
+        .replace(/(&nbsp;)/gm, ' ')
+        .replace(/(<(\/?[^>]+)>)/gm, '')
+      return `${formatText.slice(0, 150)} ...`
+    },
+    showAllArt () {
+      this.$router.push('/articles')
     }
   }
 }
@@ -146,6 +164,15 @@ export default {
 </style>
 
 <style lang="scss" scoped>
+@mixin textEllipsis($rows:2) {
+  /*! autoprefixer: off */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: $rows;
+  -webkit-box-orient: vertical;
+  display: -webkit-box;
+  display: -moz-box;
+}
 .carousel {
   width: 100%;
   padding: 0 16px;
@@ -155,7 +182,7 @@ export default {
   padding-top: 40px;
   z-index: 1;
 }
-.post {
+.main-post {
   flex: 0 0 48%;
   width: 48%;
   max-height: 325px;
@@ -168,6 +195,7 @@ export default {
     font-size: 16px;
     font-weight: 500;
     margin-bottom: 10px;
+    @include textEllipsis
   }
 
   &__area {
@@ -202,7 +230,7 @@ p {
   margin-bottom: 20px;
 }
 @media (min-width: 992px) {
-  .post {
+  .main-post {
     flex: 0 0 32.2%;
     max-width: 32.2%;
     height: fit-content;
@@ -210,7 +238,7 @@ p {
 }
 
 @media (max-width: 768px) {
-  .post {
+  .main-post {
     flex: 0 0 100%;
     max-width: 100%;
     margin: 0;

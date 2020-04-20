@@ -16,19 +16,7 @@
         </div>
       </div>
 
-      <div class="col-sm section align-self-lg-center">
-        <icon-posts />
-        <div class="col info">
-          <h3 class="header">
-            {{ $t('Implement selected solutions') }}
-          </h3>
-          <p>
-            {{ $t('posts.implementSelectedSolutions') }}
-          </p>
-        </div>
-      </div>
-
-      <div class="col-sm section align-self-lg-end">
+      <div class="col-sm section">
         <icon-posts />
         <div class="col info">
           <h3 class="header">
@@ -39,9 +27,21 @@
           </p>
         </div>
       </div>
+
+      <div class="col-sm section">
+        <icon-posts />
+        <div class="col info">
+          <h3 class="header">
+            {{ $t('Implement selected solutions') }}
+          </h3>
+          <p>
+            {{ $t('posts.implementSelectedSolutions') }}
+          </p>
+        </div>
+      </div>
     </div>
     <!-- second row -->
-    <div class="row no-gutters what-are-useful">
+    <!-- <div class="row no-gutters what-are-useful">
       <div class="col-sm section">
         <icon-posts />
         <div class="col info">
@@ -77,7 +77,7 @@
           </p>
         </div>
       </div>
-    </div>
+    </div> -->
     <div class="coube" />
     <div class="yellow-coube bg-standart-options" />
   </section>

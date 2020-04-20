@@ -2,7 +2,7 @@
   <div>
     <b-modal :id="mobile ? 'bv-login-error-mobile' : 'bv-login-error'" :title="$t('sm')" :ok-only="!notVerified" @ok="onVerified">
       <p class="note note-error">
-        {{$t(messageError)}}
+        {{ $t(messageError) }}
       </p>
     </b-modal>
     <b-dropdown
@@ -13,16 +13,18 @@
       variant="dropdown-user"
       :class="{'font-mobile-style': mobile}"
     >
-      <b-dropdown-header>{{$t($auth.user.roleName)}}</b-dropdown-header>
-      <b-dropdown-divider></b-dropdown-divider>
+      <b-dropdown-header>{{ $t($auth.user.roleName) }}</b-dropdown-header>
+      <b-dropdown-divider />
       <template v-for="(item, index) in userMenu">
         <span :key="index" @click="closeMenu">
-          <b-dropdown-item v-if="item[$auth.user.roleName]" :title="$t(item.hint)" :to="localePath(item.link)">{{ $t(item.title) }}</b-dropdown-item>
+          <b-dropdown-item v-if="item[$auth.user.roleName]" :title="$t(item.hint)" :to="`${item.link}`">{{ $t(item.title) }}</b-dropdown-item>
         </span>
       </template>
-      <b-dropdown-divider></b-dropdown-divider>
+      <b-dropdown-divider />
       <div class="mx-2 ">
-        <primary-button @click="$auth.logout()" class="button-logout">{{ $t('LogOut') }}</primary-button>
+        <primary-button class="button-logout" @click="$auth.logout()">
+          {{ $t('LogOut') }}
+        </primary-button>
       </div>
     </b-dropdown>
     <template v-else>
@@ -59,11 +61,11 @@
           </div>
         </form>
         <div class="justify-content-center place-button text-right mt-3">
-          <span @click="closeMenu"><nuxt-link :to="localePath('forgot')" class="a-login mr-3 align-middle">{{$t('ForgotPassword')}}</nuxt-link></span>
-          <span @click="closeMenu"><nuxt-link :to="localePath('signup')" class="a-login mr-3 align-middle">{{$t('Registration')}}</nuxt-link></span>
+          <span @click="closeMenu"><nuxt-link :to="localePath('forgot')" class="a-login mr-3 align-middle">{{ $t('ForgotPassword') }}</nuxt-link></span>
+          <span @click="closeMenu"><nuxt-link :to="localePath('signup')" class="a-login mr-3 align-middle">{{ $t('Registration') }}</nuxt-link></span>
           <secodary-button class="align-self-end" @click="login">
             <span>
-              {{$t('LogIn')}}
+              {{ $t('LogIn') }}
             </span>
           </secodary-button>
         </div>
@@ -81,18 +83,18 @@ import userMenu from '~/resourse/userMenu.json'
 
 export default {
   name: 'LogIn',
+  components: {
+    BaseInput,
+    LoadingSpinner,
+    SecodaryButton,
+    PrimaryButton
+  },
   props: {
     mobile: {
       type: Boolean,
       required: false,
       default: false
     }
-  },
-  components: {
-    BaseInput,
-    LoadingSpinner,
-    SecodaryButton,
-    PrimaryButton
   },
   data () {
     return {

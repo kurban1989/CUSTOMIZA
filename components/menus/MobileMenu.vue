@@ -21,7 +21,14 @@
 
         <div
           class="sections-menu--item content-center"
+          @click="closeMenu"
         >
+          <nuxt-link :to="localePath({ path: '/articles' })">
+            {{ $t('Articles') }}
+          </nuxt-link>
+        </div>
+
+        <div class="sections-menu--item content-center">
           <log-in mobile />
         </div>
         <switcher-lang />

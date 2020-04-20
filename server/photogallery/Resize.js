@@ -9,7 +9,6 @@ class Resize {
   }
   save (buffer) {
     const image = sharp(buffer)
-    const self = this
     let filename = ''
     let filepath = ''
 
@@ -20,10 +19,10 @@ class Resize {
           const ratioOrig = width / height
 
           if (width / height > ratioOrig && width < height) {
-            width = Math.floor(width / ratioOrig)
+            // width = Math.floor(width / ratioOrig)
             fitAction = sharp.fit.cover
           } else {
-            height = Math.floor(height * ratioOrig)
+            // height = Math.floor(height * ratioOrig)
           }
 
           return {
@@ -33,8 +32,8 @@ class Resize {
             fitAction
           }
         }).then(async (args) => {
-          filename = Resize.filename(args.format)
-          filepath = self.filepath(filename)
+          filename = this.filename(args.format)
+          filepath = this.filepath(filename)
 
           if (args.format !== 'gif') {
             await sharp(buffer)

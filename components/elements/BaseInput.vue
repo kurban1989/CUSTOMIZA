@@ -1,9 +1,9 @@
 <template>
   <div class="input-wrap brdr-r-5 brdr-1" :class="[{'focus': focus}, wrapperClass]" v-bind="$attrs">
     <input
+      v-model="valueModel"
       :autocomplete="autocomplete"
       :name="name"
-      v-model="valueModel"
       :type="type"
       :disabled="disabled"
       :class="inputClass"
@@ -101,6 +101,12 @@ export default {
         }
       },
       immediate: false
+    },
+    value: {
+      handler () {
+        this.valueModel = this.value
+      },
+      immediate: true
     }
   },
   methods: {

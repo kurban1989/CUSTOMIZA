@@ -2,11 +2,11 @@
   <div class="relative">
     <b-modal id="bv-forgot-message" :title="$t('sm')" ok-only @hidden="onOk">
       <p class="note note-error">
-        {{$t(messageError)}}
+        {{ $t(messageError) }}
       </p>
     </b-modal>
     <mobile-menu :menu-list="list" />
-    <header-site :slotHead="true" header="">
+    <header-site :slot-head="true" header="">
       <div class="container" style="max-width: 500px">
         <h1 class="h1 h5 row">
           {{ $t('HeaderForgotPassword') }}
@@ -27,7 +27,7 @@
             <div class="row justify-content-end">
               <primary-button class="align-self-end" @click="forgot">
                 <span>
-                  {{$t('RestorePassword')}}
+                  {{ $t('RestorePassword') }}
                 </span>
               </primary-button>
             </div>

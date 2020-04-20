@@ -8,22 +8,22 @@
   >
     <b-modal id="bv-user-save-error" :title="$t('sm')" ok-only>
       <p class="note note-error">
-        {{$t(messageError)}}
+        {{ $t(messageError) }}
       </p>
     </b-modal>
     <loading-spinner :is-loading="loading" />
     <div class="row mb-3 mx-0">
       <base-input
-        :class="{'error-input': errorFirstName}"
         v-model.trim="user.firstName"
+        :class="{'error-input': errorFirstName}"
         :placeholder="$t('Name')"
         type="text"
       />
     </div>
     <div class="row mb-3 mx-0">
       <base-input
-        :class="{'error-input': errorLastName}"
         v-model.trim="user.lastName"
+        :class="{'error-input': errorLastName}"
         :placeholder="$t('Surname')"
       />
     </div>
@@ -48,9 +48,9 @@
     </div>
     <div class="row mb-3 mx-0">
       <base-input
+        v-model.trim="user.password"
         :class="{'error-input': errorPassword}"
         autocomplete="new-password"
-        v-model.trim="user.password"
         :placeholder="$t('Password')"
         type="password"
         data-type="password"
@@ -58,9 +58,9 @@
     </div>
     <div class="row mx-0">
       <base-input
+        v-model.trim="user.passwordReplay"
         :class="{'error-input': errorPasswordReplay}"
         autocomplete="new-password"
-        v-model.trim="user.passwordReplay"
         :placeholder="$t('PasswordReplay')"
         type="password"
         data-type="password"
@@ -97,14 +97,15 @@ export default {
     user: {
       type: Object,
       required: false,
-      // eslint-disable-next-line vue/require-valid-default-prop
-      default: {
-        firstName: '',
-        lastName: '',
-        phone: '',
-        email: '',
-        password: '',
-        passwordReplay: ''
+      default: () => {
+        return {
+          firstName: '',
+          lastName: '',
+          phone: '',
+          email: '',
+          password: '',
+          passwordReplay: ''
+        }
       }
     },
     newUser: {
@@ -112,13 +113,6 @@ export default {
       required: false,
       default: false
     }
-  },
-  computed: {
-    ...mapGetters({
-      loading: 'users/loading',
-      statuses: 'users/statuses',
-      roles: 'users/roles'
-    })
   },
   data () {
     return {
@@ -130,6 +124,13 @@ export default {
       errorLastName: false,
       errorPhone: false
     }
+  },
+  computed: {
+    ...mapGetters({
+      loading: 'users/loading',
+      statuses: 'users/statuses',
+      roles: 'users/roles'
+    })
   },
   methods: {
     save (ok) {
@@ -188,7 +189,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-
-</style>

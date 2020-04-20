@@ -1,15 +1,17 @@
 <template>
   <div class="relative">
-    <confirmation-dialog id="delete-confirmation" body="DeleteConfirmUser" @ok="onDelete"></confirmation-dialog>
+    <confirmation-dialog id="delete-confirmation" body="DeleteConfirmUser" @ok="onDelete" />
     <mobile-menu :menu-list="list" />
-    <header-site :slotHead="true" header="">
+    <header-site class="mb-0" :slot-head="true" header="">
       <div class="container-fluid pr-4">
         <h1 class="h1">
           {{ $t('Users') }}
         </h1>
         <b-row>
           <b-col lg="6">
-            <b-button variant="primary" @click="openEditUser()">{{ $t('NewUser') }}</b-button>
+            <b-button variant="primary" @click="openEditUser()">
+              {{ $t('NewUser') }}
+            </b-button>
           </b-col>
           <b-col lg="6">
             <b-form-group
@@ -21,13 +23,15 @@
             >
               <b-input-group>
                 <b-form-input
+                  id="filterInput"
                   v-model="filter"
                   type="search"
-                  id="filterInput"
                   :placeholder="$t('Search')"
-                ></b-form-input>
+                />
                 <b-input-group-append>
-                  <b-button :disabled="!filter" @click="filter = ''">{{$t('clear')}}</b-button>
+                  <b-button :disabled="!filter" @click="filter = ''">
+                    {{ $t('clear') }}
+                  </b-button>
                 </b-input-group-append>
               </b-input-group>
             </b-form-group>
@@ -46,29 +50,38 @@
             head-variant="light"
             table-variant="light"
             outlined
-            @filtered="onFiltered">
+            @filtered="onFiltered"
+          >
             <template v-slot:table-busy>
               <div class="text-center text-success my-2">
-                <b-spinner class="align-middle"></b-spinner>
+                <b-spinner class="align-middle" />
               </div>
             </template>
             <template v-slot:cell(lastName)="data">
               {{ data.item.lastName }} {{ data.item.firstName }}
             </template>
             <template v-slot:cell(roleName)="data">
-              <b-form-select size="sm" v-model="data.item.roleId" @change="saveUser(data.item)">
-                <b-form-select-option v-for="(role, index) in roles" :key="index" :value="role.id">{{ $t(role.name) }}</b-form-select-option>
+              <b-form-select v-model="data.item.roleId" size="sm" @change="saveUser(data.item)">
+                <b-form-select-option v-for="(role, index) in roles" :key="index" :value="role.id">
+                  {{ $t(role.name) }}
+                </b-form-select-option>
               </b-form-select>
             </template>
             <template v-slot:cell(statusName)="data">
-              <b-form-select size="sm" v-model="data.item.statusId" @change="saveUser(data.item)">
-                <b-form-select-option v-for="(status, index) in statuses" :key="index" :value="status.id">{{ $t(status.name) }}</b-form-select-option>
+              <b-form-select v-model="data.item.statusId" size="sm" @change="saveUser(data.item)">
+                <b-form-select-option v-for="(status, index) in statuses" :key="index" :value="status.id">
+                  {{ $t(status.name) }}
+                </b-form-select-option>
               </b-form-select>
             </template>
             <template v-slot:cell(Actions)="data">
               <div class="row justify-content-end m-0">
-                <b-button variant="success" size="sm" @click="openEditUser(data.item)">{{ $t('edit') }}</b-button>
-                <b-button class="ml-2" variant="danger" size="sm" @click="onDeleteConfirm(data.item.id)">{{ $t('delete') }}</b-button>
+                <b-button variant="success" size="sm" @click="openEditUser(data.item)">
+                  {{ $t('edit') }}
+                </b-button>
+                <b-button class="ml-2" variant="danger" size="sm" @click="onDeleteConfirm(data.item.id)">
+                  {{ $t('delete') }}
+                </b-button>
               </div>
             </template>
           </b-table>
@@ -78,8 +91,8 @@
           :total-rows="totalRows"
           :per-page="perPage"
           page-class="success"
-        ></b-pagination>
-        <user-form :new-user="!user" :user="user || {}"></user-form>
+        />
+        <user-form :new-user="!user" :user="user || {}" />
       </div>
     </header-site>
     <footer-site />
@@ -96,6 +109,7 @@ import ConfirmationDialog from '~/components/elements/ConfirmationDialog'
 import UserForm from '~/components/elements/UserForm'
 
 export default {
+  name: 'Users',
   middleware: ['auth', 'admin'],
   components: {
     HeaderSite,
@@ -103,15 +117,6 @@ export default {
     MobileMenu,
     ConfirmationDialog,
     UserForm
-  },
-  computed: {
-    ...mapGetters({
-      loading: 'users/loading',
-      user: 'users/user',
-      users: 'users/users',
-      statuses: 'users/statuses',
-      roles: 'users/roles'
-    })
   },
   data () {
     return {
@@ -131,12 +136,14 @@ export default {
       deleteUserId: null
     }
   },
-  watch: {
-    users: {
-      handler () {
-      },
-      immediate: false
-    }
+  computed: {
+    ...mapGetters({
+      loading: 'users/loading',
+      user: 'users/user',
+      users: 'users/users',
+      statuses: 'users/statuses',
+      roles: 'users/roles'
+    })
   },
   mounted () {
     this.$store.dispatch('users/getRoles')

@@ -53,7 +53,7 @@ exports.getQuery = (sql, callback) => {
 }
 
 // Функция для любого СОДЕРЖАЩИЙ ЗАПРОС ПО ОДНОМУ ПОЛЮ запроса к БД, которые идут от юзера безопасные соединения
-exports.getQuerySafe = (table, field, query, pattern = 'like', callback) => {
+exports.getQuerySafe = (table, field, query, pattern = 'like', sorted = ' ORDER BY id DESC') => {
   setCHARACTER()
 
   let sql = 'SELECT id, ?? FROM ?? WHERE ?? like ?'
@@ -69,6 +69,8 @@ exports.getQuerySafe = (table, field, query, pattern = 'like', callback) => {
     sql = 'DELETE FROM ?? WHERE ?? = ?'
     inserts = [table, field, query]
   }
+
+  sql = sql + sorted
   // Промис запроса
   return new Promise((resolve, reject) => {
     client.getConnection((_err, connector) => {
@@ -80,12 +82,8 @@ exports.getQuerySafe = (table, field, query, pattern = 'like', callback) => {
         if (error) {
           return reject(new Error(error))
         }
-        if (typeof callback === 'function') {
-          const resFunc = callback()
-          return resolve(result, resFunc)
-        } else {
-          return resolve(result)
-        }
+
+        return resolve(result)
       })
     })
   })

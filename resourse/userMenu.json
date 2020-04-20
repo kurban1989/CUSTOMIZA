@@ -27,7 +27,7 @@
     "Administrator": true,
     "Employee": true,
     "User": false,
-    "link": "#articles",
+    "link": "/articles/all",
     "title": "Articles",
     "hint": "Articles"
   }

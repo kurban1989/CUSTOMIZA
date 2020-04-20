@@ -2,11 +2,11 @@
   <div class="relative">
     <b-modal id="bv-reset-result" :title="$t('sm')" ok-only>
       <p class="note note-error">
-        {{$t(messageError)}}
+        {{ $t(messageError) }}
       </p>
     </b-modal>
     <mobile-menu :menu-list="list" />
-    <header-site :slotHead="true" header="">
+    <header-site :slot-head="true" header="">
       <div class="container" style="max-width: 500px">
         <h1 class="h1 h5 row">
           {{ $t('NewPassword') }}
@@ -16,9 +16,9 @@
           <div class="col-sm for-leave-rent">
             <div class="row mb-3">
               <base-input
+                v-model.trim="user.password"
                 :class="{'error-input': errorPassword}"
                 autocomplete="new-password"
-                v-model.trim="user.password"
                 :placeholder="$t('Password')"
                 type="password"
                 data-type="password"
@@ -26,9 +26,9 @@
             </div>
             <div class="row mb-3">
               <base-input
+                v-model.trim="user.passwordReplay"
                 :class="{'error-input': errorPasswordReplay}"
                 autocomplete="new-password"
-                v-model.trim="user.passwordReplay"
                 :placeholder="$t('PasswordReplay')"
                 type="password"
                 data-type="password"
@@ -37,7 +37,7 @@
             <div class="row justify-content-end">
               <primary-button class="align-self-end" @click="reset">
                 <span>
-                  {{$t('Save')}}
+                  {{ $t('Save') }}
                 </span>
               </primary-button>
             </div>
