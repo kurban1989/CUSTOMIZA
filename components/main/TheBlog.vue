@@ -138,8 +138,15 @@ export default {
         }
       }
     },
+    enCode (b64Encoded) {
+      try {
+        return atob(b64Encoded)
+      } catch (e) {
+        return Buffer.from(b64Encoded, 'base64').toString()
+      }
+    },
     decode (code) {
-      const formatText = binary.fromBinary(atob(code))
+      const formatText = binary.fromBinary(this.enCode(code))
         .replace(/(<p(.*?)>(.*?)<img\s(.*?)src(.*)>(.*?)<\/p>)/gm, '')
         .replace(/(&nbsp;)/gm, ' ')
         .replace(/(<(\/?[^>]+)>)/gm, '')
