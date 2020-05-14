@@ -110,8 +110,14 @@ export default {
       notVerified: false
     }
   },
+  computed: {
+    authIn () {
+      return this.$auth.$state
+    }
+  },
   mouted () {
-    console.info(this.$auth, '\n', this.$auth.$state.loggedIn, '\n', this.$auth.$state, '\n')
+    console.warn(this.authIn)
+    console.log(this.authIn)
   },
   methods: {
     closeMenu () {

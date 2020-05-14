@@ -17,7 +17,8 @@
             </li>
             <li class="link item-menu">
               <nuxt-link :to="localePath({ path: '/articles' })" class="a-link">
-                {{ $t('Articles') }}
+                <!-- {{ $t('Articles') }} -->
+                {{ $auth.$state }}
               </nuxt-link>
             </li>
             <li class="phone-call-block">
