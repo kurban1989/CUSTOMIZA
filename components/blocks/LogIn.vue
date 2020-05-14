@@ -110,6 +110,9 @@ export default {
       notVerified: false
     }
   },
+  mouted () {
+    console.info(this.$auth, '\n', this.$auth.$state.loggedIn, '\n', this.$auth.$state, '\n')
+  },
   methods: {
     closeMenu () {
       this.$store.dispatch('directory/switchMobileMenu', false)

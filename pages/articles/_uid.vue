@@ -116,7 +116,7 @@ export default {
     }
   },
   beforeDestroy () {
-    if (!isClient) {
+    if (isClient) {
       window.removeEventListener('resize', this.setImgBlockHeight)
     }
   },

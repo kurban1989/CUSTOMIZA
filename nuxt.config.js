@@ -2,11 +2,11 @@
 const i18n = require('./i18n')
 module.exports = {
   // Only Production
-  server: {
-    // nuxt.js server options ( can be overrided by environment variables )
-    port: 3000,
-    host: 'customiza.ru'
-  },
+  // server: {
+  //   // nuxt.js server options ( can be overrided by environment variables )
+  //   port: 3000,
+  //   host: 'customiza.ru'
+  // },
   mode: 'universal',
   /*
   ** Headers of the page
@@ -15,7 +15,6 @@ module.exports = {
     title: 'Бесплатные консультации по установке, настройке и использованию любых платформ и конфигураций 1C | CUSTOMIZA',
     meta: [
       { charset: 'utf-8' },
-      // TO DO ONLY SUB DOMAIN v3 v4 stage
       // { name: 'robots', content: 'noindex, nofollow' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1, maximum-scale=5.0' },
       { hid: 'description', name: 'description', content: process.env.npm_package_description || '' }
