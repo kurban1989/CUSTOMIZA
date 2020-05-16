@@ -139,6 +139,7 @@ controller.login = (req, res, next) => {
 }
 
 controller.logout = (req, res) => {
+  req.logOut()
   return res.json({
     status: 'OK'
   })

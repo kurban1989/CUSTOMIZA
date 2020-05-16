@@ -32,7 +32,7 @@ class Resize {
             fitAction
           }
         }).then(async (args) => {
-          filename = this.filename(args.format)
+          filename = Resize.filename(args.format)
           filepath = this.filepath(filename)
 
           if (args.format !== 'gif') {

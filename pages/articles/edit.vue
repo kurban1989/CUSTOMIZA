@@ -167,7 +167,7 @@ export default {
       post: post ? post.data.data : post
     }
   },
-  middleware: ['auth', 'notUser'],
+  middleware: ['notUser'],
   beforeMount () {
     if (this.post) {
       this.titleArt = this.post.title

@@ -102,7 +102,7 @@ router.post('/upload', upload.single('file'), async (req, res) => {
 
   const filename = await fileUpload.save(req.file.path || req.file.buffer)
 
-  if (req.body.silent) {
+  if (!req.body.silent) {
     filesImg.push(filename)
   }
 

@@ -61,7 +61,7 @@ import mainMenu from '~/resourse/mainMenu.json'
 import LoadingSpinner from '~/components/blocks/LoadingSpinner'
 
 export default {
-  middleware: 'guest',
+  middleware: ['guest'],
   async validate ({ params }) {
     // Production
     // eslint-disable-next-line no-return-await

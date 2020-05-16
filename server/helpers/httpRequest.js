@@ -5,7 +5,7 @@ const uuidv4 = require('uuid/v4')
 const db = require('../mysql_models')
 
 exports.setTask = async function (dataObject, config) {
-  const fileName = dataObject.file ? dataObject.file : null
+  dataObject.file_name = dataObject.file ? dataObject.file : null
   delete dataObject.errors
   delete dataObject.file
   dataObject.isCheckedPersonalData = Number(dataObject.isCheckedPersonalData)
@@ -55,7 +55,7 @@ ____________________________________________________________
   return new Promise((resolve, reject) => {
     const req = https.request(options, (res) => {
       res.on('data', (d) => {
-        d = Object.assign({}, JSON.parse(d), { idInserted: resultDb.insertId, fileName })
+        d = Object.assign({}, JSON.parse(d), { idInserted: resultDb.insertId, fileName: dataObject.file_name })
         return resolve(d)
       })
     })

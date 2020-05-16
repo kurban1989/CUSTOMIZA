@@ -115,10 +115,6 @@ export default {
       return this.$auth.$state
     }
   },
-  mouted () {
-    console.warn(this.authIn)
-    console.log(this.authIn)
-  },
   methods: {
     closeMenu () {
       this.$store.dispatch('directory/switchMobileMenu', false)
