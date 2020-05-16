@@ -100,7 +100,7 @@ export default {
       articleMenu
     }
   },
-  middleware: ['notUser'],
+  middleware: ['auth', 'notUser'],
   methods: {
     isArray,
     decode (code) {

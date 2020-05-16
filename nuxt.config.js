@@ -85,8 +85,8 @@ module.exports = {
   ** See https://axios.nuxtjs.org/options
   */
   axios: {
-    // baseURL: '/',
-    // proxy: true
+    baseURL: '/',
+    proxy: true
   },
   proxy: {
     '/api/': process.env.BASEURL === undefined ? 'http://customiza.ru' : process.env.BASEURL

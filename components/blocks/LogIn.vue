@@ -110,11 +110,6 @@ export default {
       notVerified: false
     }
   },
-  computed: {
-    authIn () {
-      return this.$auth.$state
-    }
-  },
   methods: {
     closeMenu () {
       this.$store.dispatch('directory/switchMobileMenu', false)

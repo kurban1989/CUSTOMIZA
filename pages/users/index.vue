@@ -110,7 +110,7 @@ import UserForm from '~/components/elements/UserForm'
 
 export default {
   name: 'Users',
-  middleware: ['admin'],
+  middleware: ['auth', 'admin'],
   components: {
     HeaderSite,
     FooterSite,
