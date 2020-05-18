@@ -125,7 +125,7 @@ export default {
 <style lang="scss">
 .box {
   box-shadow: 0 1px 3px 1px rgba(0,0,0,.15);
-  -webkit-transition: box-shadow .4s;
+  transition: box-shadow .4s;
   color: #646770;
   padding: 22px 10px;
   border-radius: 3px;

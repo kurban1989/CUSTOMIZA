@@ -90,9 +90,6 @@ export default {
   },
   beforeMount () {
     this.$store.dispatch('readyCase/get')
-  },
-  methods: {
-
   }
 }
 </script>

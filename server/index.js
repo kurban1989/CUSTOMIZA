@@ -16,6 +16,7 @@ const cases = require('./routes/cases')
 require('./conf/passport')
 
 config.dev = process.env.NODE_ENV !== 'production'
+let staticPath = 'static'
 
 async function start () {
   // Init Nuxt.js
@@ -28,6 +29,7 @@ async function start () {
     const builder = new Builder(nuxt)
     await builder.build()
   } else {
+    staticPath = 'dist'
     await nuxt.ready()
   }
   // Give nuxt middleware to express
@@ -40,7 +42,7 @@ async function start () {
       })
     } else {
       res.setHeader('Content-Type', 'image/jpeg')
-      res.sendFile(path.resolve('static/load') + '/' + req.params.nameJpg)
+      res.sendFile(path.resolve(`${staticPath}/load`) + '/' + req.params.nameJpg)
     }
   })
   app.use('/api/auth', auth)

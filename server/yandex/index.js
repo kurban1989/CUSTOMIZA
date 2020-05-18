@@ -93,7 +93,8 @@ router.post('/', (req, res) => {
 })
 
 router.post('/upload', upload.single('file'), async (req, res) => {
-  const imagePathResult = req.body.silent ? path.resolve('static/load') : imagePath
+  const staticPath = process.env.NODE_ENV !== 'production' ? 'static' : 'dist'
+  const imagePathResult = req.body.silent ? path.resolve(`${staticPath}/load`) : imagePath
   const fileUpload = new Resize(imagePathResult)
 
   if (!req.file) {
