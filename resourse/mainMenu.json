@@ -1,17 +1,14 @@
 [
   {
-    "link": "cases",
+    "link": "/show-cases",
+    "hash": null,
     "title": "Solved cases",
     "hint": "Решенные кейсы"
   },
   {
-    "link": "rent",
+    "link": null,
+    "hash": "#nav_rent",
     "title": "Rent 1C",
     "hint": "Аренда 1С программ"
-  },
-  {
-    "link": "articles",
-    "title": "Blog",
-    "hint": "Blog"
   }
 ]

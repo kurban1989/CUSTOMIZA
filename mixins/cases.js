@@ -15,6 +15,9 @@ export default {
         .replace(/(&nbsp;)/gm, ' ')
         .replace(/(<(\/?[^>]+)>)/gm, '')
       return `${formatText.slice(0, sliceEnd)} ...`
+    },
+    deCodeFull (code) {
+      return binary.fromBinary(this.enCode(code))
     }
   }
 }

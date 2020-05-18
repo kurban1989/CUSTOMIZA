@@ -5,19 +5,19 @@
       <div class="col-lg-9 col-md-10 col-9 offset-lg-1 menu-group align-self-center align-self-md-start">
         <div class="row no-gutters justify-content-lg-between justify-content-md-end blocks-center">
           <ul class="col no-gutters flex justify-content-lg-start justify-content-end align-items-center align-items-md-start">
+            <li class="link item-menu">
+              <nuxt-link :to="localePath({ path: '/articles/articles' })" class="a-link">
+                {{ $t('useful') | capitalize }}&nbsp;{{ $t('Articles') }}
+              </nuxt-link>
+            </li>
             <li
               v-for="(item, index) in mainMenu"
               :key="index"
               class="link item-menu"
               :title="item.hint"
             >
-              <nuxt-link :to="localePath({ path: '/', hash: `#nav_${item.link}`})" class="a-link">
+              <nuxt-link :to="localePath({ path: item.link ? item.link : '/', hash: item.hash })" class="a-link">
                 {{ $t(item.title) }}
-              </nuxt-link>
-            </li>
-            <li class="link item-menu">
-              <nuxt-link :to="localePath({ path: '/articles/articles' })" class="a-link">
-                {{ $t('Articles') }}
               </nuxt-link>
             </li>
             <li class="phone-call-block">
