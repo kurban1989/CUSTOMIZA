@@ -9,6 +9,7 @@ const auth = require('./routes/auth')
 const users = require('./routes/users')
 const articles = require('./routes/articles')
 const comments = require('./routes/comments')
+const cases = require('./routes/cases')
 
 require('./conf/passport')
 
@@ -31,6 +32,7 @@ async function start () {
   app.use('/api/auth', auth)
   app.use('/api/users', users)
   app.use('/api/articles', articles)
+  app.use('/api/cases', cases)
   app.use('/api/comments', comments)
   app.use('/fonts', express.static('/fonts'))
   app.use('/yandex', yandex)

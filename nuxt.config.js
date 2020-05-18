@@ -39,6 +39,7 @@ module.exports = {
   */
   plugins: [
     { src: '~/plugins/swiper', mode: 'client' },
+    { src: '~/plugins/element-ui', mode: 'client' },
     { src: '~/plugins/yandexMaps', mode: 'client' },
     { src: '~/plugins/VScrollLock', mode: 'client' },
     { src: '~/plugins/lazy' },

@@ -83,7 +83,7 @@ export default {
         baseURL: isClient ? '' : req.headers.host
       }
     } else {
-      redirect('/articles')
+      redirect('/articles/articles')
     }
   },
   head () {

@@ -10,7 +10,7 @@
     "hint": "Articles"
   },
   {
-    "link": "articles",
+    "link": "articles/articles",
     "title": "Show all articles for users",
     "hint": "Articles"
   }

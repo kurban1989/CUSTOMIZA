@@ -13,33 +13,33 @@
       <div class="col-sm for-leave-rent">
         <div class="row">
           <base-input
+            v-model="dataForm['name']"
             :wrapper-class="inputClass"
             :placeholder="$t('How can I call you')"
             data-type="name"
             :is-clear-form="isClearForm"
-            @input="watchIntput($event, 'name')"
           />
         </div>
         <div class="row">
           <base-input
+            v-model="dataForm['email']"
             :class="{'error-input': errorInput}"
             type="email"
             :wrapper-class="inputClass"
             :placeholder="$t('Your email')"
             data-type="email"
             :is-clear-form="isClearForm"
-            @input="watchIntput($event, 'email')"
             @is-valid-email="validEmail"
           />
         </div>
         <div class="row">
           <base-input
+            v-model="dataForm['phone']"
             type="phone"
             :wrapper-class="inputClass"
             :placeholder="$t('Your telephone')"
             data-type="phone"
             :is-clear-form="isClearForm"
-            @input="watchIntput($event, 'phone')"
           />
         </div>
         <template v-if="isLoadFile">
@@ -132,6 +132,7 @@
 import Vue from 'vue'
 import { mapState } from 'vuex'
 import { Upload } from 'element-ui'
+import { isClient } from '~/helpers'
 import BaseInput from '~/components/elements/BaseInput'
 import LoadingSpinner from '~/components/blocks/LoadingSpinner'
 import BaseArea from '~/components/elements/BaseArea'
@@ -214,6 +215,7 @@ export default {
   },
   computed: {
     ...mapState({
+      user: state => state.auth.user,
       isClearForm: state => state.statusForm.clearForm
     })
   },
@@ -228,7 +230,17 @@ export default {
       immediate: false
     }
   },
+  created () {
+    this.handlerForm()
+  },
   methods: {
+    handlerForm () {
+      if (this.user && isClient()) {
+        this.dataForm.name = this.user.firstName
+        this.dataForm.email = this.user.email
+        this.dataForm.phone = this.user.phone
+      }
+    },
     handlerFile (response, file, fileList) {
       this.fileName = file.name
       this.dataForm.file = file.response.file

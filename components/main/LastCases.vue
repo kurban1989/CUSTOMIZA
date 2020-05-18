@@ -5,29 +5,27 @@
     </div>
     <div class="carousel relative">
       <no-ssr>
-        <swiper :options="swiperOption">
+        <swiper v-if="cases.length" :options="swiperOption">
           <div
-            v-for="item of 6"
-            :key="item"
+            v-for="(item, index) of cases"
+            :key="index"
             class="case relative brdr-r-5 swiper-slide"
-            :class="item % 2 === 0 ? 'mrt60' : ''"
+            :class="index % 2 === 0 ? 'mrt60' : ''"
           >
             <p class="date">
-              {{ $t('Date of the application') }}: {{ new Date(Date.now()).toLocaleDateString($i18n.locale, optionDate) }}
+              {{ $t('Date of the application') }}: {{ new Date(item.date_of_application).toLocaleDateString($i18n.locale, optionDate) }}
             </p>
             <p class="header-question">
               {{ $t('Question') }}:
             </p>
             <p class="question">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quam velit, vulputate eu pharetra nec, mattis ac neque. Duis vulputate commodo lectus, ac blandit elit tincidunt id?
+              {{ item.question }}
             </p>
             <p class="header-question header-question--reply">
               {{ $t('Reply from CUSTOMIZA') }}:
             </p>
             <p class="question header-question--reply">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quam velit, vulputate eu pharetra nec, mattis ac neque. Duis vulputate commodo lectus, ac blandit elit tincidunt id. Sed rhoncus, tortor sed eleifend tristique, tortor mauris molestie elit, et lacinia ipsum quam nec dui.
-              Quisque nec mauris sit amet elit iaculis pretium sit amet quis magna. Aenean velit odio,
-              elementum in tempus ut, vehicula eu diam.
+              {{ deCode(item.answer) }}
             </p>
           </div>
         </swiper>
@@ -41,8 +39,10 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import NoSSR from 'vue-no-ssr'
 import SectionsHeaders from '~/components/header/SectionsHeaders'
+import casesMixin from '~/mixins/cases'
 
 export default {
   name: 'LastCases',
@@ -50,6 +50,7 @@ export default {
     SectionsHeaders,
     'no-ssr': NoSSR
   },
+  mixins: [casesMixin],
   data () {
     return {
       optionDate: {
@@ -81,6 +82,17 @@ export default {
         }
       }
     }
+  },
+  computed: {
+    ...mapState({
+      cases: state => state.readyCase.casesForUser || []
+    })
+  },
+  beforeMount () {
+    this.$store.dispatch('readyCase/get')
+  },
+  methods: {
+
   }
 }
 </script>

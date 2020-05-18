@@ -102,6 +102,8 @@ module.exports = {
         badRequest: 'Server Error Occurred',
         errLoadFile: 'Error: File type not allowed!',
         'Solved cases': 'Solved cases',
+        'Create case': 'Create case',
+        'Short title': 'Short title',
         'Articles': 'Articles',
         'Rent 1C': 'Rent 1C',
         'Atelier PO': 'Atelier PO',
@@ -122,6 +124,7 @@ module.exports = {
         add: 'add',
         rateOnlyRegUsers: 'May vote only to registered users',
         DeleteConfirmComment: 'Confirm comment deletion?',
+        DeleteConfirmCase: 'Confirm case deletion?',
         posts: {
           ...posts.en
         }
@@ -167,6 +170,8 @@ module.exports = {
         MyProfile: 'Мой профиль',
         Users: 'Пользователи',
         Cases: 'Кейсы',
+        'Create case': 'Создать кейс',
+        'Short title': 'Краткий заголовок',
         LogInToYourAccount: 'Войти в личный кабинет',
         LogIn: 'Войти',
         LogOrReg: 'Войти или зарегистрироваться',
@@ -241,7 +246,7 @@ module.exports = {
         leave: 'оставьте',
         add: 'добавить',
         rateOnlyRegUsers: 'Голосовать могут только зарегистрированные пользователи',
-        DeleteConfirmComment: 'Подтвердждаете удаление комментария?',
+        DeleteConfirmCase: 'Подтвердждаете удаление кейса?',
         posts: {
           ...posts.ru
         }

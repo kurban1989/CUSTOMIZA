@@ -117,6 +117,48 @@ svg {
   text-overflow: ellipsis;
 }
 
+.header-ed {
+  padding: 20px 0;
+  align-items: center;
+}
+.logo-ed {
+  height: 70px !important;
+  background-position: left !important;
+}
+.no-outline {
+  outline: none;
+}
+.pointer {
+  cursor: pointer;
+}
+p, h3, h4 {
+  margin: 0;
+  padding: 0;
+}
+.content-center {
+  margin: 0 auto;
+  text-align: center;
+}
+.flex {
+  display: flex;
+}
+.logo {
+  height: 100%;
+  background-image: url('~assets/header/logo.svg');
+}
+.bg-standart-options {
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+}
+.wrap-content {
+  min-width: 320px;
+}
+.nuxt-link-active {
+  font-weight: bold;
+  cursor: default;
+}
+
 /* запрет масштабирования при фокусировке для ios */
 // @media screen and (-webkit-min-device-pixel-ratio: 0) {
 // select:focus, textarea:focus, input:focus:not([type=range]) {

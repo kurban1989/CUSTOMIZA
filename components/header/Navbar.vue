@@ -16,7 +16,7 @@
               </nuxt-link>
             </li>
             <li class="link item-menu">
-              <nuxt-link :to="localePath({ path: '/articles' })" class="a-link">
+              <nuxt-link :to="localePath({ path: '/articles/articles' })" class="a-link">
                 {{ $t('Articles') }}
               </nuxt-link>
             </li>

@@ -153,7 +153,7 @@ export default {
       return `${formatText.slice(0, 150)} ...`
     },
     showAllArt () {
-      this.$router.push('/articles')
+      this.$router.push('/articles/articles')
     }
   }
 }

@@ -1,3 +1,4 @@
+/* eslint-disable vue/no-v-html */
 <template>
   <div>
     <div class="header-art">
@@ -49,6 +50,7 @@
         </article>
       </template>
       <b-pagination
+        v-if="total > 1"
         v-model="currentPage"
         :total-rows="total"
         :per-page="perPage"
@@ -67,7 +69,7 @@ import MobileMenu from '~/components/menus/MobileMenu'
 import mainMenu from '~/resourse/mainMenu.json'
 import FooterSite from '~/components/FooterSite'
 import postMixin from '~/mixins/posts'
-import { binary, isArray } from '~/helpers'
+import { binary, isArray, isClient } from '~/helpers'
 
 export default {
   name: 'Articles',
@@ -86,7 +88,46 @@ export default {
         day: 'numeric',
         year: 'numeric'
       },
-      list: mainMenu
+      list: mainMenu,
+      perPage: 10,
+      currentPage: this.$route.query.page ? this.$route.query.page : 1
+    }
+  },
+  computed: {
+    titlePage () {
+      return 'Обзор полезных статей на CUSTOMIZA'
+    }
+  },
+  asyncData ({ store, req }) {
+    return {
+      baseURL: isClient ? '' : req.headers.host
+    }
+  },
+  beforeMount () {
+    if (isClient()) {
+      const start = !this.$route.query.page || Number(this.$route.query.page) === 1 ? 0 : (this.$route.query.page - 1) * this.perPage
+      this.$store.dispatch('directory/getPosts', { start, perPage: this.perPage })
+    }
+  },
+  head () {
+    const canonical = this.baseURL + this.$route.fullPath
+
+    return {
+      title: this.titlePage,
+      meta: [
+        { name: 'description', hid: 'description', content: this.titlePage },
+        { property: 'og:locale', content: this.$i18n.locale + '_' + this.$i18n.locale.toUpperCase() },
+        { property: 'og:site_name', content: 'Customiza' },
+        { property: 'og:title', content: this.titlePage },
+        { property: 'og:description', content: this.titlePage },
+        { property: 'og:type', content: 'website' },
+        { property: 'og:url', content: this.baseURL },
+        { property: 'og:image', content: this.baseURL + '/img/logo.svg' }
+      ],
+      link: [{
+        rel: 'canonical',
+        href: canonical
+      }]
     }
   },
   methods: {

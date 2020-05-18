@@ -3,7 +3,7 @@
     "Administrator": true,
     "Employee": true,
     "User": true,
-    "link": "#profile",
+    "link": "/profile",
     "title": "MyProfile",
     "hint": "MyProfile"
   },
@@ -19,7 +19,7 @@
     "Administrator": true,
     "Employee": true,
     "User": false,
-    "link": "#сases",
+    "link": "/cases",
     "title": "Cases",
     "hint": "Cases"
   },

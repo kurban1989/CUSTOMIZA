@@ -70,6 +70,12 @@ export default {
         }
       },
       immediate: false
+    },
+    value: {
+      handler () {
+        this.valueModel = this.value
+      },
+      immediate: true
     }
   }
 }

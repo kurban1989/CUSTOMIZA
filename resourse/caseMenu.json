@@ -1,0 +1,12 @@
+[
+  {
+    "link": "case/add-edit",
+    "title": "Create case",
+    "hint": "Create/Add"
+  },
+  {
+    "link": "cases",
+    "title": "Список решённых кейсов",
+    "hint": "-"
+  }
+]

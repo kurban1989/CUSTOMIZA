@@ -1,8 +1,5 @@
 const db = require('../mysql_models')
-
-const toSnakeCase = (str) => {
-  return str.replace(/([A-Z])/g, '_$1').toLowerCase()
-}
+const snake = require('../helpers/toSnakeCase')
 
 class Comments {
   constructor (comment) {
@@ -13,7 +10,7 @@ class Comments {
     const newObject = {}
 
     for (const camel in comment) {
-      newObject[toSnakeCase(camel)] = comment[camel]
+      newObject[snake.toSnakeCase(camel)] = comment[camel]
     }
 
     return newObject

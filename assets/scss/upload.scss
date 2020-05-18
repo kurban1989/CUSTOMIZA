@@ -18,15 +18,25 @@
   text-align: center;
 
   &-dragger {
+    background: inherit !important;
     display: flex;
+    border: 1px dashed #d9d9d9;
+    border-radius: 6px;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    width: 100%;
+    width: 100% !important;
     height: 100%;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
 
     &.is-dragover {
-      background: rgba(208, 255, 194, 0.5);
+      background: rgba(208, 255, 194, 0.5) !important;
+    }
+
+    &:hover {
+      border-color: #409EFF;
     }
   }
 
@@ -66,4 +76,8 @@
   background-size: contain;
   width: 30px;
   height: 30px;
+}
+
+.el-icon-upload:before {
+  content: unset !important;
 }

@@ -96,7 +96,7 @@
         {{ $t('Post right away') }}
       </base-checkbox>
 
-      <secodary-button class="align-self-end  justify-self-end" @click="save">
+      <secodary-button class="align-self-end justify-self-end" @click="save">
         <span>
           {{ $t('save') }}
         </span>
@@ -274,15 +274,7 @@ export default {
 }
 </script>
 <style lang="scss">
-.header-ed {
-  padding: 20px 0;
-  align-items: center;
-}
 .personal-area {
   justify-content: flex-end;
-}
-.logo-ed {
-  height: 70px;
-  background-position: left;
 }
 </style>
