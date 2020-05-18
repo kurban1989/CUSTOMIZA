@@ -13,17 +13,16 @@
       <div class="col-sm for-leave-rent">
         <div class="row">
           <base-input
-            v-model="dataForm['name']"
             :value="dataForm['name']"
             :wrapper-class="inputClass"
             :placeholder="$t('How can I call you')"
             data-type="name"
             :is-clear-form="isClearForm"
+            @input="watchIntput($event, 'name')"
           />
         </div>
         <div class="row">
           <base-input
-            v-model="dataForm['email']"
             :value="dataForm['email']"
             :class="{'error-input': errorInput}"
             type="email"
@@ -31,18 +30,19 @@
             :placeholder="$t('Your email')"
             data-type="email"
             :is-clear-form="isClearForm"
+            @input="watchIntput($event, 'email')"
             @is-valid-email="validEmail"
           />
         </div>
         <div class="row">
           <base-input
-            v-model="dataForm['phone']"
             :value="dataForm['phone']"
             type="phone"
             :wrapper-class="inputClass"
             :placeholder="$t('Your telephone')"
             data-type="phone"
             :is-clear-form="isClearForm"
+            @input="watchIntput($event, 'phone')"
           />
         </div>
         <template v-if="isLoadFile">
