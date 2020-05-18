@@ -14,7 +14,7 @@
       @keyup="keyHandler($event)"
     >
     <transition name="fade">
-      <label v-if="!focus && valueModel === ''" class="placeholder">
+      <label v-if="!focus && valueModel === '' && value.length === 0" class="placeholder">
         {{ placeholder }}
       </label>
     </transition>
