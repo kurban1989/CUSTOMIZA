@@ -1,6 +1,6 @@
 <template>
   <section class="container relative">
-    <div class="row no-gutters justify-content-center align-items-start">
+    <div class="row no-gutters justify-content-center align-items-start how">
       <sections-headers :text="$t('How will we help you?')" />
     </div>
     <div class="row no-gutters what-are-useful">
@@ -138,6 +138,11 @@ export default {
   height: 300px;
   transform: translate(-60%, 50%);
   background-image: url('~assets/header/yellow-coube.png');
+}
+@media (max-width: 1440px) {
+  .how {
+    margin-top: 105px;
+  }
 }
 @media (max-width: 991px) {
   .section {

@@ -81,15 +81,20 @@
           api-key="wges5be2ypr42zqkjmr7ffghnhkog4b62w7xe2jtnprzni5j"
           :init="{
             height: 490,
-            menubar: false,
+            menubar: true,
             plugins: [
-              'lists preview',
-              'insertdatetime paste code help'
+              'advlist autolink lists link image charmap print preview',
+              'searchreplace visualblocks code fullscreen',
+              'insertdatetime media table paste code help'
             ],
             toolbar:
               'undo redo | formatselect | bold italic backcolor | \
-            alignleft aligncenter alignright alignjustify | \
-            bullist | removeformat | help',
+              alignleft aligncenter alignright alignjustify | \
+              bullist numlist outdent indent | removeformat | help',
+            file_picker_types: 'image',
+            file_picker_callback,
+            images_upload_url: '/yandex/upload',
+            images_upload_handler,
             setup: function (editor) {
               editor.on('init', function (e) {
                 editor.setContent(editorContent);
@@ -211,6 +216,66 @@ export default {
     }
   },
   methods: {
+    file_picker_callback (cb, value, meta) {
+      const input = document.createElement('input')
+      const tinymce = this.$refs.tinymce
+      input.setAttribute('type', 'file')
+      input.setAttribute('accept', 'image/*')
+
+      input.onchange = function () {
+        const file = this.files[0]
+
+        const reader = new FileReader()
+        reader.onload = function () {
+          /*
+            Note: Now we need to register the blob in TinyMCEs image blob
+            registry. In the next release this part hopefully won't be
+            necessary, as we are looking to handle it internally.
+          */
+          const id = 'blobid' + (new Date()).getTime()
+          const blobCache = tinymce.editor.editorUpload.blobCache
+          const base64 = reader.result.split(',')[1]
+          const blobInfo = blobCache.create(id, file, base64)
+          blobCache.add(blobInfo)
+
+          /* call the callback and populate the Title field with the file name */
+          cb(blobInfo.blobUri(), { title: file.name })
+        }
+        reader.readAsDataURL(file)
+      }
+
+      input.click()
+    },
+    images_upload_handler (blobInfo, success, failure) {
+      const xhr = new XMLHttpRequest()
+      xhr.withCredentials = false
+      xhr.open('POST', '/yandex/upload')
+
+      xhr.onload = function () {
+        let json
+
+        if (xhr.status !== 200) {
+          failure('HTTP Error: ' + xhr.status)
+          return
+        }
+
+        // eslint-disable-next-line prefer-const
+        json = JSON.parse(xhr.responseText)
+
+        if (!json || typeof json.location !== 'string') {
+          failure('Invalid JSON: ' + xhr.responseText)
+          return
+        }
+
+        success(json.location)
+      }
+
+      const formData = new FormData()
+      formData.append('file', blobInfo.blob(), blobInfo.filename())
+      formData.append('silent', true)
+
+      xhr.send(formData)
+    },
     save () {
       this.loading = true
       this.error = false

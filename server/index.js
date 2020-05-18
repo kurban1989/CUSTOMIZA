@@ -1,3 +1,5 @@
+const fs = require('fs')
+const path = require('path')
 const express = require('express')
 const consola = require('consola')
 const { Nuxt, Builder } = require('nuxt')
@@ -29,6 +31,18 @@ async function start () {
     await nuxt.ready()
   }
   // Give nuxt middleware to express
+  // Запрос image/jpeg файлов
+  app.get('/load/:nameJpg', (req, res, next) => {
+    if (path.extname(req.url) === '.gif') {
+      fs.readFile(path.basename(req.url), (_err, data) => {
+        res.writeHead(200, { 'content-type': 'image/gif' })
+        res.end(data)
+      })
+    } else {
+      res.setHeader('Content-Type', 'image/jpeg')
+      res.sendFile(path.resolve('static/load') + '/' + req.params.nameJpg)
+    }
+  })
   app.use('/api/auth', auth)
   app.use('/api/users', users)
   app.use('/api/articles', articles)
