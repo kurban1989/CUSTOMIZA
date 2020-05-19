@@ -34,6 +34,13 @@
       <div class="swiper-button-prev swiper-buttons no-outline" />
       <div class="swiper-button-next swiper-buttons no-outline" />
     </div>
+    <div class="row justify-content-center place-button">
+      <secodary-button class="align-self-end" @click="showAllCase">
+        <span>
+          {{ $t('show all cases') | capitalize }}
+        </span>
+      </secodary-button>
+    </div>
     <div class="box1c" />
   </section>
 </template>
@@ -42,12 +49,14 @@
 import { mapState } from 'vuex'
 import NoSSR from 'vue-no-ssr'
 import SectionsHeaders from '~/components/header/SectionsHeaders'
+import SecodaryButton from '~/components/elements/SecodaryButton'
 import casesMixin from '~/mixins/cases'
 
 export default {
   name: 'LastCases',
   components: {
     SectionsHeaders,
+    SecodaryButton,
     'no-ssr': NoSSR
   },
   mixins: [casesMixin],
@@ -90,6 +99,11 @@ export default {
   },
   beforeMount () {
     this.$store.dispatch('readyCase/get')
+  },
+  methods: {
+    showAllCase () {
+      this.$router.push('/case/show-cases')
+    }
   }
 }
 </script>
@@ -173,6 +187,18 @@ export default {
     .mrt60 {
       margin: 0;
     }
+  }
+}
+.place-button {
+  position: absolute;
+  bottom: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+
+  @media (max-width: 768px) {
+    bottom: 21px;
+    left: 54%;
+    z-index: 1;
   }
 }
 </style>

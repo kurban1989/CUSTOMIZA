@@ -131,6 +131,7 @@ module.exports = {
         'advice': 'advice',
         customer: 'customer',
         TitleImg: 'Enlarged image',
+        'show all cases': 'show all cases',
         posts: {
           ...posts.en
         }
@@ -253,12 +254,14 @@ module.exports = {
         leave: 'оставьте',
         add: 'добавить',
         rateOnlyRegUsers: 'Голосовать могут только зарегистрированные пользователи',
+        DeleteConfirmComment: 'Подтвердждаете удаление комментария?',
         DeleteConfirmCase: 'Подтвердждаете удаление кейса?',
         by: 'по',
         and: 'и',
         'advice': 'советы',
         customer: 'заказчик',
         TitleImg: 'Увеличенное изображение',
+        'show all cases': 'показать все кейсы',
         posts: {
           ...posts.ru
         }

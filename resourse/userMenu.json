@@ -11,7 +11,7 @@
     "Administrator": true,
     "Employee": false,
     "User": false,
-    "link": "users",
+    "link": "/users",
     "title": "Users",
     "hint": "Users"
   },
