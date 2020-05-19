@@ -12,5 +12,7 @@ router.post('/get/:start/:end', auth.optional, caseController('onlyUser'))
 router.post('/get-all', auth.required, auth.employ, caseController('all'))
 router.get('/delete/:id', auth.required, auth.admin, caseController('remove'))
 router.get('/get/:id', auth.required, auth.employ, caseController('getById'))
+router.get('/get-case/:id', auth.optional, auth.isUser, caseController('getById'))
+router.post('/update-views', caseController('updateView'))
 
 module.exports = router

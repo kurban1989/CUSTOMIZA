@@ -38,8 +38,17 @@ class Cases {
     return cases
   }
 
-  async getById (id) {
-    const resDB = await db.getQuerySafe('cases', 'id', id, 'likeAllFields')
+  async getById (id, query) {
+    const querySQL = {
+      id,
+      excludeId: false
+    }
+
+    if (query && query.visible && query.visible === 'only') {
+      querySQL.visible = 1
+    }
+
+    const resDB = await db.getQueryManySafe('cases', querySQL)
     return resDB[0]
   }
 
@@ -53,6 +62,11 @@ class Cases {
       const view = await db.getQuery(`SELECT id, views FROM cases WHERE id=${id}`)
       await db.updateData('cases', { views: Number(view[0].views) + 1 }, id)
     }
+  }
+
+  async totalRows () {
+    const total = await db.getQuery('SELECT COUNT(1) FROM cases')
+    return total
   }
 
   toJSON () {

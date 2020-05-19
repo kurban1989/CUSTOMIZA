@@ -1,7 +1,7 @@
 <template>
   <div class="container relative">
     <b-modal id="bv-art-success" :title="$t('sm')" ok-only>
-      <p class="note note-success">
+      <p class="note" :class="error ? 'note-error' : 'note-success'">
         &nbsp;{{ $t(messageArt) }}
       </p>
     </b-modal>
@@ -246,6 +246,8 @@ export default {
       if (this.titleArt.length < 2) {
         this.error = true
         this.loading = false
+        this.messageArt = 'checkForm'
+        this.$bvModal.show('bv-art-success')
         return
       }
 

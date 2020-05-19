@@ -23,7 +23,7 @@
                   {{ decode(post.text) }}
                 </p>
               </div>
-              <nuxt-link class="main-post__more" :to="localePath({ path: 'articles/' + post.uid })">
+              <nuxt-link class="main-post__more" :to="localePath({ path: 'articles/show/' + post.uid })">
                 {{ $t('Read completely') }}
               </nuxt-link>
             </div>

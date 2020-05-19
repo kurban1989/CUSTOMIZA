@@ -122,7 +122,7 @@
           @change="watchIntput($event, 'isCheckedPersonalData')"
         >
           {{ $t('I agree to the processing') }}
-          <nuxt-link to="javascript:void 0">
+          <nuxt-link to="#">
             {{ $t('personal data') }}
           </nuxt-link>
         </base-checkbox>
@@ -135,7 +135,6 @@
 import Vue from 'vue'
 import { mapState } from 'vuex'
 import { Upload } from 'element-ui'
-import { isClient } from '~/helpers'
 import BaseInput from '~/components/elements/BaseInput'
 import LoadingSpinner from '~/components/blocks/LoadingSpinner'
 import BaseArea from '~/components/elements/BaseArea'
@@ -233,12 +232,12 @@ export default {
       immediate: false
     }
   },
-  created () {
+  mounted () {
     this.handlerForm()
   },
   methods: {
     handlerForm () {
-      if (this.user && isClient()) {
+      if (this.user) {
         this.dataForm.name = this.user.firstName
         this.dataForm.email = this.user.email
         this.dataForm.phone = this.user.phone

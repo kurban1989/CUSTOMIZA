@@ -1,18 +1,16 @@
 /* eslint-disable vue/no-v-html */
 <template>
   <div>
-    <div class="header-art">
-      <mobile-menu :menu-list="list" />
-      <header class="header container">
-        <navbar class="mb-4" />
-      </header>
-    </div>
+    <HeaderForPages :menu-list="list" />
 
     <div class="container pt-4">
+      <h1 class="center mb-3">
+        {{ $t('useful') | capitalize }}&nbsp;{{ $t('Articles') }}&nbsp;{{ $t('and') }}&nbsp;{{ $t('advice') }}&nbsp;{{ $t('by') }}&nbsp;1C
+      </h1>
       <template v-if="isArray(posts) && posts.length">
         <article v-for="post in posts" :key="post.id" class="row mx-0 post f-column post__preview">
           <h2 class="post__title">
-            <nuxt-link class="post__title--link" :to="`/articles/${post.uid}`">
+            <nuxt-link class="post__title--link" :to="`${$i18n.locale !== 'ru' ? '/en' : ''}/articles/show/${post.uid}`">
               {{ post.title | capitalize }}
             </nuxt-link>
           </h2>
@@ -29,7 +27,7 @@
           <div class="post__body" v-html="decode(post.text)" />
 
           <div class="row mt-1 justify-content-between mx-0 mb-3">
-            <nuxt-link class="post__title--link" :to="`/articles/${post.uid}`">
+            <nuxt-link class="post__title--link" :to="`${$i18n.locale !== 'ru' ? '/en' : ''}/articles/show/${post.uid}`">
               <b-button variant="success" size="sm">
                 {{ $t('read more') | capitalize }}&nbsp;&rArr;
               </b-button>
@@ -64,8 +62,7 @@
 </template>
 
 <script>
-import Navbar from '~/components/header/Navbar'
-import MobileMenu from '~/components/menus/MobileMenu'
+import HeaderForPages from '~/components/header/HeaderForPages'
 import mainMenu from '~/resourse/mainMenu.json'
 import FooterSite from '~/components/FooterSite'
 import postMixin from '~/mixins/posts'
@@ -75,9 +72,8 @@ export default {
   name: 'Articles',
   watchQuery: ['page'],
   components: {
-    MobileMenu,
     FooterSite,
-    Navbar
+    HeaderForPages
   },
   mixins: [postMixin],
   data () {
@@ -95,7 +91,7 @@ export default {
   },
   computed: {
     titlePage () {
-      return 'Обзор полезных статей на CUSTOMIZA'
+      return `${this.$t('useful')}  ${this.$t('Articles')}  ${this.$t('and')}  ${this.$t('advice')}  ${this.$t('by')} 1C`
     }
   },
   asyncData ({ store, req }) {
@@ -146,14 +142,3 @@ export default {
   }
 }
 </script>
-<style lang="scss">
-.header-art {
-  position: relative;
-  width: 100vw;
-  height: fit-content;
-  background-image: url('~assets/header/bg-header.png');
-  background-repeat: no-repeat;
-  background-size: cover;
-  padding-bottom: 20px;
-}
-</style>

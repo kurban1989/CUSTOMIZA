@@ -41,8 +41,8 @@
         </primary-button>
       </div>
     </template>
-    <p v-else class="relative mt-5 mb-5 comment--user-only">
-      {{ $t('onlyUsers') }}&nbsp;<span class="comment--user-enter" @click="openLogIn">{{ $t('LogOrReg') }}</span>
+    <p v-else class="relative mt-5 mb-5 post--user-only">
+      {{ $t('onlyUsers') }}&nbsp;<span class="post--user-enter" @click="openLogIn">{{ $t('LogOrReg') }}</span>
     </p>
   </div>
 </template>
@@ -165,24 +165,6 @@ export default {
 </script>
 <style lang="scss" scoped>
 .comment {
-  &--user-only {
-    margin: 40px 0;
-    padding: 26px 20px;
-    border: 1px solid #e4e8ea;
-    font-size: 15px;
-    line-height: 1.5;
-
-    &:before {
-      position: absolute;
-      top: -1px;
-      bottom: -1px;
-      left: -1px;
-      width: 4px;
-      background: #93b520;
-      content: '';
-    }
-  }
-
   &__section-title {
     width: 100%;
     -webkit-font-smoothing: antialiased;
@@ -225,16 +207,6 @@ export default {
 
     @media (max-width: 768px) {
       font-size: 16px;
-    }
-  }
-
-  &--user-enter {
-    cursor: pointer;
-    color: #4e6600;
-    transition: color .2s linear;
-
-    &:hover {
-      color: rgb(112, 139, 22);
     }
   }
 }

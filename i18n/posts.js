@@ -9,7 +9,9 @@ module.exports = {
     connect: 'Connect and work in “1C” via the Internet.',
     renting1: 'Automatically back up your data daily without the need for process tracking. You don’t have to worry about data loss. We guarantee prompt data recovery from archival copies.',
     renting2: 'Updating standard configurations in automatic mode at no additional cost. There is no need to look for specialists for updating and maintenance. Maintenance and completion will be even faster and easier.',
-    renting3: 'Data is protected by professionals in accordance with the highest requirements in the field of information security. The servers on which the information is located are properly protected and specialized.'
+    renting3: 'Data is protected by professionals in accordance with the highest requirements in the field of information security. The servers on which the information is located are properly protected and specialized.',
+    similarQuestion: 'You had a similar question, but did not find complete information for you in this case?',
+    leaveApplication: 'Leave a request for a free consultation'
   },
   ru: {
     onlineConsul: 'Консультирование проводится в режиме онлайн с использованием любых удобных вам средств. Онлайн консультирование позволяет оперативно решить возникшую у вас проблему непосредственно у вас на компьютере, при этом нет разницы в каком месте вы находитесь и соответственно для вас нет временных затрат и рисков на выезд к вам специалиста.',
@@ -21,6 +23,8 @@ module.exports = {
     connect: 'Подключайтесь и работайте в «1С» через интернет.',
     renting1: 'Автоматическая ежедневная архивация ваших данных без необходимости отслеживания процесса. Вам не придется волноваться о потере данных. Мы гарантируем оперативное восстановление данных из архивных копий.',
     renting2: 'Обновление стандартных конфигураций в автоматическом режиме без дополнительных затрат. Нет необходимости искать специалистов для обновления и сопровождения. Сопровождение и доработка будет проводится еще быстрее и легче.',
-    renting3: 'Данные защищены профессионалами в соответствии с самыми высокими требованиями в области защиты информации. Сервера, на которых располагается информация, должным образом защищены и специализированы.'
+    renting3: 'Данные защищены профессионалами в соответствии с самыми высокими требованиями в области защиты информации. Сервера, на которых располагается информация, должным образом защищены и специализированы.',
+    similarQuestion: 'У вас возник похожий вопрос, но не нашли в этом кейсе полной информации для вас?',
+    leaveApplication: 'Оставьте заявку на бесплатную консультацию'
   }
 }

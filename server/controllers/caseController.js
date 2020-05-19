@@ -16,7 +16,7 @@ controller.getById = async (req, res) => {
 
   return res.json({
     status: 'OK',
-    data: await cas.getById(req.params.id)
+    data: await cas.getById(req.params.id, req.query)
   })
 }
 
@@ -34,7 +34,8 @@ controller.onlyUser = async (req, res) => {
 
   return res.json({
     status: 'OK',
-    data: await cas.getForUsers(req.params.start, req.params.end)
+    data: await cas.getForUsers(req.params.start, req.params.end),
+    total: await cas.totalRows()
   })
 }
 
@@ -44,6 +45,17 @@ controller.remove = async (req, res) => {
   return res.json({
     status: 'OK',
     data: await cas.delete(req.params.id)
+  })
+}
+
+controller.updateView = async (req, res) => {
+  const cas = new Cases()
+
+  await cas.updateView(req.body.id)
+
+  return res.json({
+    status: 'OK',
+    data: 'updated'
   })
 }
 

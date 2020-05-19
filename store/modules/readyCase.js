@@ -14,11 +14,11 @@ const mutations = {
 
 const actions = {
   async getAll ({ commit }) {
-    const cases = await this.$axios.post(`api/cases/get-all`)
+    const cases = await this.$axios.post(`${process.env.baseUrl}/api/cases/get-all`)
     commit('SET_CASES', cases ? cases.data.data : [])
   },
   async get ({ commit }) {
-    const cases = await this.$axios.post(`api/cases/get/0/10`)
+    const cases = await this.$axios.post(`${process.env.baseUrl}/api/cases/get/0/10`)
     commit('SET_CASES_FOR_USER', cases ? cases.data.data : [])
   }
 }

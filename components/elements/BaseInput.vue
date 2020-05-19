@@ -9,9 +9,10 @@
       :class="inputClass"
       :required="requiredFiled"
       @input="$emit('input', checkField(valueModel))"
-      @focus="focus = true"
-      @blur="() => {focus = false; checkField(valueModel, 'blur')}"
+      @focus="handleFocus($event)"
+      @blur="$emit('blur', lossFocus(valueModel))"
       @keyup="keyHandler($event)"
+      @keydown.enter="$emit('press-enter', $event)"
     >
     <transition name="fade">
       <label v-if="!focus && valueModel === '' && value.length === 0" class="placeholder">
@@ -105,11 +106,22 @@ export default {
     value: {
       handler () {
         this.valueModel = this.value
+        if (this.value.length === 0) {
+          this.focus = false
+        }
       },
       immediate: true
     }
   },
   methods: {
+    handleFocus (e) {
+      this.focus = true
+      this.$emit('focus', e)
+    },
+    lossFocus (val) {
+      this.focus = false
+      this.checkField(val, 'blur')
+    },
     keyHandler (event) {
       this.key = event.keyCode
     },

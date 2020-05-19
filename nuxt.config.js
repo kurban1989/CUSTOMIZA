@@ -3,7 +3,7 @@ const i18n = require('./i18n')
 module.exports = {
   // Only Production
   // server: {
-  //   // nuxt.js server options ( can be overrided by environment variables )
+  // nuxt.js server options ( can be overrided by environment variables )
   //   port: 3000,
   //   host: 'customiza.ru'
   // },
@@ -81,12 +81,15 @@ module.exports = {
       }
     }
   },
+  env: {
+    baseUrl: process.env.BASEURL || 'http://localhost:3000'
+  },
   /*
   ** Axios module configuration
   ** See https://axios.nuxtjs.org/options
   */
   axios: {
-    baseURL: '/',
+    baseURL: process.env.BASEURL,
     proxy: true
   },
   proxy: {

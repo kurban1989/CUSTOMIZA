@@ -27,7 +27,7 @@
       </div>
 
       <div class="post__body">
-        <div v-html="decode(post.text)" />
+        <div v-html="deCodeFull(post.text)" />
       </div>
       <hr>
       <comments :id="post.id" :uid="post.uid" :count="post.count_comments" />
@@ -43,7 +43,8 @@ import MobileMenu from '~/components/menus/MobileMenu'
 import mainMenu from '~/resourse/mainMenu.json'
 import FooterSite from '~/components/FooterSite'
 import comments from '~/components/blocks/components/comments.vue'
-import { binary, isClient, isEmpty } from '~/helpers'
+import casesMixin from '~/mixins/cases'
+import { isClient, isEmpty } from '~/helpers'
 
 export default {
   name: 'PreviewArticles',
@@ -53,6 +54,7 @@ export default {
     comments,
     Navbar
   },
+  mixins: [casesMixin],
   data () {
     return {
       optionDate: {
@@ -76,7 +78,7 @@ export default {
   async asyncData ({ store, params, redirect, $axios, req }) {
     if (params.uid) {
       await store.dispatch('directory/getPost', params.uid)
-      const comments = await $axios.get(`api/comments/get/${params.uid}`)
+      const comments = await $axios.get(`${process.env.baseUrl}/api/comments/get/${params.uid}`)
       store.dispatch('directory/setComments', comments)
 
       return {
@@ -123,36 +125,6 @@ export default {
   methods: {
     updateView (id) {
       this.$axios.post('/api/articles/update-views', { id })
-    },
-    enCode (b64Encoded) {
-      try {
-        return atob(b64Encoded)
-      } catch (e) {
-        return Buffer.from(b64Encoded, 'base64').toString()
-      }
-    },
-    decode (code) {
-      const decoded = binary.fromBinary(this.enCode(code))
-      return decoded.replace(/(src="\.\.\/)/gm, 'src="/')
-    },
-    setImgBlockHeight () {
-      const images = document.querySelectorAll('.post__body img');
-      [].forEach.call(images, (img) => {
-        this.heightImages.push(img.getAttribute('height'))
-      })
-
-      if (window.matchMedia('(max-width: 640px)').matches) {
-        [].forEach.call(images, (img, index) => {
-          const width = img.getAttribute('width')
-          if (window.innerWidth <= width) {
-            img.setAttribute('height', img.width * 0.7)
-          }
-        })
-      } else {
-        [].forEach.call(images, (img, index) => {
-          img.setAttribute('height', this.heightImages[index])
-        })
-      }
     }
   }
 }

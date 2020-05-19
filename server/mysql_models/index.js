@@ -52,7 +52,7 @@ exports.getQuery = (sql, callback) => {
   })
 }
 
-// Функция для любого СОДЕРЖАЩИЙ ЗАПРОС ПО ОДНОМУ ПОЛЮ запроса к БД, которые идут от юзера безопасные соединения
+// Функция для любого СОДЕРЖАЩИЙ ЗАПРОС ПО ОДНОМУ ПОЛЮ запроса к БД, которые идут от юзера (безопасный запрос, не требует доп защит)
 exports.getQuerySafe = (table, field, query, pattern = 'like', sorted = ' ORDER BY id DESC') => {
   setCHARACTER()
 
@@ -88,14 +88,13 @@ exports.getQuerySafe = (table, field, query, pattern = 'like', sorted = ' ORDER 
     })
   })
 }
-// Функция для любого многополевого запроса к БД, которые идут от юзера безопасные соединения
+// Функция для любого многополевого запроса к БД, которые идут от юзера (безопасный запрос, не требует доп защит)
 exports.getQueryManySafe = (table, obj, callback) => {
   setCHARACTER()
 
   return new Promise((resolve, reject) => {
-    const fields = Object.keys(obj)
+    const excludeId = obj.hasOwnProperty('excludeId') && obj.excludeId === false
     let dataWrite = ''
-    let sql = ''
     let like = ''
 
     /* Если мы хотим чтобы последнее условие было как 'like %search%', то первый аргумент должен быть обязательно массивом */
@@ -105,7 +104,8 @@ exports.getQueryManySafe = (table, obj, callback) => {
       table = table[0]
     }
 
-    clearBad(obj).then((ObjProm) => {
+    clearBad(obj, table, excludeId).then((ObjProm) => {
+      const fields = Object.keys(obj)
       let i = 0
       for (const prop in ObjProm) {
         if ({}.hasOwnProperty.call(ObjProm, prop)) {
@@ -134,7 +134,7 @@ exports.getQueryManySafe = (table, obj, callback) => {
         }
       })
       .then(() => {
-        sql = 'SELECT * FROM ' + table + ' WHERE ' + dataWrite
+        const sql = 'SELECT * FROM ' + table + ' WHERE ' + dataWrite
 
         client.getConnection((_err, connector) => {
         // запрос
@@ -215,7 +215,6 @@ exports.setData = (table, obj, callback) => {
   return new Promise((resolve, reject) => {
     let fields = []
     let dataWrite = ''
-    let sql = ''
 
     clearBad(obj, table).then((ObjProm) => {
       fields = Object.keys(ObjProm)
@@ -232,7 +231,7 @@ exports.setData = (table, obj, callback) => {
         dataWrite = clearDigitsFields(dataWrite)
       })
       .then(() => {
-        sql = 'INSERT INTO `' + table + '` (' + fields + ') VALUES (' + dataWrite + ');'
+        const sql = 'INSERT INTO `' + table + '` (' + fields + ') VALUES (' + dataWrite + ');'
 
         client.getConnection((err, connector) => {
           if (err) {
@@ -260,10 +259,13 @@ exports.setData = (table, obj, callback) => {
   })
 }
 
-// eslint-disable-next-line no-unused-vars
-async function clearBadFields (obj, table) {
+async function clearBadFields (obj, table, excludeId = false) {
   const resObj = {}
   const sql = `SHOW COLUMNS FROM ${table}`
+
+  if ({}.hasOwnProperty.call(obj, 'excludeId')) {
+    delete obj.excludeId
+  }
   // eslint-disable-next-line no-undef
   const columns = await new Promise((resolve, reject) => {
     client.getConnection((_err, connector) => {
@@ -276,17 +278,17 @@ async function clearBadFields (obj, table) {
       })
     })
   })
+
   columns.forEach((column) => {
-    if (column.Extra !== 'auto_increment' && obj.hasOwnProperty(column.Field)) {
-      // eslint-disable-next-line no-unused-expressions
+    if ((column.Extra !== 'auto_increment' || excludeId) && obj.hasOwnProperty(column.Field)) {
       resObj[column.Field] = obj[column.Field]
     }
   })
   return resObj
 }
 
-async function clearBad (obj, table) {
-  obj = await clearBadFields(obj, table)
+async function clearBad (obj, table, excludeId) {
+  obj = await clearBadFields(obj, table, excludeId)
   for (const prop in obj) {
     if ({}.hasOwnProperty.call(obj, prop)) {
       obj[prop] = await client.escape(obj[prop])

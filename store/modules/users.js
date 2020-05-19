@@ -31,7 +31,7 @@ const actions = {
   getUser ({ commit }, id) {
     commit('loading', true)
     return new Promise((resolve, reject) => {
-      this.$axios.get('/api/users/get/' + id).then((res) => {
+      this.$axios.get(process.env.baseUrl + '/api/users/get/' + id).then((res) => {
         commit('setUser', res.data.data)
         resolve(res.data)
       }).catch(reject).finally(() => {
@@ -42,7 +42,7 @@ const actions = {
   getUsers ({ commit }) {
     commit('loading', true)
     return new Promise((resolve, reject) => {
-      this.$axios.get('/api/users/get').then((res) => {
+      this.$axios.get(process.env.baseUrl + '/api/users/get').then((res) => {
         commit('setUsers', res.data.data)
         resolve(res.data)
       }).catch(reject).finally(() => {
@@ -53,7 +53,7 @@ const actions = {
   deleteUser ({ commit }, id) {
     commit('loading', true)
     return new Promise((resolve, reject) => {
-      this.$axios.delete('/api/users/delete', { data: { id } }).then((res) => {
+      this.$axios.delete(process.env.baseUrl + '/api/users/delete', { data: { id } }).then((res) => {
         commit('deleteUser', res.data.data.id)
         resolve(res.data)
       }).catch(reject).finally(() => {
@@ -64,7 +64,7 @@ const actions = {
   saveUser ({ commit }, user) {
     commit('loading', true)
     return new Promise((resolve, reject) => {
-      this.$axios.post('/api/users/save', user).then((res) => {
+      this.$axios.post(process.env.baseUrl + '/api/users/save', user).then((res) => {
         if (res.data.status === 'OK') {
           commit('saveUser', res.data.data)
         }
@@ -83,7 +83,7 @@ const actions = {
   getStatuses ({ commit }) {
     commit('loading', true)
     return new Promise((resolve, reject) => {
-      this.$axios.get('/api/users/statuses/get').then((res) => {
+      this.$axios.get(process.env.baseUrl + '/api/users/statuses/get').then((res) => {
         commit('setStatuses', res.data.data)
         resolve(res.data)
       }).catch(reject).finally(() => {
@@ -94,7 +94,7 @@ const actions = {
   getRoles ({ commit }) {
     commit('loading', true)
     return new Promise((resolve, reject) => {
-      this.$axios.get('/api/users/roles/get').then((res) => {
+      this.$axios.get(process.env.baseUrl + '/api/users/roles/get').then((res) => {
         commit('setRoles', res.data.data)
         resolve(res.data)
       }).catch(reject).finally(() => {

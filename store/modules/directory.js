@@ -26,7 +26,7 @@ const mutations = {
 
 const actions = {
   async getPost ({ commit }, uid) {
-    const post = await this.$axios.get(`api/articles/get/${uid}`)
+    const post = await this.$axios.get(`${process.env.baseUrl}/api/articles/get/${uid}`)
     commit('SET_POST', post ? post.data.data : {})
   },
   setPosts ({ commit }, posts) {
@@ -40,7 +40,7 @@ const actions = {
     const start = ctx && ctx.start ? ctx.start : 0
     const perPage = ctx && ctx.perPage ? ctx.perPage : 6
 
-    const posts = await this.$axios.get(`api/articles/get-all/${start}/${perPage}`)
+    const posts = await this.$axios.get(`${process.env.baseUrl}/api/articles/get-all/${start}/${perPage}`)
     dispatch('setPosts', posts)
   },
   switchMobileMenu ({ commit }, boolean) {

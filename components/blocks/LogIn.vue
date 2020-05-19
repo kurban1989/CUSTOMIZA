@@ -46,6 +46,7 @@
                   :placeholder="$t('Email')"
                   data-type="email"
                   @is-valid-email="validEmail"
+                  @press-enter="login"
                 />
               </div>
               <div class="row">
@@ -55,6 +56,7 @@
                   :placeholder="$t('Password')"
                   type="password"
                   data-type="password"
+                  @press-enter="login"
                 />
               </div>
             </div>

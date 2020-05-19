@@ -158,7 +158,24 @@ p, h3, h4 {
   font-weight: bold;
   cursor: default;
 }
-
+.header-art {
+  position: relative;
+  width: 100vw;
+  height: fit-content;
+  background-image: url('~assets/header/bg-header.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding-bottom: 20px;
+}
+.center {
+  text-align: center;
+  margin: 0 auto;
+}
+@media screen and (max-width: 767px) {
+  h1.center {
+    font-size: 1.5em;
+  }
+}
 /* запрет масштабирования при фокусировке для ios */
 // @media screen and (-webkit-min-device-pixel-ratio: 0) {
 // select:focus, textarea:focus, input:focus:not([type=range]) {

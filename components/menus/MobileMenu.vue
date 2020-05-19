@@ -13,7 +13,7 @@
           :title="item.hint"
         >
           <span @click="closeMenu">
-            <nuxt-link :to="localePath({ path: '/', hash: `#nav_${item.link}`})">
+            <nuxt-link :to="localePath({ path: item.link ? item.link : '/', hash: item.hash })" class="a-link">
               {{ $t(item.title) }}
             </nuxt-link>
           </span>
@@ -23,8 +23,8 @@
           class="sections-menu--item content-center"
           @click="closeMenu"
         >
-          <nuxt-link :to="localePath({ path: '/articles' })">
-            {{ $t('Articles') }}
+          <nuxt-link :to="localePath({ path: '/articles/articles' })" class="a-link">
+            {{ $t('useful') | capitalize }}&nbsp;{{ $t('Articles') }}
           </nuxt-link>
         </div>
 

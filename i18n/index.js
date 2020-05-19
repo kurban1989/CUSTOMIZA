@@ -126,6 +126,11 @@ module.exports = {
         rateOnlyRegUsers: 'May vote only to registered users',
         DeleteConfirmComment: 'Confirm comment deletion?',
         DeleteConfirmCase: 'Confirm case deletion?',
+        by: 'by',
+        and: 'and',
+        'advice': 'advice',
+        customer: 'customer',
+        TitleImg: 'Enlarged image',
         posts: {
           ...posts.en
         }
@@ -249,6 +254,11 @@ module.exports = {
         add: 'добавить',
         rateOnlyRegUsers: 'Голосовать могут только зарегистрированные пользователи',
         DeleteConfirmCase: 'Подтвердждаете удаление кейса?',
+        by: 'по',
+        and: 'и',
+        'advice': 'советы',
+        customer: 'заказчик',
+        TitleImg: 'Увеличенное изображение',
         posts: {
           ...posts.ru
         }

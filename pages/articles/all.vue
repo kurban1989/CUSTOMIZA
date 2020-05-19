@@ -119,7 +119,7 @@ export default {
       this.$router.push(`/articles/edit?uid=${uid}`)
     },
     goto (uid) {
-      this.$router.push(`/articles/${uid}`)
+      this.$router.push(`/articles/show/${uid}`)
     }
   }
 }
