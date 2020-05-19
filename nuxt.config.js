@@ -82,7 +82,7 @@ module.exports = {
     }
   },
   env: {
-    baseUrl: process.env.BASEURL || 'http://localhost:3000'
+    baseUrl: process.env.NODE_ENV !== 'production' ? 'http://localhost:3000' : 'http://customiza.ru'
   },
   /*
   ** Axios module configuration
