@@ -21,9 +21,8 @@ let staticPath = 'static'
 async function start () {
   // Init Nuxt.js
   const nuxt = new Nuxt(config)
-  const host = process.env.HOST || '127.0.0.1'
 
-  const { port } = nuxt.options.server
+  const { host, port } = nuxt.options.server
 
   // Build only in dev mode
   if (config.dev) {
