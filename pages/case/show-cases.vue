@@ -19,7 +19,7 @@
           </h2>
 
           <div class="mb-2">
-            <time class="time" :datetime="new Date(post.date_of_application).toLocaleDateString($i18n.locale, optionDate)">
+            <time class="time time--case" :datetime="new Date(post.date_of_application).toLocaleDateString($i18n.locale, optionDate)">
               {{ $t('Date of the application') }}: {{ new Date(post.date_of_application).toLocaleDateString($i18n.locale, optionDate) }}
             </time>
           </div>
@@ -27,14 +27,16 @@
             <span>{{ $t('customer') | capitalize }}: </span><span>{{ post.customer | capitalize }}</span>
           </div>
 
-          <div class="mb-2">
+          <div>
             <b>{{ $t('Question') }}:</b>
             <p>
               {{ post.question }}
             </p>
           </div>
 
-          <hr>
+          <p class="post__reply mt-4">
+            {{ $t('Reply from CUSTOMIZA') }}:
+          </p>
 
           <div class="post__body pt-0 mb-0">
             {{ deCode(post.answer, 200) }}
@@ -73,7 +75,7 @@ export default {
     return {
       optionDate: {
         month: 'long',
-        weekday: 'long',
+        // weekday: 'long',
         day: 'numeric',
         year: 'numeric'
       },

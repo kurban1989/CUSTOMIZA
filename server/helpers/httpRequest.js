@@ -19,16 +19,12 @@ exports.setTask = async function (dataObject, config) {
     },
     'description': `${dataObject.question} 
                                                             
-____________________________________________________________
-|                                                          |
-| Данные клиента:                                          |
-|__________________________________________________________|
-|                                                          |
-| Телефон: ${dataObject.phone}; Email: ${dataObject.email} |
-|__________________________________________________________|
-|                                                          |
-| ID заявки для клиента: ${String(resultDb.insertId)}      |
-|__________________________________________________________|`,
+                                                 
+| Данные клиента:                               
+                                                         
+| Телефон: ${dataObject.phone}; Email: ${dataObject.email} 
+
+| ID заявки для клиента: ${String(resultDb.insertId)}`,
     'type': {
       'key': 'task'
     },

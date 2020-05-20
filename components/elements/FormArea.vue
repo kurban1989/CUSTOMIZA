@@ -6,9 +6,9 @@
     @submit.prevent="sendForm"
   >
     <loading-spinner :is-loading="loading" />
-    <p :class="styleHeader">
+    <h2 :class="styleHeader">
       {{ header }}
-    </p>
+    </h2>
     <div class="row no-gutters">
       <div class="col-sm for-leave-rent">
         <div class="row">

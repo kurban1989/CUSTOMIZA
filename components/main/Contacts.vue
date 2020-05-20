@@ -11,18 +11,20 @@
         <p class="nameplate__tel-email">
           8 (800) 999-99-90
           <br>
-          sales@customiza.ru
+          <a href="mailto:sales@customiza.ru">
+            sales@customiza.ru
+          </a>
         </p>
-        <h5 class="h5--office">
+        <!-- <h5 class="h5--office">
           {{ $t('Head Office Address:') }}
         </h5>
         <p class="nameplate__tel-email">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit.
           Nulla quam velit, vulputate eu.
-        </p>
+        </p> -->
       </div>
     </div>
-    <lazy-component>
+    <!-- <lazy-component>
       <yandex-map
         :settings="settings"
         :options="mapOptions"
@@ -42,12 +44,12 @@
           }"
         />
       </yandex-map>
-    </lazy-component>
+    </lazy-component> -->
   </section>
 </template>
 
 <script>
-const isServer = typeof window === 'undefined'
+// const isServer = typeof window === 'undefined'
 
 export default {
   name: 'Contacts',
@@ -74,9 +76,9 @@ export default {
       {
         searchControlProvider: 'yandex#search'
       })
-    },
-    ymaps () {
-      return !isServer && window.ymaps ? window.ymaps : null
+    // },
+    // ymaps () {
+    //   return !isServer && window.ymaps ? window.ymaps : null
     }
   },
   watch: {
@@ -90,37 +92,37 @@ export default {
     // }
   },
   methods: {
-    setObjectMap (objectMap) {
-      if (!this.ymaps || !objectMap) {
-        return
-      }
+  //   setObjectMap (objectMap) {
+  //     if (!this.ymaps || !objectMap) {
+  //       return
+  //     }
 
-      const zoomControl = new this.ymaps.control.ZoomControl({
-        options: {
-          adjustMapMargin: true,
-          size: 'small',
-          left: 'auto',
-          right: 40,
-          top: 200
-        }
-      })
+    //     const zoomControl = new this.ymaps.control.ZoomControl({
+    //       options: {
+    //         adjustMapMargin: true,
+    //         size: 'small',
+    //         left: 'auto',
+    //         right: 40,
+    //         top: 200
+    //       }
+    //     })
 
-      this.yMap = objectMap
-      this.yMap.margin.addArea({
-        left: 0,
-        top: 0,
-        width: 78,
-        height: 100
-      })
-      this.yMap.controls.remove('zoomControl')
-      this.yMap.controls.remove('geolocationControl')
-      this.yMap.controls.remove('trafficControl')
-      this.yMap.controls.remove('fullscreenControl')
-      this.yMap.controls.remove('typeSelector')
-      this.yMap.controls.remove('rulerControl')
-      this.yMap.controls.remove('searchControl')
-      this.yMap.controls.add(zoomControl)
-    }
+  //     this.yMap = objectMap
+  //     this.yMap.margin.addArea({
+  //       left: 0,
+  //       top: 0,
+  //       width: 78,
+  //       height: 100
+  //     })
+  //     this.yMap.controls.remove('zoomControl')
+  //     this.yMap.controls.remove('geolocationControl')
+  //     this.yMap.controls.remove('trafficControl')
+  //     this.yMap.controls.remove('fullscreenControl')
+  //     this.yMap.controls.remove('typeSelector')
+  //     this.yMap.controls.remove('rulerControl')
+  //     this.yMap.controls.remove('searchControl')
+  //     this.yMap.controls.add(zoomControl)
+  //   }
   }
 }
 </script>
@@ -130,12 +132,15 @@ export default {
 }
 .map-area {
   width: 100vw;
-  height: 500px;
+  height: fit-content;
 }
 .nameplate {
-  position: absolute;
+  // position: absolute;
+  // top: 0;
+  // left: 50%;
+  position: relative;
   top: 0;
-  left: 50%;
+  left: 30%;
   transform: translateX(-50%);
   pointer-events: none;
   z-index: 2;
@@ -201,13 +206,13 @@ export default {
     }
   }
   .map-area, .ymap-container {
-    height: 700px;
+    height: fit-content;
   }
 }
 
 @media (max-width: 321px) {
   .map-area, .ymap-container {
-    height: 650px;
+    height: fit-content;
   }
   .nameplate {
     top: 10px;

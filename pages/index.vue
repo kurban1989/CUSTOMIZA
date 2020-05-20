@@ -44,6 +44,7 @@ import Contacts from '~/components/main/Contacts'
 import FooterSite from '~/components/FooterSite'
 import MobileMenu from '~/components/menus/MobileMenu'
 import mainMenu from '~/resourse/mainMenu.json'
+import { isClient } from '~/helpers'
 
 export default {
   name: 'Main',
@@ -69,7 +70,36 @@ export default {
     ...mapState({
       otherMessageError: state => state.statusForm.messageErrorBadRequest,
       messageError: state => state.statusForm.messageError
-    })
+    }),
+    titlePage () {
+      return this.$t('mainH1')
+    }
+  },
+  asyncData ({ store, req }) {
+    return {
+      baseURL: isClient ? '' : req.headers.host
+    }
+  },
+  head () {
+    const canonical = this.baseURL + this.$route.fullPath
+
+    return {
+      title: this.titlePage,
+      meta: [
+        { name: 'description', hid: 'description', content: this.titlePage },
+        { property: 'og:locale', content: this.$i18n.locale + '_' + this.$i18n.locale.toUpperCase() },
+        { property: 'og:site_name', content: 'Customiza' },
+        { property: 'og:title', content: this.titlePage },
+        { property: 'og:description', content: this.titlePage },
+        { property: 'og:type', content: 'website' },
+        { property: 'og:url', content: this.baseURL },
+        { property: 'og:image', content: this.baseURL + '/img/logo.svg' }
+      ],
+      link: [{
+        rel: 'canonical',
+        href: canonical
+      }]
+    }
   }
 }
 </script>

@@ -15,7 +15,6 @@ module.exports = {
     title: 'Бесплатные консультации по установке, настройке и использованию любых платформ и конфигураций 1C | CUSTOMIZA',
     meta: [
       { charset: 'utf-8' },
-      // { name: 'robots', content: 'noindex, nofollow' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1, maximum-scale=5.0' },
       { hid: 'description', name: 'description', content: process.env.npm_package_description || '' }
     ],

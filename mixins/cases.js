@@ -19,7 +19,6 @@ export default {
   },
   methods: {
     showModal (e) {
-      // console.info(e)
       e.preventDefault()
       this.executeModal(e.target)
     },

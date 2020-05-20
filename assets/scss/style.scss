@@ -94,10 +94,12 @@ svg {
 .btn-text {
   font-size: 14px;
   line-height: 1.3em;
+  text-align: center;
+  width: 100%;
 }
 
 .link, .a-link {
-  font-size: 14px;
+  font-size: 16px;
   color: #000;
   text-decoration: none;
   &:hover {
