@@ -8,12 +8,6 @@ export default {
       posts: state => state.directory.posts
     })
   },
-  // async beforeMount () {
-  //   const perPage = 10
-  //   const start = !this.$route.query.page || Number(this.$route.query.page) === 1 ? 0 : (this.$route.query.page - 1) * perPage
-  //   this.currentPage = start > 0 ? this.$route.query.page : 1
-  //   await this.$store.dispatch('directory/getPosts', { start, perPage })
-  // },
   async asyncData ({ store, query, req }) {
     const perPage = 10
     const start = !query.page || Number(query.page) === 1 ? 0 : (query.page - 1) * perPage

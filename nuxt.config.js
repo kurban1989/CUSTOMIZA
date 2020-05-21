@@ -98,6 +98,7 @@ module.exports = {
   ** Build configuration
   */
   build: {
+    publicPath: '/_dist/',
     /*
     ** You can extend webpack config here
     */
