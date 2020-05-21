@@ -85,18 +85,13 @@ export default {
         year: 'numeric'
       },
       list: mainMenu,
-      perPage: 10,
+      // perPage: 10,
       currentPage: this.$route.query.page ? this.$route.query.page : 1
     }
   },
   computed: {
     titlePage () {
       return `${this.$t('useful')}  ${this.$t('Articles')}  ${this.$t('and')}  ${this.$t('advice')}  ${this.$t('by')} 1C`
-    }
-  },
-  asyncData ({ store, req }) {
-    return {
-      baseURL: isClient ? '' : req.headers.host
     }
   },
   beforeMount () {

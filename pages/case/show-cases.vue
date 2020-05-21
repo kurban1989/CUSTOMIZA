@@ -73,7 +73,6 @@ export default {
     return {
       optionDate: {
         month: 'long',
-        // weekday: 'long',
         day: 'numeric',
         year: 'numeric'
       },
@@ -88,14 +87,16 @@ export default {
       return this.$t('Solved cases')
     }
   },
-  asyncData ({ store, req }) {
+  async asyncData ({ store, req }) {
+    await store.dispatch('readyCase/get')
+
     return {
       baseURL: isClient ? '' : req.headers.host
     }
   },
-  beforeMount () {
-    this.$store.dispatch('readyCase/get')
-  },
+  // beforeMount () {
+  //   this.$store.dispatch('readyCase/get')
+  // },
   head () {
     const canonical = this.baseURL + this.$route.fullPath
 
