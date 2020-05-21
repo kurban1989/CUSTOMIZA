@@ -89,7 +89,7 @@ module.exports = {
   */
   axios: {
     baseURL: process.env.BASEURL,
-    proxy: true
+    proxy: false
   },
   proxy: {
     '/api/': process.env.BASEURL === undefined ? 'http://customiza.ru' : process.env.BASEURL
