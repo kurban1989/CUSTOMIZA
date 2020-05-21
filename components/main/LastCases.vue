@@ -25,6 +25,9 @@
               {{ $t('Reply from CUSTOMIZA') }}:
             </p>
             <p class="question header-question--reply" v-html="deCode(item.answer)" />
+            <nuxt-link class="case__more-read" :to="localePath({ path: `${$i18n.locale !== 'ru' ? '/en' : ''}case/views?id=${item.id}` })">
+              {{ $t('Read completely') }}
+            </nuxt-link>
           </div>
         </swiper>
       </no-ssr>
@@ -100,7 +103,7 @@ export default {
   },
   methods: {
     showAllCase () {
-      this.$router.push('/case/show-cases')
+      this.$router.push(`${this.$i18n.locale !== 'ru' ? '/en' : ''}/case/show-cases`)
     }
   }
 }
@@ -123,7 +126,7 @@ export default {
     &:after {
       content: '';
       width: 100%;
-      height: 45px;
+      height: 60px;
       position: absolute;
       bottom: 0;
       left: 0;
@@ -131,6 +134,19 @@ export default {
       background: -moz-linear-gradient(180deg, rgba(250,250,250,0) 0%, rgba(250,250,250,1) 41%);
       background: -webkit-linear-gradient(180deg, rgba(250,250,250,0) 0%, rgba(250,250,250,1) 41%);
       background: linear-gradient(180deg, rgba(250,250,250,0) 0%, rgba(250,250,250,1) 41%);
+    }
+
+    &__more-read {
+      position: absolute;
+      left: 30px;
+      bottom: 10px;
+      font-size: 14px;
+      color: #6B9638;
+      text-decoration: underline;
+      z-index: 1;
+      &:hover {
+        color: #2F5008;
+      }
     }
   }
   .mrt60 {

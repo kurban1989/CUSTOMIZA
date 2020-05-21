@@ -23,7 +23,7 @@
                   {{ decode(post.text) }}
                 </p>
               </div>
-              <nuxt-link class="main-post__more" :to="localePath({ path: 'articles/show/' + post.uid })">
+              <nuxt-link class="main-post__more" :to="localePath({ path: `${$i18n.locale !== 'ru' ? '/en' : ''}articles/show/${post.uid}` })">
                 {{ $t('Read completely') }}
               </nuxt-link>
             </div>
@@ -153,7 +153,7 @@ export default {
       return `${formatText.slice(0, 150)} ...`
     },
     showAllArt () {
-      this.$router.push('/articles/articles')
+      this.$router.push(`${this.$i18n.locale !== 'ru' ? '/en' : ''}/articles/articles`)
     }
   }
 }
