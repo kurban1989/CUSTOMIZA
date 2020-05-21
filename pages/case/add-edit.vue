@@ -11,6 +11,8 @@
       </p>
     </b-modal>
 
+    <loading-spinner :is-loading="loading" />
+
     <div class="row no-gutters header header-ed">
       <nuxt-link :to="localePath({ path: '/' })" class="logo logo-ed bg-standart-options col-3 col-md-2" />
       <div class="row col-lg-9 col-md-10 col-9 offset-lg-1 menu-group align-self-center">
@@ -145,9 +147,10 @@ import BaseInput from '~/components/elements/BaseInput'
 import BaseArea from '~/components/elements/BaseArea'
 import BaseCheckbox from '~/components/elements/BaseCheckbox'
 import PrimaryButton from '~/components/elements/PrimaryButton'
+import LoadingSpinner from '~/components/blocks/LoadingSpinner'
 import FooterSite from '~/components/FooterSite'
 import caseMenu from '~/resourse/caseMenu.json'
-import { binary, isEmpty } from '~/helpers'
+import { binary, isEmpty, htmlspecialchars } from '~/helpers'
 import casesMixin from '~/mixins/cases'
 
 export default {
@@ -156,6 +159,7 @@ export default {
   components: {
     'el-date-picker': DatePicker,
     LogIn,
+    LoadingSpinner,
     SwitcherLang,
     PrimaryButton,
     BaseCheckbox,
@@ -207,9 +211,9 @@ export default {
   },
   beforeMount () {
     if (this.post) {
-      this.shortTitle = this.post.short_title
-      this.customer = this.post.customer
-      this.question = this.post.question
+      this.shortTitle = htmlspecialchars.decode(this.post.short_title)
+      this.customer = htmlspecialchars.decode(this.post.customer)
+      this.question = htmlspecialchars.decode(this.post.question)
       this.dateOfApp = this.post.date_of_application
       this.nowPost = Boolean(this.post.visible)
       this.editorContent = binary.fromBinary(atob(this.post.answer))
@@ -289,17 +293,22 @@ export default {
         return
       }
 
+      const data = {
+        shortTitle: this.shortTitle.trim(),
+        question: this.question,
+        answer: text,
+        customer: this.customer,
+        visible: Number(this.nowPost),
+        dateOfApplication: this.dateOfApp,
+        author: `${this.$auth.user.firstName} ${this.$auth.user.lastName}`
+      }
+
+      if (!isEmpty(this.$route.query) && this.$route.query.id) {
+        data.id = this.$route.query.id
+      }
+
       this.$axios.post('api/cases/add',
-        {
-          id: this.$route.query.id || null,
-          shortTitle: this.shortTitle.trim(),
-          question: this.question,
-          answer: text,
-          customer: this.customer,
-          visible: Number(this.nowPost),
-          dateOfApplication: this.dateOfApp,
-          author: `${this.$auth.user.firstName} ${this.$auth.user.lastName}`
-        }
+        data
       ).then((result) => {
         this.loading = false
         if (this.$data.id) {

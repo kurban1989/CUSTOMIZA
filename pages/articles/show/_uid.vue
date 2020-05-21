@@ -9,7 +9,7 @@
 
     <div class="container pt-4 brdr-bottom-1">
       <h1 class="post--h1">
-        {{ post.title | capitalize }}
+        {{ post.title | htmldecode | capitalize }}
       </h1>
       <hr>
 

@@ -1,6 +1,7 @@
 import request from './request'
 import binary from './binary'
 import toUnderScore from './toUnderScore'
+import htmlspecialchars from './htmlspecialchars'
 import { isInvalidDate, isObject, isArray, isClient, isEmpty, isString, isEqDateObj } from './validators'
 
 export {
@@ -13,5 +14,6 @@ export {
   isArray,
   isEqDateObj,
   binary,
-  toUnderScore
+  toUnderScore,
+  htmlspecialchars
 }

@@ -3,7 +3,7 @@
     <HeaderForPages :menu-list="list" />
     <div v-if="post" class="container pt-4 brdr-bottom-1">
       <h1 class="post--h1">
-        {{ post.short_title | capitalize }}
+        {{ post.short_title | htmldecode | capitalize }}
       </h1>
       <hr>
 
@@ -21,7 +21,7 @@
       </div>
 
       <div v-if="post.customer.length" class="post__customer mb-2">
-        <span>{{ $t('customer') | capitalize }}: </span><span class="lower">{{ post.customer | capitalize }}</span>
+        <span>{{ $t('customer') | htmldecode | capitalize }}: </span><span class="lower">{{ post.customer | htmldecode | capitalize }}</span>
       </div>
 
       <div class="post__question mb-3">

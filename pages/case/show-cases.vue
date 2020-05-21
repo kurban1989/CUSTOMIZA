@@ -14,7 +14,7 @@
 
           <h2 class="post__title">
             <nuxt-link class="post__title--link" :to="`${$i18n.locale !== 'ru' ? '/en' : ''}/case/views?id=${post.id}`">
-              {{ post.short_title | capitalize }}
+              {{ post.short_title | htmldecode | capitalize }}
             </nuxt-link>
           </h2>
 
@@ -24,13 +24,13 @@
             </time>
           </div>
           <div v-if="post.customer.length" class="post__customer mb-2">
-            <span>{{ $t('customer') | capitalize }}: </span><span>{{ post.customer | capitalize }}</span>
+            <span>{{ $t('customer') | capitalize }}: </span><span>{{ post.customer | htmldecode }}</span>
           </div>
 
           <div>
             <b>{{ $t('Question') }}:</b>
             <p>
-              {{ post.question }}
+              {{ post.question | htmldecode | capitalize }}
             </p>
           </div>
 
@@ -38,9 +38,7 @@
             {{ $t('Reply from CUSTOMIZA') }}:
           </p>
 
-          <div class="post__body pt-0 mb-0">
-            {{ deCode(post.answer, 200) }}
-          </div>
+          <div class="post__body pt-0 mb-0" v-html="deCode(post.answer, 200)" />
 
           <hr>
 

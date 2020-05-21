@@ -1,8 +1,8 @@
-/* eslint-disable no-useless-escape */
 /* eslint-disable new-cap */
 /* eslint-disable no-new-require */
 const config = require('../conf')
 const mysql = new require('mysql')
+const client = mysql.createPool(config.mysql)
 // TO DO only for develop computer
 // const client = mysql.createPool({
 //   host: 'localhost',
@@ -11,7 +11,21 @@ const mysql = new require('mysql')
 //   password: 'root',
 //   database: 'customiza'
 // })
-const client = mysql.createPool(config.mysql)
+const htmlspecialchars = {
+  encode: (string) => {
+    const mapChars = {
+      '&': '&amp;',
+      '<': '&lt;',
+      '>': '&gt;',
+      '"': '&quot;',
+      '–': '&ndash;',
+      '—': '&mdash;',
+      "'": '&#39;'
+    }
+    const repl = (c) => { return mapChars[c] }
+    return string.toString().replace(/[&<>"–'—]/gim, repl)
+  }
+}
 
 function setCHARACTER () {
   client.getConnection(async (_err, connector) => {
@@ -104,19 +118,19 @@ exports.getQueryManySafe = (table, obj, callback) => {
       table = table[0]
     }
 
-    clearBad(obj, table, excludeId).then((ObjProm) => {
+    clearBad(obj, table, excludeId).then((saveObject) => {
       const fields = Object.keys(obj)
       let i = 0
-      for (const prop in ObjProm) {
-        if ({}.hasOwnProperty.call(ObjProm, prop)) {
+      for (const prop in saveObject) {
+        if ({}.hasOwnProperty.call(saveObject, prop)) {
           // если пусто то не продолжаем дальше итерацию
-          if (ObjProm[prop] === undefined || ObjProm[prop] === 'NULL') {
+          if (saveObject[prop] === undefined || saveObject[prop] === 'NULL') {
             i++
           } else {
             if (like === 'latestLike' && i === fields.length - 1) {
-              dataWrite += '`' + fields[i] + '` like "%' + obj[prop] + '%"'
+              dataWrite += '`' + fields[i] + '` like "%' + saveObject[prop] + '%"'
             } else {
-              dataWrite += '`' + fields[i] + '` = "' + obj[prop]
+              dataWrite += '`' + fields[i] + '` = "' + saveObject[prop]
               dataWrite += '" AND '
             }
             i++
@@ -125,8 +139,10 @@ exports.getQueryManySafe = (table, obj, callback) => {
       }
     })
       .then(() => {
-        dataWrite = dataWrite.replace(/(\')/gm, '')
-        dataWrite = dataWrite.replace(/\"on\"/gm, '1')
+        dataWrite = dataWrite.replace(/(')/gm, '')
+        dataWrite = dataWrite.replace(/"on"/gm, '1')
+
+        dataWrite = dataWrite.replace(/"on"/gm, '1')
 
         if (like !== 'latestLike') {
         /* Обрезка хвостика ('" AND ') */
@@ -166,25 +182,25 @@ exports.updateData = (table, obj, id, callback) => {
     let dataWrite = ''
     let sql = ''
 
-    clearBad(obj, table).then((ObjProm) => {
-      fields = Object.keys(ObjProm)
+    clearBad(obj, table).then((saveObject) => {
+      fields = Object.keys(saveObject)
       let i = 0
-      for (const prop in ObjProm) {
-        if ({}.hasOwnProperty.call(ObjProm, prop)) {
-          dataWrite += '`' + fields[i] + '` = "' + obj[prop]
+      for (const prop in saveObject) {
+        if ({}.hasOwnProperty.call(saveObject, prop)) {
+          dataWrite += '`' + fields[i] + '` = "' + saveObject[prop]
           dataWrite += '", '
           i++
         }
       }
     })
       .then(() => {
-        dataWrite = dataWrite.replace(/(\')/gm, '')
-        dataWrite = dataWrite.replace(/\"on\"/gm, '1')
+        dataWrite = dataWrite.replace(/"on"/gm, '1')
+        dataWrite = dataWrite.replace(/(')/gm, '')
         dataWrite = clearDigitsFields(dataWrite)
       })
       .then(() => {
         sql = 'UPDATE `' + table + '` SET ' + dataWrite + ' WHERE id=' + parseInt(id, 10) + ';'
-        sql = sql.replace(/(\"NULL\")/, 'NULL') // Если мы специально хотим записать NULL в ячейку.
+        sql = sql.replace(/("NULL")/, 'NULL') // Если мы специально хотим записать NULL в ячейку.
 
         client.getConnection((_err, connector) => {
         // запрос
@@ -216,18 +232,18 @@ exports.setData = (table, obj, callback) => {
     let fields = []
     let dataWrite = ''
 
-    clearBad(obj, table).then((ObjProm) => {
-      fields = Object.keys(ObjProm)
-      for (const prop in ObjProm) {
-        if ({}.hasOwnProperty.call(ObjProm, prop)) {
-          dataWrite += '"' + obj[prop]
+    clearBad(obj, table).then((saveObject) => {
+      fields = Object.keys(saveObject)
+      for (const prop in saveObject) {
+        if ({}.hasOwnProperty.call(saveObject, prop)) {
+          dataWrite += '"' + saveObject[prop]
           dataWrite += '", '
         }
       }
     })
       .then(() => {
         dataWrite = dataWrite.replace(/(on)/gm, '1')
-        dataWrite = dataWrite.replace(/(\')/gm, '')
+        dataWrite = dataWrite.replace(/(')/gm, '')
         dataWrite = clearDigitsFields(dataWrite)
       })
       .then(() => {
@@ -291,14 +307,14 @@ async function clearBad (obj, table, excludeId) {
   obj = await clearBadFields(obj, table, excludeId)
   for (const prop in obj) {
     if ({}.hasOwnProperty.call(obj, prop)) {
-      obj[prop] = await client.escape(obj[prop])
+      obj[prop] = await client.escape(htmlspecialchars.encode(obj[prop]))
     }
   }
   return obj
 }
 // Очистка от кавычек в цифровых полях
 function clearDigitsFields (str) {
-  if (str.search(/(\,\s{1})/) > -1) {
+  if (str.search(/(,\s{1})/) > -1) {
     str = str.split(', ')
   } else if (str.search(/(\.\s{1})/) > -1) {
     str = str.split('. ')
@@ -307,7 +323,7 @@ function clearDigitsFields (str) {
   }
 
   str = str.filter((item) => {
-    return item.search(/\"{1}\d+\"{1}/) > -1 ? toNumber(item) : item
+    return item.search(/"{1}\d+"{1}/) > -1 ? toNumber(item) : item
   })
 
   return str.join(',')

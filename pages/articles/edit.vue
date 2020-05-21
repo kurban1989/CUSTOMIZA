@@ -117,7 +117,7 @@ import BaseInput from '~/components/elements/BaseInput'
 import BaseCheckbox from '~/components/elements/BaseCheckbox'
 import LoadingSpinner from '~/components/blocks/LoadingSpinner'
 import FooterSite from '~/components/FooterSite'
-import { binary, isEmpty } from '~/helpers'
+import { binary, isEmpty, htmlspecialchars } from '~/helpers'
 
 export default {
   name: 'Edit',
@@ -170,7 +170,7 @@ export default {
   middleware: ['auth', 'notUser'],
   beforeMount () {
     if (this.post) {
-      this.titleArt = this.post.title
+      this.titleArt = htmlspecialchars.decode(this.post.title)
       this.lang = this.post.lang
       this.nowPost = Boolean(this.post.visible)
       this.editorContent = binary.fromBinary(atob(this.post.text))

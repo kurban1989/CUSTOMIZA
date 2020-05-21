@@ -31,13 +31,13 @@
         class="col-md-3 flex box f-column"
       >
         <h3>
-          {{ item.short_title }}
+          {{ item.short_title | htmldecode }}
         </h3>
 
         <p>
           {{ $t('Question') }}:
           <i>
-            {{ item.question }}
+            {{ item.question | htmldecode }}
           </i>
         </p>
         <hr>

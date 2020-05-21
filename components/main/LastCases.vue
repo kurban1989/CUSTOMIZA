@@ -19,14 +19,12 @@
               {{ $t('Question') }}:
             </p>
             <p class="question">
-              {{ item.question }}
+              {{ item.question | htmldecode | capitalize }}
             </p>
             <p class="header-question header-question--reply">
               {{ $t('Reply from CUSTOMIZA') }}:
             </p>
-            <p class="question header-question--reply">
-              {{ deCode(item.answer) }}
-            </p>
+            <p class="question header-question--reply" v-html="deCode(item.answer)" />
           </div>
         </swiper>
       </no-ssr>

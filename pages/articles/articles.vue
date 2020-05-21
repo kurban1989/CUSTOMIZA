@@ -11,7 +11,7 @@
         <article v-for="post in posts" :key="post.id" class="row mx-0 post f-column post__preview">
           <h2 class="post__title">
             <nuxt-link class="post__title--link" :to="`${$i18n.locale !== 'ru' ? '/en' : ''}/articles/show/${post.uid}`">
-              {{ post.title | capitalize }}
+              {{ post.title | htmldecode | capitalize }}
             </nuxt-link>
           </h2>
 

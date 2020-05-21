@@ -42,7 +42,7 @@ export default {
 <style lang="scss" scoped>
   .h1 {
     color: #fff;
-    font-size: 54px;
+    font-size: 50px;
     font-weight: 500;
     text-align: left;
   }
