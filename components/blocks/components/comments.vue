@@ -110,7 +110,7 @@ export default {
       if (this.deleteComment) {
         this.isSave = true
 
-        this.$axios.post(process.env.baseUrl + 'api/comments/delete', {
+        this.$axios.post(`${process.env.baseUrl}/api/comments/delete`, {
           isLogin: true,
           uid: this.uid,
           low: true,
@@ -139,7 +139,7 @@ export default {
       this.isSave = true
       this.isClearForm = true
 
-      this.$axios.post('api/comments/add', {
+      this.$axios.post(`${process.env.baseUrl}/api/comments/add`, {
         comment: this.comment,
         idUser: this.user.id,
         idArticle: this.id,

@@ -39,7 +39,7 @@
         </div>
 
         <h2 class="post__title">
-          {{ post.title | capitalize }}
+          {{ post.title | htmldecode | capitalize }}
         </h2>
         <p>
           &nbsp;{{ decode(post.text) }}
