@@ -106,11 +106,11 @@ export default {
   },
   methods: {
     edit (id) {
-      this.$router.push(`/case/add-edit?id=${id}`)
+      this.$router.push({ path: '/case/add-edit', query: { id } })
     },
     remove () {
       if (this.deleteCase) {
-        this.$axios.get('api/cases/delete/' + this.deleteCase).then((res) => {
+        this.$axios.get(`${process.env.baseUrl}/api/cases/delete/${this.deleteCase}`).then((res) => {
           this.$store.dispatch('readyCase/getAll')
         })
       }

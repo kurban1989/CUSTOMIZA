@@ -159,7 +159,7 @@ export default {
   async asyncData ({ query, params, $axios }) {
     let post = null
     if (query.uid) {
-      post = await $axios.get(`api/articles/get/${query.uid}`)
+      post = await $axios.get(`${process.env.baseUrl}/api/articles/get/${query.uid}`)
     }
 
     return {
@@ -251,7 +251,7 @@ export default {
         return
       }
 
-      this.$axios.post('api/articles/save',
+      this.$axios.post(`${process.env.baseUrl}/api/articles/save`,
         {
           title: this.titleArt.trim(),
           visible: Number(this.nowPost),
@@ -267,7 +267,7 @@ export default {
         }
         this.$data.uid = result.data.data.uid
         this.$bvModal.show('bv-art-success')
-        this.$router.push(`/articles/edit?uid=${result.data.data.uid}`)
+        this.$router.push({ path: '/articles/edit', query: { uid: result.data.data.uid } })
       }).finally(() => {
         this.loading = false
       })

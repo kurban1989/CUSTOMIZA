@@ -57,7 +57,7 @@ export default {
   methods: {
     confirm () {
       this.loading = true
-      this.$axios.post('/api/auth/confirmemail', { token: this.$route.params.token }).then((res) => {
+      this.$axios.post(process.env.baseUrl + '/api/auth/confirmemail', { token: this.$route.params.token }).then((res) => {
         if (res.data.status === 'OK') {
           this.user = res.data.user
           this.success = true

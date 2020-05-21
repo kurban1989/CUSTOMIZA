@@ -175,13 +175,13 @@ export default {
         return false
       }
       this.loading = true
-      this.$axios.post('/api/auth/signup', { user: this.user, recaptchaToken: this.recaptchaToken }).then((res) => {
+      this.$axios.post(process.env.baseUrl + '/api/auth/signup', { user: this.user, recaptchaToken: this.recaptchaToken }).then((res) => {
         if (res.data.status === 'ERROR') {
           this.messageError = res.data.message
           this.$bvModal.show('bv-signup-error')
         } else if (res.data.status === 'OK') {
           this.success = true
-          this.$axios.post('/api/auth/confirm', this.user)
+          this.$axios.post(process.env.baseUrl + '/api/auth/confirm', this.user)
         }
       }).catch(() => {
         this.messageError = 'checkForm'

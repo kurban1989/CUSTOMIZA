@@ -82,7 +82,7 @@ export default {
         return false
       }
       this.loading = true
-      this.$axios.post('/api/auth/forgot', this.user).then((res) => {
+      this.$axios.post(process.env.baseUrl + '/api/auth/forgot', this.user).then((res) => {
         if (res.data.status === 'ERROR') {
           this.success = false
           this.messageError = res.data.message

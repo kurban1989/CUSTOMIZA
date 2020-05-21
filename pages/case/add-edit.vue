@@ -201,7 +201,7 @@ export default {
   async asyncData ({ query, $axios }) {
     let post = null
     if (query.id) {
-      post = await $axios.get(`api/cases/get/${query.id}`)
+      post = await $axios.get(`${process.env.baseUrl}/api/cases/get/${query.id}`)
     }
 
     return {
@@ -307,7 +307,7 @@ export default {
         data.id = this.$route.query.id
       }
 
-      this.$axios.post('api/cases/add',
+      this.$axios.post(`${process.env.baseUrl}/api/cases/add`,
         data
       ).then((result) => {
         this.loading = false

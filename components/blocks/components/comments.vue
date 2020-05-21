@@ -110,14 +110,14 @@ export default {
       if (this.deleteComment) {
         this.isSave = true
 
-        this.$axios.post('api/comments/delete', {
+        this.$axios.post(process.env.baseUrl + 'api/comments/delete', {
           isLogin: true,
           uid: this.uid,
           low: true,
           idComment: this.deleteComment
         }).then(async (res) => {
           this.isSave = false
-          const comments = await this.$axios.get(`api/comments/get/${this.$route.params.uid}`)
+          const comments = await this.$axios.get(`${process.env.baseUrl}/api/comments/get/${this.$route.params.uid}`)
           this.$store.dispatch('directory/setComments', comments)
         }).finally(() => {
           this.isSave = false
@@ -149,7 +149,7 @@ export default {
         this.$bvModal.show('bv-add-succes')
         this.isSave = false
         this.isClearForm = false
-        const comments = await this.$axios.get(`api/comments/get/${this.$route.params.uid}`)
+        const comments = await this.$axios.get(`${process.env.baseUrl}/api/comments/get/${this.$route.params.uid}`)
         this.$store.dispatch('directory/setComments', comments)
       }).finally(() => {
         this.isClearForm = false

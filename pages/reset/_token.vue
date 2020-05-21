@@ -102,7 +102,7 @@ export default {
         return false
       }
       this.loading = true
-      this.$axios.post('/api/auth/reset', { user: this.user, token: this.$route.params.token }).then((res) => {
+      this.$axios.post(process.env.baseUrl + '/api/auth/reset', { user: this.user, token: this.$route.params.token }).then((res) => {
         if (res.data.status === 'ERROR') {
           this.messageError = res.data.message
           this.$bvModal.show('bv-forgot-message')

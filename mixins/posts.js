@@ -12,7 +12,6 @@ export default {
     const perPage = 10
     const start = !query.page || Number(query.page) === 1 ? 0 : (query.page - 1) * perPage
     const currentPage = start > 0 ? query.page : 1
-    // const posts = await $axios.get(`api/articles/get-all/${start}/${perPage}`)
     await store.dispatch('directory/getPosts', { start, perPage })
 
     return {

@@ -116,10 +116,10 @@ export default {
       })
     },
     edit (uid) {
-      this.$router.push(`/articles/edit?uid=${uid}`)
+      this.$router.push({ path: '/articles/edit', query: { uid } })
     },
     goto (uid) {
-      this.$router.push(`/articles/show/${uid}`)
+      this.$router.push({ path: `/articles/show/${uid}` })
     }
   }
 }

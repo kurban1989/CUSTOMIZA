@@ -131,7 +131,7 @@ export default {
   },
   methods: {
     updateView (id) {
-      this.$axios.post('/api/cases/update-views', { id })
+      this.$axios.post(process.env.baseUrl + '/api/cases/update-views', { id })
     }
   }
 }

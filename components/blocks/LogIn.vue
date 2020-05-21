@@ -152,7 +152,7 @@ export default {
     },
     onVerified () {
       if (this.notVerified) {
-        this.$axios.post('/api/auth/confirm', this.user)
+        this.$axios.post(process.env.baseUrl + '/api/auth/confirm', this.user)
       }
     }
   }
