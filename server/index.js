@@ -55,7 +55,7 @@ async function start () {
 
   app.get('/_dist/:nameFile', (req, res) => {
     res.setHeader('Content-Type', contentTypes[path.extname(req.url)])
-    res.sendFile('/home/customiza.ru/CUSTOMIZA/.nuxt/dist/client/' + req.params.nameFile)
+    res.sendFile(path.resolve('/home/customiza.ru/CUSTOMIZA/.nuxt/dist/client/') + req.params.nameFile)
   })
 
   app.use('/api/auth', auth)
