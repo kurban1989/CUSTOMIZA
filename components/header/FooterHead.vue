@@ -39,12 +39,13 @@ export default {
   width: 780px;
   height: 120%;
   position: absolute;
-  background-image: url('~assets/header/notebook.png');
+  background-image: url('~assets/header/notebook.webp');
   background-repeat: no-repeat;
-  background-position: 0 -57px;
+  background-position: 0 5px;
   background-size: contain;
-  top: -70px;
-  right: -90px;
+  transform: rotate(6deg);
+  top: 45px;
+  right: -80px;
   z-index: -1;
 }
 .circle {

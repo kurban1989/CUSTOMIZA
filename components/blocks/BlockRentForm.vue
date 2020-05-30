@@ -3,11 +3,14 @@
     <form-area
       id="rentForm"
       :header="$t('Leave a request for rental programs 1C')"
+      :text-submit="'sendRequest'"
       input-class="transparent"
       style-form="form-transparent"
       style-header="header-white"
       :checkbox-right="true"
       :without-text-area="true"
+      :loading="loading"
+      @send-form="handlerForm"
     >
       <div slot="checkboxgroup" class="relative col-sm checkbox-group brdr-r-10">
         <vue-perfect-scrollbar :settings="settings" class="relative wrapper-checkbox">
@@ -18,12 +21,14 @@
             v-for="(item, index) of programs"
             :id="`program${index}`"
             :key="index"
-            :value="program"
+            :value="item.checked"
+            :prop-data="item.value"
             :checkbox-right="true"
             class="align-self-center checkbox-item"
             :class="(index + 1) === programs.length ? 'last-item' : ''"
+            @change="changeProgramm"
           >
-            {{ item }}
+            {{ item.value }}
           </base-checkbox>
         </vue-perfect-scrollbar>
       </div>
@@ -36,6 +41,7 @@
 import VuePerfectScrollbar from 'vue-perfect-scrollbar'
 import FormArea from '~/components/elements/FormArea'
 import BaseCheckbox from '~/components/elements/BaseCheckbox'
+import checkFormAndSend from '~/mixins/checkFormAndSend'
 
 export default {
   name: 'BlockRentForm',
@@ -44,6 +50,7 @@ export default {
     BaseCheckbox,
     FormArea
   },
+  mixins: [checkFormAndSend],
   data () {
     return {
       settings: {
@@ -51,33 +58,44 @@ export default {
         wheelSpeed: 0.5
       },
       programs: [
-        '1С:Бухгалтерия 8, версии КОРП, ПРОФ, базовая',
-        '1С:Зарплата и управление персоналом 8, версии КОРП и ПРОФ',
-        '1С:Управление торговлей 8.',
-        '1С:Розница 8.',
-        '1С:Упрощенка 8',
-        '1С:Управление Холдингом 8',
-        '1C:ERP Управление предприятием 2.0',
-        '1С:Предприятие 8. Управление производственным предприятием',
-        '1С:Комплексная автоматизация 8',
-        '1С:Документооборот 8, версии КОРП и ПРОФ',
-        '1С:Консолидация 8',
-        '1С:Управление нашей фирмой 8',
-        '1С:Налогоплательщик 8',
-        '1С:Отчетность предпринимателя 8',
-        '1С:Платежные документы 8',
-        '1С:Бухгалтерия государственного учреждения 8',
-        '1С:Зарплата и кадры бюджетного учреждения 8',
-        '1С:Свод отчетов 8',
-        '1С:Бюджетная отчетность 8',
-        '1С:Документооборот государственного учреждения 8',
-        '1С:Государственные и муниципальные закупки 8',
-        '1С:Бюджет поселения 8',
-        '1С:Бюджет муниципального образования 8',
-        '1C:Деньги 8',
-        '1С:Электронное обучение'
+        { value: '1С:Бухгалтерия 8, версии КОРП, ПРОФ, базовая', checked: false },
+        { value: '1С:Зарплата и управление персоналом 8, версии КОРП и ПРОФ', checked: false },
+        { value: '1С:Управление торговлей 8.', checked: false },
+        { value: '1С:Розница 8.', checked: false },
+        { value: '1С:Упрощенка 8', checked: false },
+        { value: '1С:Управление Холдингом 8', checked: false },
+        { value: '1C:ERP Управление предприятием 2.0', checked: false },
+        { value: '1С:Предприятие 8. Управление производственным предприятием', checked: false },
+        { value: '1С:Комплексная автоматизация 8', checked: false },
+        { value: '1С:Документооборот 8, версии КОРП и ПРОФ', checked: false },
+        { value: '1С:Консолидация 8', checked: false },
+        { value: '1С:Управление нашей фирмой 8', checked: false },
+        { value: '1С:Налогоплательщик 8', checked: false },
+        { value: '1С:Отчетность предпринимателя 8', checked: false },
+        { value: '1С:Платежные документы 8', checked: false },
+        { value: '1С:Бухгалтерия государственного учреждения 8', checked: false },
+        { value: '1С:Зарплата и кадры бюджетного учреждения 8', checked: false },
+        { value: '1С:Свод отчетов 8', checked: false },
+        { value: '1С:Бюджетная отчетность 8', checked: false },
+        { value: '1С:Документооборот государственного учреждения 8', checked: false },
+        { value: '1С:Государственные и муниципальные закупки 8', checked: false },
+        { value: '1С:Бюджет поселения 8', checked: false },
+        { value: '1С:Бюджет муниципального образования 8', checked: false },
+        { value: '1C:Деньги 8', checked: false },
+        { value: '1С:Электронное обучение', checked: false }
       ],
-      program: false
+      requestRentProgramm: [],
+      rent: true,
+      loading: false
+    }
+  },
+  methods: {
+    changeProgramm (boolean, program) {
+      if (boolean) {
+        this.requestRentProgramm.push(program)
+      } else {
+        this.requestRentProgramm = this.requestRentProgramm.filter(v => v !== program)
+      }
     }
   }
 }

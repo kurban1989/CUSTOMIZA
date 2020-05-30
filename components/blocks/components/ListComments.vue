@@ -96,7 +96,7 @@ export default {
     async rate (id, rate, up) {
       rate = up ? Number(rate) + 1 : rate - 1
       this.nowRate = rate
-      await this.$axios.post('api/comments/update-rate', {
+      await this.$axios.post(`${process.env.baseUrl}/api/comments/update-rate`, {
         idComment: id,
         rateId: rate
       })

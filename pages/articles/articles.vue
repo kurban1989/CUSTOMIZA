@@ -3,9 +3,9 @@
   <div>
     <HeaderForPages :menu-list="list" />
 
-    <div class="container pt-4">
+    <section class="container pt-4">
       <h1 class="center mb-3">
-        {{ $t('useful') | capitalize }}&nbsp;{{ $t('Articles') }}&nbsp;{{ $t('and') }}&nbsp;{{ $t('advice') }}&nbsp;{{ $t('by') }}&nbsp;1C
+        {{ $t('useful') | capitalize }}&nbsp;{{ $t('Articles') }}&nbsp;{{ $t('and') }}&nbsp;{{ $t('advice') }}
       </h1>
       <template v-if="isArray(posts) && posts.length">
         <article v-for="post in posts" :key="post.id" class="row mx-0 post f-column post__preview">
@@ -57,7 +57,7 @@
         @change="setPage"
       />
       <footer-site />
-    </div>
+    </section>
   </div>
 </template>
 
@@ -91,7 +91,7 @@ export default {
   },
   computed: {
     titlePage () {
-      return `${this.$t('useful')}  ${this.$t('Articles')}  ${this.$t('and')}  ${this.$t('advice')}  ${this.$t('by')} 1C`
+      return `${this.$t('useful')}  ${this.$t('Articles')}  ${this.$t('and')}  ${this.$t('advice')}`
     }
   },
   beforeMount () {
@@ -106,7 +106,7 @@ export default {
     return {
       title: this.titlePage,
       meta: [
-        { name: 'description', hid: 'description', content: this.titlePage },
+        { name: 'description', hid: 'description', content: `${this.titlePage}, Статьи по 1с` },
         { property: 'og:locale', content: this.$i18n.locale + '_' + this.$i18n.locale.toUpperCase() },
         { property: 'og:site_name', content: 'Customiza' },
         { property: 'og:title', content: this.titlePage },

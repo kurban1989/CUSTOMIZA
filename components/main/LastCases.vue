@@ -177,13 +177,13 @@ export default {
   margin-bottom: 120px;
 }
 .box1c {
-  width: 500px;
-  height: 240px;
+  width: 210px;
+  height: 200px;
   position: absolute;
-  bottom: 0;
+  bottom: 10px;
   left: 50%;
   transform: translateX(-50%);
-  background-image: url('~assets/body/box.png');
+  background-image: url('~assets/body/box.webp');
   background-repeat: no-repeat;
   background-size: contain;
   z-index: 1;
@@ -196,6 +196,7 @@ export default {
   .parent {
     height: fit-content;
     margin-bottom: 50px;
+    padding-bottom: 40px;
   }
   .carousel {
     .mrt60 {
@@ -210,7 +211,6 @@ export default {
   transform: translateX(-50%);
 
   @media (max-width: 768px) {
-    bottom: 21px;
     left: 54%;
     z-index: 1;
   }

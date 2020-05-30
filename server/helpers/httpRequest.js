@@ -31,7 +31,7 @@ exports.setTask = async function (dataObject, config) {
     'priority': {
       'key': 'normal'
     },
-    'followers': [],
+    'followers': [25812304],
     'unique': `${uuidv4()}|#|${dataObject.insertId}`
   })
 

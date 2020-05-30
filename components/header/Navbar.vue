@@ -38,7 +38,7 @@
         <div class="row no-gutters justify-content-end">
           <div class="row no-gutters justify-content-start only-desktop">
             <div class="phone">
-              <a href="tel:+78005005050" class="link">8 (800) 500-50-50</a>
+              <a href="tel:+74950664979" class="link">+7 (495) 066 4979</a>
               <p class="phone--text">
                 {{ $t('Free call in Russia') }}
               </p>

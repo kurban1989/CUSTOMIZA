@@ -23,7 +23,7 @@ const htmlspecialchars = {
       "'": '&#39;'
     }
     const repl = (c) => { return mapChars[c] }
-    return string.toString().replace(/[&<>"–'—]/gim, repl)
+    return string ? string.toString().replace(/[&<>"–'—]/gim, repl) : string
   }
 }
 
@@ -140,8 +140,6 @@ exports.getQueryManySafe = (table, obj, callback) => {
     })
       .then(() => {
         dataWrite = dataWrite.replace(/(')/gm, '')
-        dataWrite = dataWrite.replace(/"on"/gm, '1')
-
         dataWrite = dataWrite.replace(/"on"/gm, '1')
 
         if (like !== 'latestLike') {

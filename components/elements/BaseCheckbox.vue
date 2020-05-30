@@ -6,11 +6,12 @@
       :class="{'input-checkbox-right': checkboxRight}"
       type="checkbox"
       :checked="value"
+      :value="propData"
       :disabled="disabled"
       @keyup.enter="$emit('click')"
       @click="$emit('click')"
       @blur="$emit('blur')"
-      @change="$emit('change', $event.target.checked)"
+      @change="$emit('change', $event.target.checked, propData)"
     >
     <label
       class="pointer brdr-r-5"
@@ -42,6 +43,11 @@ export default {
       type: Array,
       required: false,
       default: () => []
+    },
+    propData: {
+      type: String,
+      required: false,
+      default: ''
     },
     disabled: {
       type: Boolean,

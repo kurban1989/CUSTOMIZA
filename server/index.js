@@ -7,6 +7,7 @@ const app = express()
 // Import and Set Nuxt.js options
 const config = require('../nuxt.config.js')
 const yandex = require('./yandex')
+const rent = require('./rent')
 const auth = require('./routes/auth')
 const users = require('./routes/users')
 const articles = require('./routes/articles')
@@ -53,6 +54,7 @@ async function start () {
   app.use('/api/comments', comments)
   app.use('/fonts', express.static('/fonts'))
   app.use('/yandex', yandex)
+  app.use('/rent', rent)
   app.use(nuxt.render)
 
   // Listen the server

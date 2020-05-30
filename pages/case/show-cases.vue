@@ -1,7 +1,7 @@
 <template>
   <div>
     <HeaderForPages :menu-list="list" />
-    <div class="container pt-4">
+    <section class="container pt-4">
       <h1 class="center mb-3">
         {{ $t('Solved cases') | capitalize }}&nbsp;{{ $t('by') }}&nbsp;1C
       </h1>
@@ -50,7 +50,7 @@
         </article>
       </template>
       <footer-site />
-    </div>
+    </section>
   </div>
 </template>
 

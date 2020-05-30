@@ -1,8 +1,8 @@
 <template>
   <div class="mobile-menu__phone-area brdr-r-5">
     <div class="mobile-menu__icon-call flex">
-      <a href="tel:+78005005050" class="mobile-menu__link-call">
-        8 (800) 500-50-50
+      <a href="tel:+74950664979" class="mobile-menu__link-call">
+        +7 (495) 066 4979
       </a>
     </div>
   </div>

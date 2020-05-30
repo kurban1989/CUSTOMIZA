@@ -17,7 +17,13 @@
       <b-dropdown-divider />
       <template v-for="(item, index) in userMenu">
         <span :key="index" @click="closeMenu">
-          <b-dropdown-item v-if="item[$auth.user.roleName]" :title="$t(item.hint)" :to="`${item.link}`">{{ $t(item.title) | capitalize }}</b-dropdown-item>
+          <b-dropdown-item
+            v-if="item[$auth.user.roleName]"
+            :title="$t(item.hint)"
+            :to="`${item.link}`"
+          >
+            {{ $t(item.title) | capitalize }}
+          </b-dropdown-item>
         </span>
       </template>
       <b-dropdown-divider />

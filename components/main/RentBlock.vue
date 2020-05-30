@@ -1,6 +1,6 @@
 <template>
-  <div id="nav_rent" class="wrapper-rent">
-    <section class="container relative align-self-start">
+  <div class="wrapper-rent">
+    <section id="nav_rent" class="container relative align-self-start">
       <div class="row no-gutters justify-content-center align-items-start">
         <sections-headers :text="$t('Rent 1C from CUSTOMIZA')" class="mrb" />
         <p class="paragrath">

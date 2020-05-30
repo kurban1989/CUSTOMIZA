@@ -13,7 +13,7 @@
               class="main-post"
             >
               <p class="main-post__header">
-                {{ post.title }}
+                {{ post.title | htmldecode }}
               </p>
               <p class="date">
                 {{ new Date(post.date).toLocaleDateString($i18n.locale, optionDate) }}

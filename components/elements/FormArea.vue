@@ -91,7 +91,7 @@
     <div class="row">
       <primary-button type="submit">
         <div class="btn-text">
-          {{ $t('Get free consultation on 1C') }}
+          {{ $t(textSubmit) }}
         </div>
       </primary-button>
 
@@ -166,6 +166,11 @@ export default {
       type: String,
       required: false,
       default: 'form-white'
+    },
+    textSubmit: {
+      type: String,
+      required: false,
+      default: 'Get free consultation on 1C'
     },
     styleHeader: {
       type: String,

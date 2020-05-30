@@ -7,6 +7,7 @@ module.exports = {
     fallbackLocale: 'en',
     messages: {
       en: {
+        sendRequest: 'send request',
         onlyUsers: 'Only users can leave comments.',
         checkPasswordReplay: 'Password mismatch',
         checkPassword: 'Password must be at least 6 characters long',
@@ -132,11 +133,13 @@ module.exports = {
         customer: 'customer',
         TitleImg: 'Enlarged image',
         'show all cases': 'show all cases',
+        noProgram: 'No program selected! Please select at least one program from the list provided.',
         posts: {
           ...posts.en
         }
       },
       ru: {
+        sendRequest: 'Отправить заявку',
         onlyUsers: 'Только пользователи могут оставлять комментарии. ',
         checkPasswordReplay: 'Пароли не совпадают',
         checkPassword: 'Длина пароля должна быть не меньше 6 символов',
@@ -262,6 +265,7 @@ module.exports = {
         customer: 'заказчик',
         TitleImg: 'Увеличенное изображение',
         'show all cases': 'показать все кейсы',
+        noProgram: 'Не выбрана программа! Выберите хотя бы одну программу из предлагаемого списка.',
         posts: {
           ...posts.ru
         }

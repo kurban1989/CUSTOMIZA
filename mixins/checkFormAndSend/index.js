@@ -11,26 +11,31 @@ export default {
       this.$store.dispatch('statusForm/clearMessageError')
 
       if (data && typeof data === 'object') {
-        const eq = this.capture ? 1 : 0
+        const eq = this.capture ? 1 : this.rent ? 2 : 0
         let questions = false
 
         Object.keys(data).forEach((item) => {
           const $input = document.querySelectorAll(`div[data-type="${item}"]`)
+          let ccontinue = false
+
+          if (item === 'file' || item === 'errors' || item === 'withoutTextArea') {
+            ccontinue = true
+          }
 
           if (item === 'withoutTextArea' && data[item]) {
             questions = true
           }
 
-          if (item === 'file' || item === 'errors' || questions || item === 'withoutTextArea') {
-            return
-          }
-
-          if (data[item] === '' || !data[item] || (item === 'phone' && data[item].length < 18)) {
-            data.errors = true
-            $input[eq].classList.add('error-input')
-          } else {
-            $input[eq].classList.remove('error-input')
-          }
+          try {
+            if ((data[item] === '' || data[item] === false || (item === 'phone' && data[item].length < 18)) && !ccontinue) {
+              data.errors = true
+              $input[eq].classList.add('error-input')
+              // debugger
+            } else {
+              data.errors = false
+              $input[eq].classList.remove('error-input')
+            }
+          } catch (e) {}
         })
 
         if (data.errors) {
@@ -38,14 +43,25 @@ export default {
           this.$bvModal.show('bv-modal-error')
           return false
         }
+        delete data.withoutTextArea
 
-        this.sendFormData(data)
+        if (questions) {
+          data.programms = this.requestRentProgramm
+          if (Array.isArray(this.requestRentProgramm) && this.requestRentProgramm.length === 0) {
+            this.loading = false
+            this.$store.dispatch('statusForm/setMessageErrorBadRequest', 'noProgram')
+            this.$bvModal.show('bv-modal-error')
+            return false
+          } else {
+            this.$store.dispatch('statusForm/clearMessageError')
+          }
+        }
+
+        this.sendFormData(data, questions)
       }
     },
-    sendFormData (data) {
-      delete data.withoutTextArea
-
-      request({ url: 'yandex', body: data }).then((responce) => {
+    sendFormData (data, rent = false) {
+      request({ url: rent ? 'rent' : 'yandex', body: data }).then((responce) => {
         this.loading = false
         if (responce && responce.status === 200) {
           this.$store.dispatch('statusForm/clearForm')
@@ -53,7 +69,16 @@ export default {
 
           setTimeout(() => {
             this.$store.dispatch('statusForm/resetClear')
-          }, 100)
+          }, 90)
+
+          if (this.programs && Array.isArray(this.programs) && this.programs[0].name) {
+            this.programs = this.programs.map((v) => {
+              return {
+                name: v.name,
+                checked: false
+              }
+            })
+          }
         } else {
           this.$store.dispatch('statusForm/setMessageErrorBadRequest')
           this.$bvModal.show('bv-modal-error')
