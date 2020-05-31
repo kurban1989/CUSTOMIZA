@@ -138,7 +138,7 @@ export default {
 
 @media (max-width: 500px) {
   .wrapper-rent {
-    margin-bottom: 530px;
+    margin-bottom: 600px;
   }
 }
 </style>
