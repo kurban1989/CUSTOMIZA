@@ -39,7 +39,7 @@
       </div>
     </div>
     <div class="post__comment--body mb-2">
-      {{ list.comment }}
+      {{ list.comment | htmldecode }}
     </div>
     <div v-if="(!isEmpty(user) && user.roleId === 1) || (!isEmpty(user) && user.id === list.id_user)" class="row w-100">
       <b-button class="ml-auto justify-self-end" variant="danger" size="sm" @click="onDeleteConfirm(list.id)">
