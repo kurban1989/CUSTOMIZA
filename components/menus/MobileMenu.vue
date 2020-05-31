@@ -35,7 +35,7 @@
       </div>
       <phone-call-block />
       <p class="sections-menu sections-menu--text content-center">
-        {{ $t('Free call in Russia') }}
+        <!-- {{ $t('Free call in Russia') }} -->
       </p>
     </div>
   </transition>

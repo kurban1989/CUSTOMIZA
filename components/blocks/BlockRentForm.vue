@@ -137,12 +137,12 @@ export default {
   background: linear-gradient(45deg, rgba(155,197,104,1) 0%, rgba(107,150,56,1) 43%);
   overflow: visible;
   margin-top: 73px;
-  margin-bottom: 116px;
+  margin-bottom: 100px;
   pointer-events: all;
   z-index: 3;
 
   &:before {
-    content: '';
+    // content: '';
     width: 420px;
     height: 270px;
     position: absolute;

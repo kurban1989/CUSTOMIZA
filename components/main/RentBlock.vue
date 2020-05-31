@@ -66,13 +66,13 @@ export default {
   transform: translateY(-75px);
   pointer-events: none;
   padding-top: 200px;
-  margin-bottom: 500px;
+  margin-bottom: 470px;
 
   @media (max-width: 991px) {
-    margin-bottom: 600px;
+    margin-bottom: 500px;
   }
   @media (max-width: 400px) {
-    margin-bottom: 800px !important;
+    margin-bottom: 700px !important;
   }
 }
 .header {
@@ -110,7 +110,7 @@ export default {
     background-image: unset;
     background-color: #F3F3F3;
     transform: translateY(0%);
-    margin-bottom: 710px;
+    margin-bottom: 230px;
     padding: {
       top: 30px;
       right: 15px;

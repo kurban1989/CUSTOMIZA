@@ -39,9 +39,9 @@
           <div class="row no-gutters justify-content-start only-desktop">
             <div class="phone">
               <a href="tel:+74950664979" class="link">+7 (495) 066 4979</a>
-              <p class="phone--text">
+              <!-- <p class="phone--text">
                 {{ $t('Free call in Russia') }}
-              </p>
+              </p> -->
             </div>
             <primary-button class="a-link-btn" :link="true" :to="localePath({ path: '/', hash: '#nav_consultation'})">
               <div class="btn-text">
