@@ -134,6 +134,7 @@ module.exports = {
         TitleImg: 'Enlarged image',
         'show all cases': 'show all cases',
         noProgram: 'No program selected! Please select at least one program from the list provided.',
+        helpers: 'help in setting up the program',
         posts: {
           ...posts.en
         }
@@ -266,6 +267,7 @@ module.exports = {
         TitleImg: 'Увеличенное изображение',
         'show all cases': 'показать все кейсы',
         noProgram: 'Не выбрана программа! Выберите хотя бы одну программу из предлагаемого списка.',
+        helpers: 'помощь в настройке программы',
         posts: {
           ...posts.ru
         }

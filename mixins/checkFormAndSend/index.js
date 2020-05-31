@@ -22,27 +22,21 @@ export default {
             ccontinue = true
           }
 
-          if (item === 'withoutTextArea' && data[item]) {
+          if ((item === 'withoutTextArea' && data[item]) || (data.withoutTextArea && item === 'question')) {
+            ccontinue = true
             questions = true
           }
 
           try {
-            if ((data[item] === '' || data[item] === false || (item === 'phone' && data[item].length < 18)) && !ccontinue) {
+            if ((data[item] === '' || !data[item] || (item === 'phone' && data[item].length < 18)) && !ccontinue) {
               data.errors = true
               $input[eq].classList.add('error-input')
-              // debugger
             } else {
-              data.errors = false
               $input[eq].classList.remove('error-input')
             }
           } catch (e) {}
         })
 
-        if (data.errors) {
-          this.loading = false
-          this.$bvModal.show('bv-modal-error')
-          return false
-        }
         delete data.withoutTextArea
 
         if (questions) {
@@ -57,6 +51,12 @@ export default {
           }
         }
 
+        if (data.errors) {
+          this.loading = false
+          this.$bvModal.show('bv-modal-error')
+          data.errors = false
+          return false
+        }
         this.sendFormData(data, questions)
       }
     },

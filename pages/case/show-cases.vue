@@ -3,7 +3,7 @@
     <HeaderForPages :menu-list="list" />
     <section class="container pt-4">
       <h1 class="center mb-3">
-        {{ $t('Solved cases') | capitalize }}&nbsp;{{ $t('by') }}&nbsp;1C
+        {{ $t('Solved cases') | capitalize }}, {{ $t('helpers') }}
       </h1>
       <template v-if="isArray(cases) && cases.length">
         <article v-for="post in cases" :key="post.id" class="row mx-0 post relative f-column post__preview post__preview--shadow mb-4 pb-3">
@@ -84,7 +84,7 @@ export default {
       cases: state => state.readyCase.casesForUser
     }),
     titlePage () {
-      return this.$t('Solved cases')
+      return `${this.$t('Solved cases')}, ${this.$t('helpers')}`
     }
   },
   async asyncData ({ store, req }) {
@@ -94,9 +94,6 @@ export default {
       baseURL: isClient ? '' : req.headers.host
     }
   },
-  // beforeMount () {
-  //   this.$store.dispatch('readyCase/get')
-  // },
   head () {
     const canonical = this.baseURL + this.$route.fullPath
 
