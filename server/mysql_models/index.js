@@ -107,7 +107,7 @@ exports.getQueryManySafe = (table, obj, callback) => {
   setCHARACTER()
 
   return new Promise((resolve, reject) => {
-    const excludeId = obj.hasOwnProperty('excludeId') && obj.excludeId === false
+    const excludeId = Object.prototype.hasOwnProperty.call(obj, 'excludeId') && obj.excludeId === false
     let dataWrite = ''
     let like = ''
 

@@ -129,38 +129,38 @@ export default {
 }
 
 .burger {
-    width: 25px;
-    height: 19px;
-    background: none;
-    padding: 0;
-    color: #000;
-    overflow: hidden;
-    outline: none;
-    margin-right: 10px;
+  width: 25px;
+  height: 19px;
+  background: none;
+  padding: 0;
+  color: #000;
+  overflow: hidden;
+  outline: none;
+  margin-right: 10px;
 
-    span {
-      position: absolute;
-      left: 0;
-      height: 3px;
-      width: 100%;
-      display: block;
-      background: currentColor;
-      opacity: 1;
-      pointer-events: none;
-      border-radius: 30px;
+  span {
+    position: absolute;
+    left: 0;
+    height: 3px;
+    width: 100%;
+    display: block;
+    background: currentColor;
+    opacity: 1;
+    pointer-events: none;
+    border-radius: 30px;
 
-      &:first-child {
-        top: 0;
-      }
-
-      &:nth-child(2) {
-        top: 8px;
-      }
-
-      &:last-child {
-        bottom: 0;
-      }
+    &:first-child {
+      top: 0;
     }
+
+    &:nth-child(2) {
+      top: 8px;
+    }
+
+    &:last-child {
+      bottom: 0;
+    }
+  }
 }
 
 .phone-call-block {

@@ -61,9 +61,4 @@ $border-radius: (
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
 }
-
-.brdr-rbl {
-  border: 1px solid;
-  border-top: none;
-}
 @include border;
